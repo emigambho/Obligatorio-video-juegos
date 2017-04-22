@@ -38,24 +38,12 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
-		urls.push ("assets/data/room-ball-1.tmx");
-		types.push (lime.Assets.AssetType.TEXT);
-		
-		
 		urls.push ("assets/data/room-boss-v1.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
 		urls.push ("assets/data/room-boss.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
-		
-		
-		urls.push ("assets/images/14993352_10154777843339421_7526152237682186451_n-360x240.png");
-		types.push (lime.Assets.AssetType.IMAGE);
-		
-		
-		urls.push ("assets/images/Ball.png");
-		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("assets/images/bg_1.png");
@@ -122,10 +110,6 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
-		urls.push ("assets/images/Mario-Wallpaper-super-mario-bros-5429603-1024-768.jpg");
-		types.push (lime.Assets.AssetType.IMAGE);
-		
-		
 		urls.push ("assets/images/mushroom.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
@@ -154,12 +138,12 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
-		urls.push ("flixel/sounds/beep.mp3");
-		types.push (lime.Assets.AssetType.MUSIC);
+		urls.push ("flixel/sounds/beep.ogg");
+		types.push (lime.Assets.AssetType.SOUND);
 		
 		
-		urls.push ("flixel/sounds/flixel.mp3");
-		types.push (lime.Assets.AssetType.MUSIC);
+		urls.push ("flixel/sounds/flixel.ogg");
+		types.push (lime.Assets.AssetType.SOUND);
 		
 		
 		urls.push ("Nokia Cellphone FC Small");
@@ -239,7 +223,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "1019",
+			build: "918",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,
@@ -256,10 +240,10 @@ class ApplicationMain {
 					depthBuffer: false,
 					display: 0,
 					fullscreen: false,
-					hardware: true,
+					hardware: false,
 					height: 480,
 					parameters: "{}",
-					resizable: true,
+					resizable: false,
 					stencilBuffer: true,
 					title: "pruebaMario",
 					vsync: true,

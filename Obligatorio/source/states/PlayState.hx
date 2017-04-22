@@ -75,17 +75,8 @@ class PlayState extends FlxState
 		add(grpTortoise);
 		add(grpDoor);
 
-		if (GGD.player == null)
-		{
-			GGD.player = new Player();
-		}		
 		player = GGD.player;
-
-		if (GGD.hud == null)
-		{
-			GGD.hud = new HUD();
-		}
-
+		
 		add(player);
 		add(GGD.hud);
 

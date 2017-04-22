@@ -9,12 +9,11 @@ class GlobalGameData
 	public static var score:Float = 0;
 	public static var coins:Int = 0;
 	
-	public static var hud:HUD;
-	public static var player:Player;
+	public static var hud(get, null):HUD;
+	public static var player(get, null):Player;
 
 	public function new() 
 	{
-		
 	}
 	
 	public static function addPoints(aX:Float, aY:Float, aPoints:Int)
@@ -29,4 +28,25 @@ class GlobalGameData
 		hud = null;
 		player = null;
 	}
+	
+	
+	static function get_hud():HUD 
+	{
+		if (hud == null){
+			hud = new HUD();
+		} 
+		
+		return hud;
+	}
+	
+
+	static function get_player():Player 
+	{
+		if (player == null){
+			player = new Player();
+		} 
+		return player;
+	}
+	
+	
 }

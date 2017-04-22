@@ -44,7 +44,6 @@ class BossState extends FlxState
 		tileMap.loadMapFromArray(cast(tiledMap.getLayer("Background"), TiledTileLayer).tileArray, tiledMap.width, tiledMap.height, AssetPaths.boss_tilesheet__png, tiledMap.tileWidth, tiledMap.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 1);
 		tileMap.follow();		
 		
-		GGD.player = new Player();
 		player = GGD.player;
 
 		grpLava = new FlxTypedGroup<Lava>();
@@ -67,8 +66,6 @@ class BossState extends FlxState
 		{
 			placeEntities(e.type, e.xmlData.x);
 		}
-		
-		GGD.hud = new HUD();
 		
 		add(tileMap);
 		add(grpMushroom);

@@ -31,8 +31,8 @@ class Player extends FlxSprite
 
 		drag.x = maxVelocity.x * 2;
 		
-		setSize(12, 16);
-		offset.set(2, 0);		
+		setSize(8, 16);
+		offset.set(4, 0);		
 	}
 
 	override public function update(elapsed:Float):Void

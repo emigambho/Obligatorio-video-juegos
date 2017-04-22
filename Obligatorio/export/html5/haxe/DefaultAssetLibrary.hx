@@ -80,10 +80,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
-		
-		
-		
-		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -97,16 +93,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/data/room-01.tmx", AssetType.TEXT);
 		className.set ("assets/data/room-02.tmx", __ASSET__assets_data_room_02_tmx);
 		type.set ("assets/data/room-02.tmx", AssetType.TEXT);
-		className.set ("assets/data/room-ball-1.tmx", __ASSET__assets_data_room_ball_1_tmx);
-		type.set ("assets/data/room-ball-1.tmx", AssetType.TEXT);
 		className.set ("assets/data/room-boss-v1.tmx", __ASSET__assets_data_room_boss_v1_tmx);
 		type.set ("assets/data/room-boss-v1.tmx", AssetType.TEXT);
 		className.set ("assets/data/room-boss.tmx", __ASSET__assets_data_room_boss_tmx);
 		type.set ("assets/data/room-boss.tmx", AssetType.TEXT);
-		className.set ("assets/images/14993352_10154777843339421_7526152237682186451_n-360x240.png", __ASSET__assets_images_14993352_10154777843339421_7526152237682186451_n_360x240_png);
-		type.set ("assets/images/14993352_10154777843339421_7526152237682186451_n-360x240.png", AssetType.IMAGE);
-		className.set ("assets/images/Ball.png", __ASSET__assets_images_ball_png);
-		type.set ("assets/images/Ball.png", AssetType.IMAGE);
 		className.set ("assets/images/bg_1.png", __ASSET__assets_images_bg_1_png);
 		type.set ("assets/images/bg_1.png", AssetType.IMAGE);
 		className.set ("assets/images/bg_2.png", __ASSET__assets_images_bg_2_png);
@@ -139,8 +129,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/hud_coin.png", AssetType.IMAGE);
 		className.set ("assets/images/lava.png", __ASSET__assets_images_lava_png);
 		type.set ("assets/images/lava.png", AssetType.IMAGE);
-		className.set ("assets/images/Mario-Wallpaper-super-mario-bros-5429603-1024-768.jpg", __ASSET__assets_images_mario_wallpaper_super_mario_bros_5429603_1024_768_jpg);
-		type.set ("assets/images/Mario-Wallpaper-super-mario-bros-5429603-1024-768.jpg", AssetType.IMAGE);
 		className.set ("assets/images/mushroom.png", __ASSET__assets_images_mushroom_png);
 		type.set ("assets/images/mushroom.png", AssetType.IMAGE);
 		className.set ("assets/images/player.png", __ASSET__assets_images_player_png);
@@ -155,10 +143,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/tilesheet.png", AssetType.IMAGE);
 		className.set ("assets/images/tortoise.png", __ASSET__assets_images_tortoise_png);
 		type.set ("assets/images/tortoise.png", AssetType.IMAGE);
-		className.set ("flixel/sounds/beep.mp3", __ASSET__flixel_sounds_beep_mp3);
-		type.set ("flixel/sounds/beep.mp3", AssetType.MUSIC);
-		className.set ("flixel/sounds/flixel.mp3", __ASSET__flixel_sounds_flixel_mp3);
-		type.set ("flixel/sounds/flixel.mp3", AssetType.MUSIC);
+		className.set ("flixel/sounds/beep.ogg", __ASSET__flixel_sounds_beep_ogg);
+		type.set ("flixel/sounds/beep.ogg", AssetType.SOUND);
+		className.set ("flixel/sounds/flixel.ogg", __ASSET__flixel_sounds_flixel_ogg);
+		type.set ("flixel/sounds/flixel.ogg", AssetType.SOUND);
 		className.set ("flixel/fonts/nokiafc22.ttf", __ASSET__flixel_fonts_nokiafc22_ttf);
 		type.set ("flixel/fonts/nokiafc22.ttf", AssetType.FONT);
 		className.set ("flixel/fonts/monsterrat.ttf", __ASSET__flixel_fonts_monsterrat_ttf);
@@ -180,10 +168,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.TEXT);
-		id = "assets/data/room-ball-1.tmx";
-		path.set (id, id);
-		
-		type.set (id, AssetType.TEXT);
 		id = "assets/data/room-boss-v1.tmx";
 		path.set (id, id);
 		
@@ -192,14 +176,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.TEXT);
-		id = "assets/images/14993352_10154777843339421_7526152237682186451_n-360x240.png";
-		path.set (id, id);
-		
-		type.set (id, AssetType.IMAGE);
-		id = "assets/images/Ball.png";
-		path.set (id, id);
-		
-		type.set (id, AssetType.IMAGE);
 		id = "assets/images/bg_1.png";
 		path.set (id, id);
 		
@@ -264,10 +240,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
-		id = "assets/images/Mario-Wallpaper-super-mario-bros-5429603-1024-768.jpg";
-		path.set (id, id);
-		
-		type.set (id, AssetType.IMAGE);
 		id = "assets/images/mushroom.png";
 		path.set (id, id);
 		
@@ -296,14 +268,14 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
-		id = "flixel/sounds/beep.mp3";
+		id = "flixel/sounds/beep.ogg";
 		path.set (id, id);
 		
-		type.set (id, AssetType.MUSIC);
-		id = "flixel/sounds/flixel.mp3";
+		type.set (id, AssetType.SOUND);
+		id = "flixel/sounds/flixel.ogg";
 		path.set (id, id);
 		
-		type.set (id, AssetType.MUSIC);
+		type.set (id, AssetType.SOUND);
 		id = "flixel/fonts/nokiafc22.ttf";
 		className.set (id, __ASSET__flixel_fonts_nokiafc22_ttf);
 		
@@ -344,20 +316,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("assets/data/room-02.tmx", __ASSET__assets_data_room_02_tmx);
 		type.set ("assets/data/room-02.tmx", AssetType.TEXT);
 		
-		className.set ("assets/data/room-ball-1.tmx", __ASSET__assets_data_room_ball_1_tmx);
-		type.set ("assets/data/room-ball-1.tmx", AssetType.TEXT);
-		
 		className.set ("assets/data/room-boss-v1.tmx", __ASSET__assets_data_room_boss_v1_tmx);
 		type.set ("assets/data/room-boss-v1.tmx", AssetType.TEXT);
 		
 		className.set ("assets/data/room-boss.tmx", __ASSET__assets_data_room_boss_tmx);
 		type.set ("assets/data/room-boss.tmx", AssetType.TEXT);
-		
-		className.set ("assets/images/14993352_10154777843339421_7526152237682186451_n-360x240.png", __ASSET__assets_images_14993352_10154777843339421_7526152237682186451_n_360x240_png);
-		type.set ("assets/images/14993352_10154777843339421_7526152237682186451_n-360x240.png", AssetType.IMAGE);
-		
-		className.set ("assets/images/Ball.png", __ASSET__assets_images_ball_png);
-		type.set ("assets/images/Ball.png", AssetType.IMAGE);
 		
 		className.set ("assets/images/bg_1.png", __ASSET__assets_images_bg_1_png);
 		type.set ("assets/images/bg_1.png", AssetType.IMAGE);
@@ -407,9 +370,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("assets/images/lava.png", __ASSET__assets_images_lava_png);
 		type.set ("assets/images/lava.png", AssetType.IMAGE);
 		
-		className.set ("assets/images/Mario-Wallpaper-super-mario-bros-5429603-1024-768.jpg", __ASSET__assets_images_mario_wallpaper_super_mario_bros_5429603_1024_768_jpg);
-		type.set ("assets/images/Mario-Wallpaper-super-mario-bros-5429603-1024-768.jpg", AssetType.IMAGE);
-		
 		className.set ("assets/images/mushroom.png", __ASSET__assets_images_mushroom_png);
 		type.set ("assets/images/mushroom.png", AssetType.IMAGE);
 		
@@ -431,11 +391,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("assets/images/tortoise.png", __ASSET__assets_images_tortoise_png);
 		type.set ("assets/images/tortoise.png", AssetType.IMAGE);
 		
-		className.set ("flixel/sounds/beep.mp3", __ASSET__flixel_sounds_beep_mp3);
-		type.set ("flixel/sounds/beep.mp3", AssetType.MUSIC);
+		className.set ("flixel/sounds/beep.ogg", __ASSET__flixel_sounds_beep_ogg);
+		type.set ("flixel/sounds/beep.ogg", AssetType.SOUND);
 		
-		className.set ("flixel/sounds/flixel.mp3", __ASSET__flixel_sounds_flixel_mp3);
-		type.set ("flixel/sounds/flixel.mp3", AssetType.MUSIC);
+		className.set ("flixel/sounds/flixel.ogg", __ASSET__flixel_sounds_flixel_ogg);
+		type.set ("flixel/sounds/flixel.ogg", AssetType.SOUND);
 		
 		className.set ("flixel/fonts/nokiafc22.ttf", __ASSET__flixel_fonts_nokiafc22_ttf);
 		type.set ("flixel/fonts/nokiafc22.ttf", AssetType.FONT);
@@ -1093,13 +1053,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 #if !display
 #if flash
 
-@:keep @:bind #if display private #end class __ASSET__assets_data_room_01_tmx extends flash.utils.ByteArray { }
-@:keep @:bind #if display private #end class __ASSET__assets_data_room_02_tmx extends flash.utils.ByteArray { }
-@:keep @:bind #if display private #end class __ASSET__assets_data_room_ball_1_tmx extends flash.utils.ByteArray { }
-@:keep @:bind #if display private #end class __ASSET__assets_data_room_boss_v1_tmx extends flash.utils.ByteArray { }
-@:keep @:bind #if display private #end class __ASSET__assets_data_room_boss_tmx extends flash.utils.ByteArray { }
-@:keep @:bind #if display private #end class __ASSET__assets_images_14993352_10154777843339421_7526152237682186451_n_360x240_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
-@:keep @:bind #if display private #end class __ASSET__assets_images_ball_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_data_room_01_tmx extends null { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_room_02_tmx extends null { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_room_boss_v1_tmx extends null { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_room_boss_tmx extends null { }
 @:keep @:bind #if display private #end class __ASSET__assets_images_bg_1_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_bg_2_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_bg_dirt_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1116,7 +1073,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_images_flower_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_hud_coin_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_lava_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
-@:keep @:bind #if display private #end class __ASSET__assets_images_mario_wallpaper_super_mario_bros_5429603_1024_768_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_mushroom_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_player_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_poweruplife_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1124,19 +1080,15 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_images_stoneblock_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_tilesheet_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_tortoise_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
-@:keep @:bind #if display private #end class __ASSET__flixel_sounds_beep_mp3 extends flash.media.Sound { }
-@:keep @:bind #if display private #end class __ASSET__flixel_sounds_flixel_mp3 extends flash.media.Sound { }
-@:keep @:bind #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends flash.text.Font { }
-@:keep @:bind #if display private #end class __ASSET__flixel_fonts_monsterrat_ttf extends flash.text.Font { }
+@:keep @:bind #if display private #end class __ASSET__flixel_sounds_beep_ogg extends null { }
+@:keep @:bind #if display private #end class __ASSET__flixel_sounds_flixel_ogg extends null { }
+@:keep @:bind #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends null { }
+@:keep @:bind #if display private #end class __ASSET__flixel_fonts_monsterrat_ttf extends null { }
 @:keep @:bind #if display private #end class __ASSET__flixel_images_ui_button_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__flixel_images_logo_default_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 
 
 #elseif html5
-
-
-
-
 
 
 
@@ -1182,11 +1134,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 @:file("assets/data/room-01.tmx") #if display private #end class __ASSET__assets_data_room_01_tmx extends lime.utils.Bytes {}
 @:file("assets/data/room-02.tmx") #if display private #end class __ASSET__assets_data_room_02_tmx extends lime.utils.Bytes {}
-@:file("assets/data/room-ball-1.tmx") #if display private #end class __ASSET__assets_data_room_ball_1_tmx extends lime.utils.Bytes {}
 @:file("assets/data/room-boss-v1.tmx") #if display private #end class __ASSET__assets_data_room_boss_v1_tmx extends lime.utils.Bytes {}
 @:file("assets/data/room-boss.tmx") #if display private #end class __ASSET__assets_data_room_boss_tmx extends lime.utils.Bytes {}
-@:image("assets/images/14993352_10154777843339421_7526152237682186451_n-360x240.png") #if display private #end class __ASSET__assets_images_14993352_10154777843339421_7526152237682186451_n_360x240_png extends lime.graphics.Image {}
-@:image("assets/images/Ball.png") #if display private #end class __ASSET__assets_images_ball_png extends lime.graphics.Image {}
 @:image("assets/images/bg_1.png") #if display private #end class __ASSET__assets_images_bg_1_png extends lime.graphics.Image {}
 @:image("assets/images/bg_2.png") #if display private #end class __ASSET__assets_images_bg_2_png extends lime.graphics.Image {}
 @:image("assets/images/bg_dirt.png") #if display private #end class __ASSET__assets_images_bg_dirt_png extends lime.graphics.Image {}
@@ -1203,7 +1152,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/images/flower.png") #if display private #end class __ASSET__assets_images_flower_png extends lime.graphics.Image {}
 @:image("assets/images/hud_coin.png") #if display private #end class __ASSET__assets_images_hud_coin_png extends lime.graphics.Image {}
 @:image("assets/images/lava.png") #if display private #end class __ASSET__assets_images_lava_png extends lime.graphics.Image {}
-@:image("assets/images/Mario-Wallpaper-super-mario-bros-5429603-1024-768.jpg") #if display private #end class __ASSET__assets_images_mario_wallpaper_super_mario_bros_5429603_1024_768_jpg extends lime.graphics.Image {}
 @:image("assets/images/mushroom.png") #if display private #end class __ASSET__assets_images_mushroom_png extends lime.graphics.Image {}
 @:image("assets/images/player.png") #if display private #end class __ASSET__assets_images_player_png extends lime.graphics.Image {}
 @:image("assets/images/powerupLife.png") #if display private #end class __ASSET__assets_images_poweruplife_png extends lime.graphics.Image {}
@@ -1211,8 +1159,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/images/stoneBlock.png") #if display private #end class __ASSET__assets_images_stoneblock_png extends lime.graphics.Image {}
 @:image("assets/images/tilesheet.png") #if display private #end class __ASSET__assets_images_tilesheet_png extends lime.graphics.Image {}
 @:image("assets/images/tortoise.png") #if display private #end class __ASSET__assets_images_tortoise_png extends lime.graphics.Image {}
-@:file("C:/HaxeToolkit/haxe/lib/flixel/4,2,1/assets/sounds/beep.mp3") #if display private #end class __ASSET__flixel_sounds_beep_mp3 extends lime.utils.Bytes {}
-@:file("C:/HaxeToolkit/haxe/lib/flixel/4,2,1/assets/sounds/flixel.mp3") #if display private #end class __ASSET__flixel_sounds_flixel_mp3 extends lime.utils.Bytes {}
+@:file("C:/HaxeToolkit/haxe/lib/flixel/4,2,1/assets/sounds/beep.ogg") #if display private #end class __ASSET__flixel_sounds_beep_ogg extends lime.utils.Bytes {}
+@:file("C:/HaxeToolkit/haxe/lib/flixel/4,2,1/assets/sounds/flixel.ogg") #if display private #end class __ASSET__flixel_sounds_flixel_ogg extends lime.utils.Bytes {}
 @:font("C:/HaxeToolkit/haxe/lib/flixel/4,2,1/assets/fonts/nokiafc22.ttf") #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends lime.text.Font {}
 @:font("C:/HaxeToolkit/haxe/lib/flixel/4,2,1/assets/fonts/monsterrat.ttf") #if display private #end class __ASSET__flixel_fonts_monsterrat_ttf extends lime.text.Font {}
 @:image("C:/HaxeToolkit/haxe/lib/flixel/4,2,1/assets/images/ui/button.png") #if display private #end class __ASSET__flixel_images_ui_button_png extends lime.graphics.Image {}
