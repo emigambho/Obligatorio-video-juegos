@@ -43,8 +43,8 @@ class PlayState extends FlxState
 
 	override public function create():Void
 	{
-		super.create();
-
+		
+	
 		FlxG.log.redirectTraces = true;
 
 		var bg1:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_1__png, 0.1, 0, true, false);
@@ -90,6 +90,7 @@ class PlayState extends FlxState
 		FlxG.camera.follow(player, FlxCameraFollowStyle.PLATFORMER);
 		FlxG.camera.bgColor = FlxColor.fromRGB(146, 144, 255);
 		FlxG.mouse.visible = false;
+		super.create();
 	}
 
 	function placeEntities(entityName:String, entityData:Xml):Void
@@ -136,7 +137,7 @@ class PlayState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
-		super.update(elapsed);
+		
 
 		if (FlxG.keys.pressed.B)
 		{
@@ -163,6 +164,7 @@ class PlayState extends FlxState
 
 		FlxG.collide(grpPowerupLife, tileMap);
 		FlxG.collide(grpPowerupLife, grpBlock);
+		super.update(elapsed);
 	}
 	
 	function playerVsDoor(aPlayer:Player, aDoor:Door)

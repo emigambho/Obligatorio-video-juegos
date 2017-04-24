@@ -12,7 +12,8 @@ class MenuState extends FlxState
 {
 
 	private var _btnPlay:FlxButton;
-	private var _btnBall:FlxButton;
+	private var _btnMiniGames:FlxButton;
+	private var _btnBoss:FlxButton;
 	private var _btnExit:FlxButton;
 
 	override public function create():Void
@@ -22,13 +23,16 @@ class MenuState extends FlxState
 		var bg = new FlxSprite(0, 0, AssetPaths.Mario_Wallpaper_super_mario_bros_5429603_1024_768__jpg);
 		add(bg);
 		
-		_btnPlay = new FlxButton(70, 70, "Play", clickPlay);
+		_btnPlay = new FlxButton(37, 50, "Play Mario", clickPlay);
 		add(_btnPlay);
 		
-		_btnBall = new FlxButton(70, 100, "Ball", clickBall);
-		add(_btnBall);
+		_btnMiniGames = new FlxButton(37, 80, "Mini Juegos", clickMiniGames);
+		add(_btnMiniGames);
 		
-		_btnExit = new FlxButton(70, 130, "Exit", clickExit);
+		_btnBoss = new FlxButton(37,110, "Play vs Boss", clickBoss);
+		add(_btnBoss);
+		
+		_btnExit = new FlxButton(37, 140, "Exit", clickExit);
 		add(_btnExit);
 
 		FlxG.camera.bgColor = FlxColor.fromRGB(146, 144, 255);
@@ -39,9 +43,14 @@ class MenuState extends FlxState
 		FlxG.switchState(new PlayState());
 	}
 
-	private function clickBall():Void
+	private function clickMiniGames():Void
 	{
 		FlxG.switchState(new PlayStateBall());
+	}
+	
+	private function clickBoss():Void
+	{
+		FlxG.switchState(new BossState());
 	}
 
 	private function clickExit():Void

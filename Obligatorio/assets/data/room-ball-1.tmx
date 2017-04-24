@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="23" height="15" tilewidth="16" tileheight="16" nextobjectid="4">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="23" height="15" tilewidth="16" tileheight="16" nextobjectid="12">
  <tileset firstgid="1" name="Wall" tilewidth="16" tileheight="16" tilecount="1" columns="1">
   <image source="../images/boss-tilesheet.png" width="16" height="16"/>
  </tileset>
@@ -22,9 +22,19 @@
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0
 </data>
  </layer>
- <objectgroup name="PlayerBall">
+ <objectgroup name="GameObjects">
   <object id="1" type="Ball" x="33.6667" y="34.3333" width="12.6667" height="11">
    <ellipse/>
+  </object>
+  <object id="4" name="bar2" type="spinningBar" x="151.667" y="40.6667" width="16.3333" height="152.333">
+   <properties>
+    <property name="velocity" type="int" value="-200"/>
+   </properties>
+  </object>
+  <object id="6" name="bar1" type="spinningBar" x="31.3905" y="112.752" width="63.3333" height="14.3333" rotation="0.448911">
+   <properties>
+    <property name="velocity" type="int" value="50"/>
+   </properties>
   </object>
  </objectgroup>
 </map>
