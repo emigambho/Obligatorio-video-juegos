@@ -26,7 +26,6 @@ class BossState extends FlxState
 	var tiledMap:TiledMap;
 	var tileMap:FlxTilemap;
 
-	var player:Player;
 	var grpMushroom:FlxTypedGroup<Mushroom>;
 	var grpLava:FlxTypedGroup<Lava>;
 	var boss:Boss;
@@ -44,7 +43,7 @@ class BossState extends FlxState
 		tileMap.loadMapFromArray(cast(tiledMap.getLayer("Background"), TiledTileLayer).tileArray, tiledMap.width, tiledMap.height, AssetPaths.boss_tilesheet__png, tiledMap.tileWidth, tiledMap.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 1);
 		tileMap.follow();		
 		
-		player = GGD.player;
+		//Revivir el player si se murio.
 
 		grpLava = new FlxTypedGroup<Lava>();
 		grpMushroom = new FlxTypedGroup<Mushroom>();
@@ -70,12 +69,12 @@ class BossState extends FlxState
 		add(tileMap);
 		add(grpMushroom);
 		if (boss != null) add(boss);
-		add(player);
+		add(GGD.player);
 		add(grpLava);
 		add(emitter);
 		add(GGD.hud);
 		
-		FlxG.camera.follow(player, FlxCameraFollowStyle.PLATFORMER);
+		FlxG.camera.follow(GGD.player, FlxCameraFollowStyle.PLATFORMER);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -87,12 +86,12 @@ class BossState extends FlxState
 			FlxG.resetState();
 		}		
 		
-		if (player.alive)
+		if (GGD.player.alive)
 		{
-			FlxG.collide(player, tileMap);
-			FlxG.overlap(player, boss, playerVsBoss);
-			FlxG.overlap(player, grpLava, playerVsLava);
-			FlxG.overlap(player, grpMushroom, playerVsMushroom);
+			FlxG.collide(GGD.player, tileMap);
+			FlxG.overlap(GGD.player, boss, playerVsBoss);
+			FlxG.overlap(GGD.player, grpLava, playerVsLava);
+			FlxG.overlap(GGD.player, grpMushroom, playerVsMushroom);
 		}
 		
 		FlxG.collide(boss, tileMap);
@@ -153,8 +152,8 @@ class BossState extends FlxState
 		switch (entityName)
 		{
 			case "Player":
-				player.x = x;
-				player.y = y;
+				GGD.player.x = x;
+				GGD.player.y = y;
 
 			case "Boss":
 				boss = new Boss(x, y, emitter, grpMushroom);		
