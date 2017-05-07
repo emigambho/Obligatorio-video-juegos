@@ -1,11 +1,11 @@
-package gameObjects;
+package gameObjects.level;
 
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import util.GlobalGameData.GGD;
 
-class PowerupLife extends FlxSprite
+class Life extends FlxSprite implements BlockItem
 {
 	static inline var GRAVITY:Int = 400;
 	static inline var SPEED:Float = 75;
@@ -46,7 +46,15 @@ class PowerupLife extends FlxSprite
 		super.update(elapsed);
 	}
 
-	public function startAnimation(aX:Float, aY:Float)
+	public function pickUp()
+	{
+		GGD.addPoints(x +2, y -8, 1000);
+		kill();
+	}
+	
+	/* INTERFACE gameObjects.level.BlockItem */
+	
+	public function blockActivated(aX:Float,aY:Float):Void 
 	{
 		reset(aX, aY);
 		yTarget = aY -16;
@@ -54,12 +62,6 @@ class PowerupLife extends FlxSprite
 		acceleration.y = 0;
 		velocity.x = 0;		
 		isPlayingStartAnimation = true;
-	}
-
-	public function pickUp()
-	{
-		GGD.addPoints(x +2, y -8, 1000);
-		kill();
 	}
 	
 }

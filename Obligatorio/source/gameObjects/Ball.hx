@@ -15,8 +15,8 @@ class Ball extends FlxSprite
 		maxVelocity.y = 500;
 		maxVelocity.x = 500;
 		
-		drag.x = maxVelocity.x * 0.3;
-		drag.y = maxVelocity.y * 0.3;
+		drag.x = maxVelocity.x * 0.4;
+		drag.y = maxVelocity.y * 0.4;
 		
 		
 		

@@ -7,6 +7,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.editors.tiled.TiledMap;
 import flixel.addons.editors.tiled.TiledObjectLayer;
+import flixel.addons.editors.tiled.TiledPropertySet;
 import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -16,10 +17,12 @@ import flixel.tile.FlxTilemap;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
+import gameObjects.BlockItemType;
+import gameObjects.ItemFactory;
 import gameObjects.level.Block;
 import gameObjects.level.Coin;
 import gameObjects.Player;
-import gameObjects.PowerupLife;
+import gameObjects.level.Life;
 import gameObjects.enemies.Flower;
 import gameObjects.enemies.Mushroom;
 import gameObjects.enemies.Tortoise;
@@ -36,15 +39,16 @@ class PlayState extends FlxState
 	var grpMushroom:FlxTypedGroup<Mushroom>;
 	var grpTortoise:FlxTypedGroup<Tortoise>;
 	var grpFlower:FlxTypedGroup<Flower>;
-	var grpPowerupLife:FlxTypedGroup<PowerupLife>;
+	var grpPowerupLife:FlxTypedGroup<Life>;
 	var grpBlock:FlxTypedGroup<Block>;
 	var grpCoin:FlxTypedGroup<Coin>;
 	var grpDoor:FlxTypedGroup<Door>;
+	
+	var itemFactory: ItemFactory;
 
 	override public function create():Void
 	{
 		
-	
 		FlxG.log.redirectTraces = true;
 
 		var bg1:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_1__png, 0.1, 0, true, false);
@@ -62,14 +66,13 @@ class PlayState extends FlxState
 		grpTortoise = new FlxTypedGroup<Tortoise>();
 		grpFlower = new FlxTypedGroup<Flower>();
 		grpBlock = new FlxTypedGroup<Block>();
-		grpPowerupLife = new FlxTypedGroup<PowerupLife>();
-		grpCoin = new FlxTypedGroup<Coin>();
 		grpDoor = new FlxTypedGroup<Door>();
-
+		
 		add(grpFlower);
 		add(tileMap);		
-		add(grpPowerupLife);
-		add(grpCoin);
+
+		itemFactory = new ItemFactory(this);
+		
 		add(grpBlock);		
 		add(grpMushroom);
 		add(grpTortoise);
@@ -84,7 +87,7 @@ class PlayState extends FlxState
 		var tmpMap:TiledObjectLayer = cast tiledMap.getLayer("GameObjects");
 		for (e in tmpMap.objects)
 		{
-			placeEntities(e.type, e.xmlData.x);
+			placeEntities(e.type, e.xmlData.x,e.properties);
 		}
 
 		FlxG.camera.follow(player, FlxCameraFollowStyle.PLATFORMER);
@@ -92,11 +95,19 @@ class PlayState extends FlxState
 		FlxG.mouse.visible = false;
 		super.create();
 	}
+	
+	override public function destroy():Void 
+	{
+		GGD.clear();
+		super.destroy();
+	}
 
-	function placeEntities(entityName:String, entityData:Xml):Void
+	function placeEntities(entityName:String, entityData:Xml,properties:TiledPropertySet):Void
 	{
 		var x:Int = Std.parseInt(entityData.get("x"));
 		var y:Int = Std.parseInt(entityData.get("y"));
+		var cantItems:Int = Std.parseInt(properties.get("cantItems"));
+		var typeItem:Int = Std.parseInt(properties.get("typeItem"));
 
 		// Ajusto la posición a un múltiplo de 16, así no es necesario ubicarlo de forma exacta en Tiled.
 		x = Math.floor(x / 16) * 16;
@@ -114,10 +125,19 @@ class PlayState extends FlxState
 				grpMushroom.add(m1);
 
 			case "Brick":
-				grpBlock.add(new Block(x, y, 5, false, grpCoin, grpPowerupLife, true));
+				if (typeItem == 1){
+					grpBlock.add(new Block(x, y, cantItems, itemFactory,BlockItemType.COIN, false));
+				} else if (typeItem == 2){
+					grpBlock.add(new Block(x, y, cantItems, itemFactory,BlockItemType.LIFE, true));
+				}
 
-			case "Bonus":
-				grpBlock.add(new Block(x, y, 0, true, grpCoin, grpPowerupLife, false));
+			/*case "Bonus":
+				if (typeItem == BlockItemType.COIN){
+					grpBlock.add(new Block(x, y, cantItems, grpCoin, false));
+				} else if (typeItem == BlockItemType.LIFE){
+					grpBlock.add(new Block(x, y, cantItems, grpPowerupLife, true));
+				}*/
+				
 
 			case "Tortoise":
 				grpTortoise.add(new Tortoise(x, y-7));
@@ -134,6 +154,8 @@ class PlayState extends FlxState
 				grpDoor.add(new Door(x +8, y));
 		}
 	}
+	
+	inline
 
 	override public function update(elapsed:Float):Void
 	{
@@ -149,10 +171,12 @@ class PlayState extends FlxState
 			FlxG.collide(player, tileMap);
 			FlxG.collide(player, grpBlock, playerVsBlock);
 			FlxG.collide(player, grpTortoise, playerVsTortoise);
+			
 			FlxG.overlap(player, grpCoin, playerVsCoin);
+			FlxG.overlap(player, grpPowerupLife, playerVsPowerupLife);
+			
 			FlxG.overlap(player, grpMushroom, playerVsMushroom);
 			FlxG.overlap(player, grpFlower, playerVsFlower);
-			FlxG.overlap(player, grpPowerupLife, playerVsPowerupLife);
 			FlxG.overlap(player, grpDoor, playerVsDoor);
 		}
 
@@ -178,7 +202,7 @@ class PlayState extends FlxState
 		}		
 	}
 
-	function playerVsPowerupLife(aPlayer:Player, aPowerupLife:PowerupLife)
+	function playerVsPowerupLife(aPlayer:Player, aPowerupLife:Life)
 	{
 		aPowerupLife.pickUp();
 	}

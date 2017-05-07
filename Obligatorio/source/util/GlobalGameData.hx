@@ -9,11 +9,11 @@ class GlobalGameData
 	public static var score:Float = 0;
 	public static var coins:Int = 0;
 	
-	@:isVar
-	public static var hud(get, set):HUD;
+
+	public static var hud(get, null):HUD;
 	
-	@:isVar
-	public static var player(get, set):Player;
+	
+	public static var player(get, null):Player;
 
 	public function new() 
 	{
@@ -42,11 +42,6 @@ class GlobalGameData
 		return hud;
 	}
 	
-	static function set_hud(aHud:HUD):HUD 
-	{
-		return hud = aHud;
-	}
-	
 	static function get_player():Player 
 	{
 		if (player == null){
@@ -54,12 +49,5 @@ class GlobalGameData
 		} 
 		return player;
 	}
-	
-	static function set_player(value:Player):Player 
-	{
-		return player = value;
-	}
-	
-
 	
 }

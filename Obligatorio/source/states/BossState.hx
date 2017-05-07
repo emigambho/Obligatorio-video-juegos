@@ -76,6 +76,12 @@ class BossState extends FlxState
 		
 		FlxG.camera.follow(GGD.player, FlxCameraFollowStyle.PLATFORMER);
 	}
+	
+	override public function destroy():Void 
+	{
+		GGD.clear();
+		super.destroy();
+	}
 
 	override public function update(elapsed:Float):Void
 	{

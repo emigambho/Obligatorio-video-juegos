@@ -5,7 +5,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 
-class Coin extends FlxSprite
+class Coin extends FlxSprite implements BlockItem
 {
 	static inline var JUMP_SPEED:Float = 500;
 	static inline var GRAVITY:Int = 1700;
@@ -64,6 +64,14 @@ class Coin extends FlxSprite
 			// La moneda está en el aire, no hay animación simplemente la reciclo.
 			exists = false;
 		}
+	}
+	
+	
+	/* INTERFACE gameObjects.level.BlockItem */
+	
+	public function blockActivated(aX:Float, aY:Float):Void 
+	{
+		jumpInTheAir();	
 	}
 
 	private function finishKill(_):Void
