@@ -1,11 +1,15 @@
 package states;
 
+import enums.BlockType;
+import enums.DeployType;
+import enums.EnemyType;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.editors.tiled.TiledMap;
+import flixel.addons.editors.tiled.TiledObject;
 import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledPropertySet;
 import flixel.addons.editors.tiled.TiledTileLayer;
@@ -17,18 +21,21 @@ import flixel.tile.FlxTilemap;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
-import gameObjects.BlockItemType;
-import gameObjects.ItemFactory;
+import enums.ItemType;
+import gameObjects.enemies.EnemyFactory;
+import gameObjects.items.ItemFactory;
 import gameObjects.level.Block;
-import gameObjects.level.Coin;
+import gameObjects.items.Coin;
 import gameObjects.Player;
-import gameObjects.level.Life;
+import gameObjects.items.Life;
 import gameObjects.enemies.Flower;
 import gameObjects.enemies.Mushroom;
 import gameObjects.enemies.Tortoise;
 import gameObjects.level.Door;
-import util.GlobalGameData;
+import GlobalGameData;
 import gameObjects.HUD;
+import interfaces.Enemy;
+import interfaces.Item;
 
 class PlayState extends FlxState
 {
@@ -36,58 +43,51 @@ class PlayState extends FlxState
 	var tileMap:FlxTilemap;
 
 	var player:Player;
-	var grpMushroom:FlxTypedGroup<Mushroom>;
-	var grpTortoise:FlxTypedGroup<Tortoise>;
-	var grpFlower:FlxTypedGroup<Flower>;
-	var grpPowerupLife:FlxTypedGroup<Life>;
 	var grpBlock:FlxTypedGroup<Block>;
-	var grpCoin:FlxTypedGroup<Coin>;
 	var grpDoor:FlxTypedGroup<Door>;
-	
+	var grpFlower:FlxTypedGroup<Flower>;
+
 	var itemFactory: ItemFactory;
+	var enemyFactory: EnemyFactory;
 
 	override public function create():Void
 	{
-		
-		FlxG.log.redirectTraces = true;
+		//FlxG.log.redirectTraces = true;
 
 		var bg1:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_1__png, 0.1, 0, true, false);
-		add(bg1);
-		
 		var bg2:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_2__png, 0.4, 0, true, false);
-		add(bg2);		
-		
-		tiledMap = new TiledMap(AssetPaths.room_02__tmx);
+
+		tiledMap = new TiledMap(AssetPaths.room_01__tmx);
 		tileMap = new FlxTilemap();
 		tileMap.loadMapFromArray(cast(tiledMap.getLayer("Background"), TiledTileLayer).tileArray, tiledMap.width, tiledMap.height, AssetPaths.tilesheet__png, tiledMap.tileWidth, tiledMap.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 8);
 		tileMap.follow();
 
-		grpMushroom = new FlxTypedGroup<Mushroom>();
-		grpTortoise = new FlxTypedGroup<Tortoise>();
-		grpFlower = new FlxTypedGroup<Flower>();
 		grpBlock = new FlxTypedGroup<Block>();
 		grpDoor = new FlxTypedGroup<Door>();
-		
-		add(grpFlower);
-		add(tileMap);		
+		grpFlower = new FlxTypedGroup<Flower>();
 
-		itemFactory = new ItemFactory(this);
+		add(bg1);
+		add(bg2);
+		add(grpFlower);
 		
-		add(grpBlock);		
-		add(grpMushroom);
-		add(grpTortoise);
+		add(tileMap);
+
+		enemyFactory = new EnemyFactory(this);
+		itemFactory = new ItemFactory(this);
+
+		add(grpBlock);
 		add(grpDoor);
 
 		player = GGD.player;
-		
+
 		add(player);
 		add(GGD.hud);
 
 		// Carga las "Entidades" en el mapa
 		var tmpMap:TiledObjectLayer = cast tiledMap.getLayer("GameObjects");
-		for (e in tmpMap.objects)
+		for (entity in tmpMap.objects)
 		{
-			placeEntities(e.type, e.xmlData.x,e.properties);
+			placeEntities(entity);
 		}
 
 		FlxG.camera.follow(player, FlxCameraFollowStyle.PLATFORMER);
@@ -95,19 +95,18 @@ class PlayState extends FlxState
 		FlxG.mouse.visible = false;
 		super.create();
 	}
-	
-	override public function destroy():Void 
+
+	override public function destroy():Void
 	{
 		GGD.clear();
 		super.destroy();
 	}
 
-	function placeEntities(entityName:String, entityData:Xml,properties:TiledPropertySet):Void
+	function placeEntities(entity:TiledObject)
 	{
-		var x:Int = Std.parseInt(entityData.get("x"));
-		var y:Int = Std.parseInt(entityData.get("y"));
-		var cantItems:Int = Std.parseInt(properties.get("cantItems"));
-		var typeItem:Int = Std.parseInt(properties.get("typeItem"));
+		var entityName:String = entity.type;
+		var x:Int = Std.parseInt(entity.xmlData.x.get("x"));
+		var y:Int = Std.parseInt(entity.xmlData.x.get("y"));
 
 		// Ajusto la posición a un múltiplo de 16, así no es necesario ubicarlo de forma exacta en Tiled.
 		x = Math.floor(x / 16) * 16;
@@ -120,46 +119,55 @@ class PlayState extends FlxState
 				player.y = y;
 
 			case "Mushroom":
-				var m1:Mushroom = new Mushroom();
-				m1.spawn(x, y, false);
-				grpMushroom.add(m1);
-
-			case "Brick":
-				if (typeItem == 1){
-					grpBlock.add(new Block(x, y, cantItems, itemFactory,BlockItemType.COIN, false));
-				} else if (typeItem == 2){
-					grpBlock.add(new Block(x, y, cantItems, itemFactory,BlockItemType.LIFE, true));
-				}
-
-			/*case "Bonus":
-				if (typeItem == BlockItemType.COIN){
-					grpBlock.add(new Block(x, y, cantItems, grpCoin, false));
-				} else if (typeItem == BlockItemType.LIFE){
-					grpBlock.add(new Block(x, y, cantItems, grpPowerupLife, true));
-				}*/
-				
+				enemyFactory.spawn(x, y, EnemyType.MUSHROOM);
 
 			case "Tortoise":
-				grpTortoise.add(new Tortoise(x, y-7));
-
-			case "Coin":
-				var c1:Coin = new Coin();
-				c1.spawn(x, y);
-				grpCoin.add(c1);
+				enemyFactory.spawn(x, y-7, EnemyType.TORTOISE);
 
 			case "Flower":
 				grpFlower.add(new Flower(x + 8, y));
 				
+			case "Brick":
+				createAndAddBlock(x, y, entity, BlockType.BRICK);
+
+			case "Bonus":
+				createAndAddBlock(x, y, entity, BlockType.BONUS);
+
+			case "Coin":
+				itemFactory.deployItem(x, y, ItemType.COIN, DeployType.STATIC);
+
 			case "Door":
 				grpDoor.add(new Door(x +8, y));
 		}
 	}
-	
-	inline
 
+	function createAndAddBlock(x:Int, y:Int, entity:TiledObject, aBlockType:BlockType)
+	{
+		var cantItems:Int = Std.parseInt(entity.properties.get("cantItems"));
+		var propertyValue:Int = Std.parseInt(entity.properties.get("ItemType"));
+		var itemType:ItemType = ItemType.NOT_APPLY;
+		var delayedItemDeploy:Bool = false;
+		
+		if (propertyValue == 1)
+		{
+			itemType = ItemType.COIN;
+		}
+		else if (propertyValue == 2)
+		{
+			itemType = ItemType.LIFE;
+			delayedItemDeploy = true;			
+		}
+
+		if (cantItems > 0 && itemType == ItemType.NOT_APPLY){
+			throw "The item type must be entered.";
+		}
+		
+		var block:Block = new Block(x, y, cantItems, itemFactory, itemType, delayedItemDeploy, aBlockType);
+		grpBlock.add(block);
+	}
+	
 	override public function update(elapsed:Float):Void
 	{
-		
 
 		if (FlxG.keys.pressed.B)
 		{
@@ -170,27 +178,31 @@ class PlayState extends FlxState
 		{
 			FlxG.collide(player, tileMap);
 			FlxG.collide(player, grpBlock, playerVsBlock);
-			FlxG.collide(player, grpTortoise, playerVsTortoise);
+
+			FlxG.overlap(player, enemyFactory.enemiesGroup, playerVsEnemy);
+			FlxG.overlap(player, itemFactory.itemsGroup, playerVsItem);
 			
-			FlxG.overlap(player, grpCoin, playerVsCoin);
-			FlxG.overlap(player, grpPowerupLife, playerVsPowerupLife);
-			
-			FlxG.overlap(player, grpMushroom, playerVsMushroom);
 			FlxG.overlap(player, grpFlower, playerVsFlower);
 			FlxG.overlap(player, grpDoor, playerVsDoor);
 		}
 
-		FlxG.collide(grpMushroom, tileMap);
-		FlxG.collide(grpMushroom, grpBlock);
-
-		FlxG.collide(grpTortoise, tileMap);
-		FlxG.collide(grpTortoise, grpBlock);
-
-		FlxG.collide(grpPowerupLife, tileMap);
-		FlxG.collide(grpPowerupLife, grpBlock);
+		FlxG.collide(enemyFactory.enemiesGroup, tileMap);
+		FlxG.collide(enemyFactory.enemiesGroup, grpBlock);
+		//FlxG.collide(itemFactory.itemsGroup, tileMap);
+		//FlxG.collide(itemFactory.itemsGroup, grpBlock);
 		super.update(elapsed);
 	}
+
+	function playerVsEnemy(aPlayer:Player, aEnemy:Enemy)
+	{
+		aEnemy.touchThePlayer(aPlayer);
+	}
 	
+	function playerVsItem(aPlayer:Player, aItem:Item)
+	{
+		aItem.picksUp();
+	}
+
 	function playerVsDoor(aPlayer:Player, aDoor:Door)
 	{
 		if (FlxG.keys.pressed.DOWN)
@@ -198,13 +210,8 @@ class PlayState extends FlxState
 			FlxG.camera.fade(FlxColor.BLACK,.33, false, function()
 			{
 				FlxG.switchState(new PlayStateBall());
-			});			
-		}		
-	}
-
-	function playerVsPowerupLife(aPlayer:Player, aPowerupLife:Life)
-	{
-		aPowerupLife.pickUp();
+			});
+		}
 	}
 
 	function playerVsFlower(aPlayer:Player, aFlower:Flower):Void
@@ -220,63 +227,6 @@ class PlayState extends FlxState
 		{
 			aBrick.hit();
 		}
-	}
-
-	private function playerVsCoin(aPlayer:Player, aCoin:Coin):Void
-	{
-		if (aCoin.alive && aCoin.exists)
-		{
-			GGD.coins++;
-			GGD.hud.updateHUD();
-			aCoin.kill();
-		}
-	}
-
-	function playerVsMushroom(aPlayer:Player, aMushroom:Mushroom):Void
-	{
-		// Al morir el Mushroom está un tiempo en pantalla, por eso verifico que este "vivo"
-		if (aMushroom.alive)
-		{
-			if ((aPlayer.y +10) <= aMushroom.y)
-			{
-				aMushroom.death();
-				aPlayer.jump();
-			}
-			else
-			{
-				aPlayer.death();
-			}
-		}
-	}
-
-	function playerVsTortoise(aPlayer:gameObjects.Player, aTortoise:Tortoise):Void
-	{
-		var curAnim:String = aTortoise.animation.curAnim.name;
-
-		if (curAnim == "walk" || curAnim == "slide")
-		{
-			if ((aPlayer.y) <= aTortoise.y) // El Player está arriba de la tortuga
-			{
-				aTortoise.hit();
-				aPlayer.jump();
-			}
-			else
-			{
-				aPlayer.death();
-			}
-		}
-		else if (curAnim == "shell" || curAnim == "revive")
-		{
-			var slideToTheRight:Bool = (aPlayer.x <= aTortoise.x);
-
-			if ((aPlayer.y) <= aTortoise.y)
-			{
-				aPlayer.jump();
-			}
-
-			aTortoise.slide(slideToTheRight);
-		}
-
 	}
 
 }

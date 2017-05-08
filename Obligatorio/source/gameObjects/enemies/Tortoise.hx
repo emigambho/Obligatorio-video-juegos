@@ -3,10 +3,11 @@ package gameObjects.enemies;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
-import util.FiniteStateMachine;
-import util.GlobalGameData;
+import helpers.FiniteStateMachine;
+import GlobalGameData;
+import interfaces.Enemy;
 
-class Tortoise extends FlxSprite
+class Tortoise extends FlxSprite implements Enemy
 {
 	static inline var GRAVITY:Int = 400;
 	static inline var SPEED:Float = 45;
@@ -31,13 +32,9 @@ class Tortoise extends FlxSprite
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 
-		facing = FlxObject.LEFT;
-		animation.play("walk");
-		velocity.x = -SPEED;
+		acceleration.y = GRAVITY;
 
 		brain = new FSM(walkState);
-
-		acceleration.y = GRAVITY;
 	}
 
 	override public function update(elapsed:Float):Void
@@ -131,7 +128,55 @@ class Tortoise extends FlxSprite
 			brain.activeState = walkState;
 		}
 	}
+	
+	
+	/* INTERFACE interfaces.Enemy */
+	
+	
+	public function spawn(aX:Float, aY:Float):Void 
+	{
+		reset(aX, aY);
+		
+		facing = FlxObject.LEFT;
+		animation.play("walk");
+		velocity.x = -SPEED;	
 
+		brain.activeState = walkState;
+	}
+	
+	public function touchThePlayer(aPlayer:Player):Void 
+	{
+		
+	}
+	
+	/*function playerVsTortoise(aPlayer:gameObjects.Player, aTortoise:Tortoise):Void
+	{
+		var curAnim:String = aTortoise.animation.curAnim.name;
 
+		if (curAnim == "walk" || curAnim == "slide")
+		{
+			if ((aPlayer.y) <= aTortoise.y) // El Player está arriba de la tortuga
+			{
+				aTortoise.hit();
+				aPlayer.jump();
+			}
+			else
+			{
+				aPlayer.death();
+			}
+		}
+		else if (curAnim == "shell" || curAnim == "revive")
+		{
+			var slideToTheRight:Bool = (aPlayer.x <= aTortoise.x);
+
+			if ((aPlayer.y) <= aTortoise.y)
+			{
+				aPlayer.jump();
+			}
+
+			aTortoise.slide(slideToTheRight);
+		}
+
+	}*/	
 
 }

@@ -12,9 +12,10 @@ import flixel.tile.FlxBaseTilemap.FlxTilemapAutoTiling;
 import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
 import gameObjects.Ball;
-import gameObjects.level.Coin;
+import GlobalGameData;
+import gameObjects.items.Coin;
 import gameObjects.level.MovingBar;
-import util.GlobalGameData.GGD;
+import GlobalGameData.GGD;
 
 class PlayStateBall extends FlxState
 {
@@ -31,7 +32,7 @@ class PlayStateBall extends FlxState
 		FlxG.camera.bgColor = FlxColor.WHITE;
 
 		coin = new Coin();
-		coin.spawn(FlxG.random.int(1 + 16, 320 - 16*2),FlxG.random.int(1 + 16, 240 - 16 * 2));
+		coin.deploy(FlxG.random.int(1 + 16, 320 - 16*2),FlxG.random.int(1 + 16, 240 - 16 * 2));
 		add(coin);
 
 		tiledMap = new TiledMap(AssetPaths.room_ball_1__tmx);
@@ -83,7 +84,7 @@ class PlayStateBall extends FlxState
 
 	function ballVsCoin(ball:Ball, coin:Coin)
 	{
-		coin.spawn(FlxG.random.int(1 + 16, 320 - 16*2),FlxG.random.int(1 + 16, 240 - 16 * 2));
+		coin.deploy(FlxG.random.int(1 + 16, 320 - 16*2),FlxG.random.int(1 + 16, 240 - 16 * 2));
 		GGD.coins ++;
 		GGD.hud.updateHUD();
 	}

@@ -1,8 +1,10 @@
 package gameObjects.enemies;
+import helpers.FiniteStateMachine;
+import interfaces.Enemy;
 
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
-import util.FiniteStateMachine.FSM;
+import helpers.FiniteStateMachine.FSM;
 
 class Flower extends FlxSprite
 {

@@ -1,9 +1,12 @@
 package gameObjects.level;
 
+import enums.BlockType;
+import enums.DeployType;
+import enums.ItemType;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxAssets.FlxGraphicAsset;
-import gameObjects.ItemFactory;
+import gameObjects.items.ItemFactory;
 
 class Block extends FlxSprite
 {
@@ -13,9 +16,9 @@ class Block extends FlxSprite
 	var delayedItemDeploy:Bool;	
 	var cantItems :Int;
 	var itemFactory:ItemFactory;
-	var itemType:BlockItemType;
+	var itemType:ItemType;
 
-	public function new(aX:Float, aY:Float, aCantItems:Int, aItemFactory:ItemFactory, aItemType:BlockItemType, aDelayedItemDeploy:Bool)
+	public function new(aX:Float, aY:Float, aCantItems:Int, aItemFactory:ItemFactory, aItemType:ItemType, aDelayedItemDeploy:Bool, aBlockType:BlockType)
 	{
 		super(aX, aY);
 
@@ -26,19 +29,17 @@ class Block extends FlxSprite
 		itemType = aItemType;
 		delayedItemDeploy = aDelayedItemDeploy;
 		
-		loadGraphic(AssetPaths.brick__png, false, 16, 16);
-
-		//if (isABrick)
-		//{
-		//loadGraphic(AssetPaths.brick__png, false, 16, 16);
-		//}
-		//else
-		//{
-		//loadGraphic(AssetPaths.bonus__png, true, 16, 16);
-		//animation.add("idle", [0, 1, 2, 1], 5, true);
-		//animation.add("empty", [3]);
-		//animation.play("idle");
-		//}
+		if (aBlockType == BlockType.BRICK)
+		{
+			loadGraphic(AssetPaths.brick__png, false, 16, 16);
+		}
+		else
+		{
+			loadGraphic(AssetPaths.bonus__png, true, 16, 16);
+			animation.add("idle", [0, 1, 2, 1], 5, true);
+			animation.add("empty", [3]);
+			animation.play("idle");
+		}
 	}
 
 	override public function update(elapsed:Float):Void
@@ -69,7 +70,7 @@ class Block extends FlxSprite
 		_velocity = -200;
 		_acceleration = 1700;
 
-		if (!delayedItemDeploy && cantItems >0)
+		if (!delayedItemDeploy && cantItems > 0)
 		{
 			releaseItem();
 		}
@@ -78,7 +79,7 @@ class Block extends FlxSprite
 	inline function releaseItem():Void
 	{
 		cantItems--;
-		itemFactory.deployItem(x, y, itemType);
+		itemFactory.deployItem(x, y, itemType, DeployType.FROM_BLOCK);
 	}
 
 }

@@ -1,4 +1,5 @@
 package gameObjects.enemies;
+import helpers.FiniteStateMachine;
 
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -6,8 +7,9 @@ import flixel.FlxSprite;
 import flixel.effects.particles.FlxEmitter;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxAssets.FlxGraphicAsset;
-import util.FiniteStateMachine.FSM;
-import util.GlobalGameData.GGD;
+import GlobalGameData;
+import helpers.FiniteStateMachine.FSM;
+import GlobalGameData.GGD;
 
 class Boss extends FlxSprite
 {
@@ -150,7 +152,7 @@ class Boss extends FlxSprite
 	// Genero 3 enemigos, uno por cada plataforma.
 	function enemySpawn()
 	{
-		var e1:Mushroom = grpMushroom.recycle(Mushroom);
+		/*var e1:Mushroom = grpMushroom.recycle(Mushroom);
 		e1.spawn(randomRange(0, 64), 0, true);
 		e1.stop();
 		
@@ -160,7 +162,7 @@ class Boss extends FlxSprite
 
 		var e3:Mushroom = grpMushroom.recycle(Mushroom);
 		e3.spawn(randomRange(400, 464), 0, false);
-		e3.stop();
+		e3.stop();*/
 	}
 
 	private inline function randomRange(from:Int, to:Int):Int

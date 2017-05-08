@@ -239,7 +239,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "1123",
+			build: "1204",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,

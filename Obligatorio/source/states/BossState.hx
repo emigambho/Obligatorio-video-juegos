@@ -19,7 +19,7 @@ import gameObjects.enemies.Boss;
 import gameObjects.enemies.Mushroom;
 import gameObjects.level.Lava;
 import gameObjects.level.StoneBlock;
-import util.GlobalGameData.GGD;
+import GlobalGameData.GGD;
 
 class BossState extends FlxState
 {
@@ -109,7 +109,7 @@ class BossState extends FlxState
 	function playerVsMushroom(aPlayer:Player, aMushroom:Mushroom):Void
 	{
 		// Al morir el Mushroom está un tiempo en pantalla, por eso verifico que este "vivo"
-		if (aMushroom.alive)
+		/*if (aMushroom.alive)
 		{
 			if ((aPlayer.y +10) <= aMushroom.y)
 			{
@@ -120,7 +120,7 @@ class BossState extends FlxState
 			{
 				aPlayer.death();
 			}
-		}
+		}*/
 	}	
 	
 	private inline function randomRange(from:Int, to:Int):Float
