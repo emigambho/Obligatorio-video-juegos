@@ -9,24 +9,29 @@ class EnemyFactory
 {
 	var grpMushroom:FlxTypedGroup<Mushroom>;
 	var grpTortoise:FlxTypedGroup<Tortoise>;
-	//var grpFlower:FlxTypedGroup<Flower>;	
+	var grpFlower:FlxTypedGroup<Flower>;	
 	
-	public var enemiesGroup:FlxGroup;
+	public var grpEnemies:FlxGroup;
+	public var grpEnemiesApplyPhysics:FlxGroup;
 	
 	public function new(aState:FlxGroup) 
 	{
 		grpMushroom = new FlxTypedGroup<Mushroom>();
 		grpTortoise = new FlxTypedGroup<Tortoise>();
-		//grpFlower = new FlxTypedGroup<Flower>();
+		grpFlower = new FlxTypedGroup<Flower>();
 		
 		aState.add(grpMushroom);
 		aState.add(grpTortoise);
-		//aState.add(grpFlower);
+		aState.add(grpFlower);
 		
-		enemiesGroup = new FlxGroup();
-		enemiesGroup.add(grpMushroom);
-		enemiesGroup.add(grpTortoise);
-		//enemiesGroup.add(grpFlower);
+		grpEnemies = new FlxGroup();
+		grpEnemies.add(grpMushroom);
+		grpEnemies.add(grpTortoise);
+		grpEnemies.add(grpFlower);
+		
+		grpEnemiesApplyPhysics = new FlxGroup();
+		grpEnemiesApplyPhysics.add(grpMushroom);
+		grpEnemiesApplyPhysics.add(grpTortoise);
 	}
 	
 	public function spawn(aX:Float, aY:Float, enemyType:EnemyType):Void
@@ -42,7 +47,7 @@ class EnemyFactory
 				enemy = grpTortoise.recycle(Tortoise);
 
 			case EnemyType.FLOWER:
-				//enemy = grpFlower.recycle(Flower);
+				enemy = grpFlower.recycle(Flower);
 		}
 		
 		enemy.spawn(aX, aY);		

@@ -17,9 +17,11 @@ class Tortoise extends FlxSprite implements Enemy
 	var timeToStartRevive:Float;
 	var timeToRevive:Float;
 
-	public function new(X:Float, Y:Float)
+	var frameWithImmunity:Int = 0;
+
+	public function new()
 	{
-		super(X, Y);
+		super();
 
 		loadGraphic(AssetPaths.tortoise__png, true, 16, 23);
 
@@ -33,44 +35,76 @@ class Tortoise extends FlxSprite implements Enemy
 		setFacingFlip(FlxObject.RIGHT, false, false);
 
 		acceleration.y = GRAVITY;
+		brain = new FSM(null);
+	}
 
-		brain = new FSM(walkState);
+	public function flyState(elapsed:Float):Void
+	{
+		if (isTouching(FlxObject.FLOOR))
+		{
+			velocity.y = -230;
+		}
+
+		if (isTouching(FlxObject.WALL))
+		{
+			if (facing == FlxObject.LEFT)
+			{
+				facing = FlxObject.RIGHT;
+				velocity.x = SPEED;
+			}
+			else
+			{
+				facing = FlxObject.LEFT;
+				velocity.x = -SPEED;
+			}
+		}
 	}
 
 	override public function update(elapsed:Float):Void
 	{
+		if (frameWithImmunity > 0) frameWithImmunity--;
+
 		brain.update(elapsed);
 		super.update(elapsed);
 	}
 
 	public function hit()
 	{
-		velocity.x = 0;
-		timeToStartRevive = 2;
-		animation.play("shell");
-
 		GGD.addPoints(x +2, y -8, 500);
 
-		brain.activeState = shellState;
+		if ( animation.curAnim.name == 'fly')
+		{
+			velocity.y = 0;
+			animation.play("walk");
+			brain.activeState = walkState;
+
+		}
+		else if (animation.curAnim.name == 'walk' || animation.curAnim.name == "slide")
+		{
+			velocity.x = 0;
+			timeToStartRevive = 2;
+			animation.play("shell");
+			brain.activeState = shellState;
+		}
 	}
 
 	public function slide(slideToTheRight:Bool)
 	{
-		if (slideToTheRight) 
+		if (slideToTheRight)
 		{
 			facing = FlxObject.RIGHT;
 			velocity.x = SLIDING_SPEED;
 		}
-		else 
+		else
 		{
 			facing = FlxObject.LEFT;
 			velocity.x = -SLIDING_SPEED;
-		}		
+		}
 
 		animation.play("slide");
 		brain.activeState = slideState;
 	}
-	
+
 	public function slideState(elapsed:Float):Void
 	{
 		if ( (facing == FlxObject.LEFT && isTouching(FlxObject.LEFT)) || (facing == FlxObject.RIGHT && isTouching(FlxObject.RIGHT)) )
@@ -86,11 +120,11 @@ class Tortoise extends FlxSprite implements Enemy
 				velocity.x = -SLIDING_SPEED;
 			}
 		}
-	}	
+	}
 
 	public function walkState(elapsed:Float):Void
 	{
-		if (isTouching(FlxObject.LEFT) || isTouching(FlxObject.RIGHT))
+		if (isTouching(FlxObject.WALL))
 		{
 			if (facing == FlxObject.LEFT)
 			{
@@ -128,55 +162,54 @@ class Tortoise extends FlxSprite implements Enemy
 			brain.activeState = walkState;
 		}
 	}
-	
-	
+
 	/* INTERFACE interfaces.Enemy */
-	
-	
-	public function spawn(aX:Float, aY:Float):Void 
+
+	public function spawn(aX:Float, aY:Float):Void
 	{
 		reset(aX, aY);
-		
+
 		facing = FlxObject.LEFT;
-		animation.play("walk");
-		velocity.x = -SPEED;	
+		velocity.x = -SPEED;
+		animation.play("fly");
 
-		brain.activeState = walkState;
+		brain.activeState = flyState;
 	}
-	
-	public function touchThePlayer(aPlayer:Player):Void 
-	{
-		
-	}
-	
-	/*function playerVsTortoise(aPlayer:gameObjects.Player, aTortoise:Tortoise):Void
-	{
-		var curAnim:String = aTortoise.animation.curAnim.name;
 
-		if (curAnim == "walk" || curAnim == "slide")
+	public function touchThePlayer(aPlayer:Player):Void
+	{
+		if (frameWithImmunity == 0)
 		{
-			if ((aPlayer.y) <= aTortoise.y) // El Player está arriba de la tortuga
+			frameWithImmunity = 10;
+
+			// ¿Los "pies" de Mario están en la parte superior de la tortuga?
+			var belowThePlayer = ((aPlayer.y + aPlayer.height) <= (y + height /2));
+			var curAnim:String = animation.curAnim.name;
+
+			if (curAnim == "walk" || curAnim == "slide" || curAnim == 'fly')
 			{
-				aTortoise.hit();
-				aPlayer.jump();
+				if (belowThePlayer)
+				{
+					hit();
+					aPlayer.jump();
+				}
+				else
+				{
+					aPlayer.death();
+				}
 			}
-			else
+			else if (curAnim == "shell" || curAnim == "revive")
 			{
-				aPlayer.death();
+				var slideToTheRight:Bool = (aPlayer.x <= x);
+
+				if (belowThePlayer)
+				{
+					aPlayer.jump();
+				}
+
+				slide(slideToTheRight);
 			}
 		}
-		else if (curAnim == "shell" || curAnim == "revive")
-		{
-			var slideToTheRight:Bool = (aPlayer.x <= aTortoise.x);
-
-			if ((aPlayer.y) <= aTortoise.y)
-			{
-				aPlayer.jump();
-			}
-
-			aTortoise.slide(slideToTheRight);
-		}
-
-	}*/	
+	}
 
 }

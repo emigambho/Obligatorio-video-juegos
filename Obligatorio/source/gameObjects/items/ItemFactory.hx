@@ -12,7 +12,8 @@ class ItemFactory
 	var grpCoin:FlxTypedGroup<Coin>;
 	var grpLife:FlxTypedGroup<Life>;
 	
-	public var itemsGroup:FlxGroup;
+	public var grpItems:FlxGroup;
+	public var grpItemsApplyPhysics:FlxGroup;
 	
 	public function new(aState:FlxGroup) 
 	{
@@ -22,9 +23,12 @@ class ItemFactory
 		aState.add(grpCoin);
 		aState.add(grpLife);
 		
-		itemsGroup = new FlxGroup();
-		itemsGroup.add(grpCoin);
-		itemsGroup.add(grpLife);
+		grpItems = new FlxGroup();
+		grpItems.add(grpCoin);
+		grpItems.add(grpLife);
+		
+		grpItemsApplyPhysics = new FlxGroup();
+		grpItemsApplyPhysics.add(grpLife);		
 	}
 	
 	public function deployItem(aX:Float, aY:Float, itemType:ItemType, deployType:DeployType):Void

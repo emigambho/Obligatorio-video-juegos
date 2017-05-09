@@ -1,4 +1,5 @@
 package gameObjects.enemies;
+import gameObjects.Player;
 import helpers.FiniteStateMachine;
 import interfaces.Enemy;
 
@@ -6,7 +7,7 @@ import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import helpers.FiniteStateMachine.FSM;
 
-class Flower extends FlxSprite
+class Flower extends FlxSprite implements Enemy
 {
 	static inline var SPEED:Float = 22;
 	static inline var WAIT_TIME_OUTSIDE:Float = 2;
@@ -17,18 +18,14 @@ class Flower extends FlxSprite
 	var yFinal:Float;
 	var waitTime:Float;
 
-	public function new(aX:Float, aY:Float)
+	public function new()
 	{
-		super(aX, aY);
+		super();
 
 		loadGraphic(AssetPaths.flower__png, true, 16, 24);
 		animation.add("Biting", [0, 1], 6, true);
-		animation.play("Biting");
-
-		yInitial = aY;
-		yFinal = yInitial - height + 1;
-
-		brain = new FSM(upState);
+		
+		brain = new FSM(null);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -77,5 +74,24 @@ class Flower extends FlxSprite
 		{
 			brain.activeState = upState;
 		}
+	}
+	
+	
+	/* INTERFACE interfaces.Enemy */
+	
+	public function touchThePlayer(aPlayer:Player):Void 
+	{
+		aPlayer.death();
+	}
+	
+	public function spawn(aX:Float, aY:Float):Void 
+	{
+		reset(aX, aY);
+		
+		animation.play("Biting");
+
+		yInitial = aY;
+		yFinal = yInitial - height + 1;
+		brain.activeState = upState;
 	}
 }

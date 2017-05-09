@@ -45,7 +45,6 @@ class PlayState extends FlxState
 	var player:Player;
 	var grpBlock:FlxTypedGroup<Block>;
 	var grpDoor:FlxTypedGroup<Door>;
-	var grpFlower:FlxTypedGroup<Flower>;
 
 	var itemFactory: ItemFactory;
 	var enemyFactory: EnemyFactory;
@@ -64,17 +63,14 @@ class PlayState extends FlxState
 
 		grpBlock = new FlxTypedGroup<Block>();
 		grpDoor = new FlxTypedGroup<Door>();
-		grpFlower = new FlxTypedGroup<Flower>();
 
 		add(bg1);
 		add(bg2);
-		add(grpFlower);
-		
-		add(tileMap);
 
 		enemyFactory = new EnemyFactory(this);
 		itemFactory = new ItemFactory(this);
-
+				
+		add(tileMap);
 		add(grpBlock);
 		add(grpDoor);
 
@@ -125,7 +121,7 @@ class PlayState extends FlxState
 				enemyFactory.spawn(x, y-7, EnemyType.TORTOISE);
 
 			case "Flower":
-				grpFlower.add(new Flower(x + 8, y));
+				enemyFactory.spawn(x+8, y, EnemyType.FLOWER);
 				
 			case "Brick":
 				createAndAddBlock(x, y, entity, BlockType.BRICK);
@@ -168,28 +164,20 @@ class PlayState extends FlxState
 	
 	override public function update(elapsed:Float):Void
 	{
-
-		if (FlxG.keys.pressed.B)
-		{
-			FlxG.switchState(new BossState());
-		}
-
+	
 		if (player.alive)
 		{
 			FlxG.collide(player, tileMap);
 			FlxG.collide(player, grpBlock, playerVsBlock);
-
-			FlxG.overlap(player, enemyFactory.enemiesGroup, playerVsEnemy);
-			FlxG.overlap(player, itemFactory.itemsGroup, playerVsItem);
-			
-			FlxG.overlap(player, grpFlower, playerVsFlower);
+			FlxG.overlap(player, enemyFactory.grpEnemies, playerVsEnemy);
+			FlxG.overlap(player, itemFactory.grpItems, playerVsItem);
 			FlxG.overlap(player, grpDoor, playerVsDoor);
 		}
 
-		FlxG.collide(enemyFactory.enemiesGroup, tileMap);
-		FlxG.collide(enemyFactory.enemiesGroup, grpBlock);
-		//FlxG.collide(itemFactory.itemsGroup, tileMap);
-		//FlxG.collide(itemFactory.itemsGroup, grpBlock);
+		FlxG.collide(enemyFactory.grpEnemiesApplyPhysics, tileMap);
+		FlxG.collide(enemyFactory.grpEnemiesApplyPhysics, grpBlock);
+		FlxG.collide(itemFactory.grpItemsApplyPhysics, tileMap);
+		FlxG.collide(itemFactory.grpItemsApplyPhysics, grpBlock);
 		super.update(elapsed);
 	}
 
@@ -212,11 +200,6 @@ class PlayState extends FlxState
 				FlxG.switchState(new PlayStateBall());
 			});
 		}
-	}
-
-	function playerVsFlower(aPlayer:Player, aFlower:Flower):Void
-	{
-		aPlayer.death();
 	}
 
 	function playerVsBlock(aPlayer:Player, aBrick:Block):Void

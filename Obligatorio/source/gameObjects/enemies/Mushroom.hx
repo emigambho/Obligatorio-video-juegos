@@ -20,7 +20,7 @@ class Mushroom extends FlxSprite implements Enemy
 
 	public function new()
 	{
-		super(0, 0);
+		super();
 
 		loadGraphic(AssetPaths.mushroom__png, true, 16, 16);
 
