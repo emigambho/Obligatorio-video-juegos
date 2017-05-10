@@ -1,5 +1,7 @@
 package gameObjects.enemies;
+import enums.EnemyType;
 import helpers.FiniteStateMachine;
+import interfaces.Enemy;
 
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -24,14 +26,14 @@ class Boss extends FlxSprite
 	var timeToWakeUp:Float;
 
 	var emitter:FlxEmitter;
-	var grpMushroom:FlxTypedGroup<Mushroom>;
+	var enemyFactory: EnemyFactory;
 
-	public function new(aX:Float, aY:Float, aEmitter:FlxEmitter, aGrpMushroom:FlxTypedGroup<Mushroom>)
+	public function new(aX:Float, aY:Float, aEmitter:FlxEmitter, aEnemyFactory:EnemyFactory)
 	{
 		super(aX, aY);
 
 		emitter = aEmitter;
-		grpMushroom = aGrpMushroom;
+		enemyFactory = aEnemyFactory;
 
 		loadGraphic(AssetPaths.boss__png, true, 50, 59);
 
@@ -41,7 +43,8 @@ class Boss extends FlxSprite
 		animation.add("smash", [0]);
 		animation.play("onHold");
 
-		brain = new FSM(onHoldState);
+		brain = new FSM();
+		brain.activeState = onHoldState;
 
 		acceleration.y = 300;
 
@@ -152,21 +155,13 @@ class Boss extends FlxSprite
 	// Genero 3 enemigos, uno por cada plataforma.
 	function enemySpawn()
 	{
-		/*var e1:Mushroom = grpMushroom.recycle(Mushroom);
-		e1.spawn(randomRange(0, 64), 0, true);
-		e1.stop();
+		var enemy1 = enemyFactory.spawn(FlxG.random.int(0, 64), 0, EnemyType.MUSHROOM);
+		cast(enemy1, Mushroom).stop();
 		
-		var e2:Mushroom = grpMushroom.recycle(Mushroom);
-		e2.spawn(randomRange(208, 256), 0, false);
-		e2.stop();
-
-		var e3:Mushroom = grpMushroom.recycle(Mushroom);
-		e3.spawn(randomRange(400, 464), 0, false);
-		e3.stop();*/
-	}
-
-	private inline function randomRange(from:Int, to:Int):Int
-	{
-		return Math.floor(Math.random() * (to - from) + from);
+		var enemy2 = enemyFactory.spawn(FlxG.random.int(208, 256), 0, EnemyType.MUSHROOM);
+		cast(enemy2, Mushroom).stop();
+		
+		var enemy3 = enemyFactory.spawn(FlxG.random.int(400, 464), 0, EnemyType.MUSHROOM);
+		cast(enemy3, Mushroom).stop();
 	}
 }

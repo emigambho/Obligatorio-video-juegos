@@ -31,7 +31,7 @@ class Mushroom extends FlxSprite implements Enemy
 		acceleration.y = GRAVITY;
 		maxVelocity.y = GRAVITY;
 		
-		brain = new FSM(null);
+		brain = new FSM();
 	}
 	
 	public function walkState(elapsed:Float):Void
@@ -40,7 +40,7 @@ class Mushroom extends FlxSprite implements Enemy
 		{
 			directionOfWalking *= -1;
 			velocity.x = SPEED * directionOfWalking;
-		}		
+		}
 	}
 	
 	public function deathState(elapsed:Float):Void

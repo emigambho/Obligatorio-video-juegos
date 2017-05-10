@@ -34,7 +34,7 @@ class EnemyFactory
 		grpEnemiesApplyPhysics.add(grpTortoise);
 	}
 	
-	public function spawn(aX:Float, aY:Float, enemyType:EnemyType):Void
+	public function spawn(aX:Float, aY:Float, enemyType:EnemyType):Enemy
 	{
 		var enemy:Enemy = null;
 		
@@ -50,6 +50,8 @@ class EnemyFactory
 				enemy = grpFlower.recycle(Flower);
 		}
 		
-		enemy.spawn(aX, aY);		
-	}	
+		enemy.spawn(aX, aY);
+		
+		return enemy;
+	}
 }

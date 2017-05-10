@@ -164,7 +164,6 @@ class PlayState extends FlxState
 	
 	override public function update(elapsed:Float):Void
 	{
-	
 		if (player.alive)
 		{
 			FlxG.collide(player, tileMap);
@@ -178,6 +177,7 @@ class PlayState extends FlxState
 		FlxG.collide(enemyFactory.grpEnemiesApplyPhysics, grpBlock);
 		FlxG.collide(itemFactory.grpItemsApplyPhysics, tileMap);
 		FlxG.collide(itemFactory.grpItemsApplyPhysics, grpBlock);
+		
 		super.update(elapsed);
 	}
 
@@ -188,7 +188,7 @@ class PlayState extends FlxState
 	
 	function playerVsItem(aPlayer:Player, aItem:Item)
 	{
-		aItem.picksUp();
+		aItem.pickUp();
 	}
 
 	function playerVsDoor(aPlayer:Player, aDoor:Door)

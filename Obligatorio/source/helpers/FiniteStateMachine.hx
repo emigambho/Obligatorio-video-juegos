@@ -7,9 +7,9 @@ class FiniteStateMachine
 
 	public var activeState:Float->Void;
 
-	public function new(?InitState:Float->Void):Void
+	public function new():Void
 	{
-		activeState = InitState;
+		activeState = null;
 	}
 
 	public function update(elapsed:Float):Void

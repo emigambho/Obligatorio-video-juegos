@@ -35,7 +35,7 @@ class Tortoise extends FlxSprite implements Enemy
 		setFacingFlip(FlxObject.RIGHT, false, false);
 
 		acceleration.y = GRAVITY;
-		brain = new FSM(null);
+		brain = new FSM();
 	}
 
 	public function flyState(elapsed:Float):Void

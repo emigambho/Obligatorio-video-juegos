@@ -25,7 +25,7 @@ class Flower extends FlxSprite implements Enemy
 		loadGraphic(AssetPaths.flower__png, true, 16, 24);
 		animation.add("Biting", [0, 1], 6, true);
 		
-		brain = new FSM(null);
+		brain = new FSM();
 	}
 
 	override public function update(elapsed:Float):Void

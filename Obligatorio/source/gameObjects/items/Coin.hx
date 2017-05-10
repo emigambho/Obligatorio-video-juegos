@@ -26,7 +26,7 @@ class Coin extends FlxSprite implements Item
 
 	override public function update(elapsed:Float):Void
 	{
-		if (animation.curAnim.name =="jumpInTheAir" && y > yTarget)
+		if (animation.curAnim.name =="jumpInTheAir" && y >= yTarget)
 		{
 			// Ya hice el salto y volví a la posición inicial, reciclo la moneda.
 			kill();
@@ -61,7 +61,7 @@ class Coin extends FlxSprite implements Item
 		jumpInTheAir();	
 	}
 	
-	public function picksUp():Void 
+	public function pickUp():Void 
 	{
 		if (alive && exists)
 		{
