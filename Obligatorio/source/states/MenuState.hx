@@ -1,12 +1,10 @@
 package states;
 
-
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
-
 
 class MenuState extends FlxState
 {

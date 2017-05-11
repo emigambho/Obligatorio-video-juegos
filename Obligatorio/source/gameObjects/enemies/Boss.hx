@@ -1,8 +1,9 @@
 package gameObjects.enemies;
-import enums.EnemyType;
+
+
+import gameObjects.enemies.EnemyFactory.EnemyType;
 import helpers.FiniteStateMachine;
 import interfaces.Enemy;
-
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -28,6 +29,11 @@ class Boss extends FlxSprite
 	var emitter:FlxEmitter;
 	var enemyFactory: EnemyFactory;
 
+	//var start:Point=new Point();
+	//var end:Point = new Point();
+	//var path:Linear;
+	//var pathWalker:PathWalker;	
+	
 	public function new(aX:Float, aY:Float, aEmitter:FlxEmitter, aEnemyFactory:EnemyFactory)
 	{
 		super(aX, aY);
@@ -53,6 +59,9 @@ class Boss extends FlxSprite
 
 		offset.set(9, 0);
 		setSize(32, 59);
+		
+		//path = new Linear(start, end);
+		//pathWalker = new PathWalker(path, 1, PlayMode.None);		
 	}
 
 	public function damage()

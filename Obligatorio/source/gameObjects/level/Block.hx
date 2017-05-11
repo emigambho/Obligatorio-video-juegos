@@ -1,8 +1,6 @@
 package gameObjects.level;
 
 import enums.BlockType;
-import enums.DeployType;
-import enums.ItemType;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxAssets.FlxGraphicAsset;

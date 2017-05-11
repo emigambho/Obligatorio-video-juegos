@@ -1,8 +1,6 @@
 package states;
 
 import enums.BlockType;
-import enums.DeployType;
-import enums.EnemyType;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -21,7 +19,6 @@ import flixel.tile.FlxTilemap;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
-import enums.ItemType;
 import gameObjects.enemies.EnemyFactory;
 import gameObjects.items.ItemFactory;
 import gameObjects.level.Block;

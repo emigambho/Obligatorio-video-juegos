@@ -1,8 +1,9 @@
 package gameObjects.enemies;
+
 import gameObjects.Player;
 import helpers.FiniteStateMachine;
+import helpers.path.Linear;
 import interfaces.Enemy;
-
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import helpers.FiniteStateMachine.FSM;

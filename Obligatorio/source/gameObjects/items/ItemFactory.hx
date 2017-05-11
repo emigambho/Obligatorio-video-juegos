@@ -1,11 +1,23 @@
 package gameObjects.items;
-import enums.DeployType;
-import enums.ItemType;
+
 import flixel.group.FlxGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import gameObjects.items.Coin;
 import gameObjects.items.Life;
 import interfaces.Item;
+
+enum ItemType 
+{
+	COIN; 
+	LIFE; 
+	NOT_APPLY;
+}
+
+enum DeployType 
+{
+	STATIC; 
+	FROM_BLOCK;
+}
 
 class ItemFactory 
 {
