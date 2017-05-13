@@ -17,14 +17,9 @@ class HUD extends FlxTypedGroup<FlxSprite>
 	var txtScore:FlxText;
 	var txtMoney:FlxText;
 	
-	var grpTxtPoints:FlxTypedGroup<FlxText>;	
-
 	public function new()
 	{
 		super();
-
-		//grpTxtPoints = new FlxTypedGroup<FlxText>();
-		//add(grpTxtPoints);
 		
 		txtScore = new FlxText(20, 10, 0, "Score:\n0", 8);
 		txtScore.color = FlxColor.BLACK;
@@ -53,10 +48,14 @@ class HUD extends FlxTypedGroup<FlxSprite>
 	
 	public function showPoints(aX:Float, aY:Float, aPoints:Int)
 	{
-		//var txtPoints:FlxText = grpTxtPoints.recycle();
-		var txtPoints:FlxText = new FlxText(aX, aY, 0, "" +aPoints, 8);
-		FlxTween.tween(txtPoints, { alpha: 0, y: aY - 50 }, 1.6, { ease: FlxEase.circOut}); //, onComplete: finishKill });
+		var txtPoints:FlxText = cast(this.recycle(FlxText), FlxText);
 		
-		add(txtPoints);
+		txtPoints.setPosition(aX, aY);
+		txtPoints.alpha = 1;
+		txtPoints.size = 8;
+		txtPoints.text = Std.string(aPoints);
+		
+		// No se están destruyendo, revisar!
+		FlxTween.tween(txtPoints, { alpha: 0, y: aY - 50 }, 1.6, { ease: FlxEase.circOut}); //, onComplete: finishKill });
 	}
 }

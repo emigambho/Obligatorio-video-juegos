@@ -1,4 +1,4 @@
-package tools.path;
+package helpers.path;
 import openfl.geom.Point;
 
 enum PlayMode

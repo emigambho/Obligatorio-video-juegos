@@ -42,11 +42,11 @@ class Flower extends FlxSprite implements Enemy
 		if (y < yFinal)
 		{
 			waitTime = WAIT_TIME_OUTSIDE;
-			brain.activeState = waitOutside;
+			brain.activeState = waitUp;
 		}
 	}
 
-	public function waitOutside(elapsed:Float):Void
+	public function waitUp(elapsed:Float):Void
 	{
 		waitTime -= elapsed;
 
@@ -63,11 +63,11 @@ class Flower extends FlxSprite implements Enemy
 		if ( y > yInitial)
 		{
 			waitTime = WAIT_TIME_INSIDE;
-			brain.activeState = waitInside;
+			brain.activeState = waitDown;
 		}
 	}
 
-	public function waitInside(elapsed:Float):Void
+	public function waitDown(elapsed:Float):Void
 	{
 		waitTime -= elapsed;
 

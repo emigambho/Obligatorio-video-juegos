@@ -1,8 +1,10 @@
 package gameObjects.enemies;
 
-
+import flash.geom.Point;
 import gameObjects.enemies.EnemyFactory.EnemyType;
 import helpers.FiniteStateMachine;
+import helpers.path.Linear;
+import helpers.path.PathWalker;
 import interfaces.Enemy;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -18,7 +20,6 @@ class Boss extends FlxSprite
 {
 	static inline var DETECTION_THRESHOLD:Int = 70; // Es el rango en el cual el Boss detecta al Player.
 	static inline var Y_OBJETIVE:Int = 55; // Es la altura a la que sube el Boss para perseguir al Player.
-	static inline var UP_ACCELERATION:Int = -250;
 	static inline var CHASE_ACCELERATION:Int = 80;
 	static inline var SMASH_VELOCITY = 300;
 	static inline var SLEEP_TIME = 1.2; // Tiempo que el jefe "duerme" después de atacar.
@@ -29,11 +30,11 @@ class Boss extends FlxSprite
 	var emitter:FlxEmitter;
 	var enemyFactory: EnemyFactory;
 
-	//var start:Point=new Point();
-	//var end:Point = new Point();
-	//var path:Linear;
-	//var pathWalker:PathWalker;	
-	
+	var start:Point = new Point();
+	var end:Point = new Point();
+	var myPath:Linear;
+	var pathWalker:PathWalker;
+
 	public function new(aX:Float, aY:Float, aEmitter:FlxEmitter, aEnemyFactory:EnemyFactory)
 	{
 		super(aX, aY);
@@ -59,9 +60,9 @@ class Boss extends FlxSprite
 
 		offset.set(9, 0);
 		setSize(32, 59);
-		
-		//path = new Linear(start, end);
-		//pathWalker = new PathWalker(path, 1, PlayMode.None);		
+
+		myPath = new Linear(start, end);
+		pathWalker = new PathWalker(myPath, 1.5, PlayMode.None);
 	}
 
 	public function damage()
@@ -80,7 +81,7 @@ class Boss extends FlxSprite
 
 			if (timeToWakeUp <= 0)
 			{
-				brain.activeState = goUpState;
+				startGoingUp();
 			}
 		}
 	}
@@ -97,27 +98,34 @@ class Boss extends FlxSprite
 
 		if (length <= DETECTION_THRESHOLD)
 		{
-			brain.activeState = goUpState;
+			startGoingUp();
 		}
+	}
+
+	function startGoingUp()
+	{
+		animation.play("active");
+		
+		start.setTo(x, y);
+		end.setTo(x, Y_OBJETIVE);
+		myPath.set(start, end);
+		pathWalker.reset();
+		
+		velocity.set();
+		acceleration.set();
+
+		brain.activeState = goUpState;
 	}
 
 	public function goUpState(elapsed:Float):Void
 	{
-		animation.play("active");
-		acceleration.y = UP_ACCELERATION;
-
-		if (y <= Y_OBJETIVE)
+		pathWalker.update(FlxG.elapsed);
+		x = pathWalker.x;
+		y = pathWalker.y;
+		
+		if (pathWalker.finish())
 		{
-			// Ya estos en la altura correcta, empiezo a perseguir al jugador.
-			y = Y_OBJETIVE;
-			acceleration.y = 0;
-			velocity.y = 0;
 			brain.activeState = chaseState;
-		}
-		else if (y <= Y_OBJETIVE+70)
-		{
-			// Estoy cerca de la altura objetivo, empiezo a desacelerar.
-			acceleration.y = -UP_ACCELERATION / 1.2;
 		}
 	}
 
@@ -166,10 +174,10 @@ class Boss extends FlxSprite
 	{
 		var enemy1 = enemyFactory.spawn(FlxG.random.int(0, 64), 0, EnemyType.MUSHROOM);
 		cast(enemy1, Mushroom).stop();
-		
+
 		var enemy2 = enemyFactory.spawn(FlxG.random.int(208, 256), 0, EnemyType.MUSHROOM);
 		cast(enemy2, Mushroom).stop();
-		
+
 		var enemy3 = enemyFactory.spawn(FlxG.random.int(400, 464), 0, EnemyType.MUSHROOM);
 		cast(enemy3, Mushroom).stop();
 	}

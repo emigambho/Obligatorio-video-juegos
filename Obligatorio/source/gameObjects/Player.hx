@@ -83,7 +83,7 @@ class Player extends FlxSprite
 		super.update(elapsed);
 	}
 
-	public function jump():Void
+	public function bounce():Void
 	{
 		velocity.y = -JUMP_SPEED / 2.2;
 	}

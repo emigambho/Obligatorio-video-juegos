@@ -34,9 +34,8 @@ import gameObjects.HUD;
 import interfaces.Enemy;
 import interfaces.Item;
 
-class PlayState extends FlxState
+class PlayStateMario extends FlxState
 {
-	var tiledMap:TiledMap;
 	var tileMap:FlxTilemap;
 
 	var player:Player;
@@ -48,12 +47,10 @@ class PlayState extends FlxState
 
 	override public function create():Void
 	{
-		//FlxG.log.redirectTraces = true;
-
 		var bg1:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_1__png, 0.1, 0, true, false);
 		var bg2:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_2__png, 0.4, 0, true, false);
 
-		tiledMap = new TiledMap(AssetPaths.room_01__tmx);
+		var tiledMap:TiledMap = new TiledMap(AssetPaths.room_01__tmx);
 		tileMap = new FlxTilemap();
 		tileMap.loadMapFromArray(cast(tiledMap.getLayer("Background"), TiledTileLayer).tileArray, tiledMap.width, tiledMap.height, AssetPaths.tilesheet__png, tiledMap.tileWidth, tiledMap.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 8);
 		tileMap.follow();
@@ -121,10 +118,10 @@ class PlayState extends FlxState
 				enemyFactory.spawn(x+8, y, EnemyType.FLOWER);
 				
 			case "Brick":
-				createAndAddBlock(x, y, entity, BlockType.BRICK);
+				createAndAddBlock(x, y, entity);
 
 			case "Bonus":
-				createAndAddBlock(x, y, entity, BlockType.BONUS);
+				createAndAddBlock(x, y, entity);
 
 			case "Coin":
 				itemFactory.deployItem(x, y, ItemType.COIN, DeployType.STATIC);
@@ -134,12 +131,19 @@ class PlayState extends FlxState
 		}
 	}
 
-	function createAndAddBlock(x:Int, y:Int, entity:TiledObject, aBlockType:BlockType)
+	function createAndAddBlock(x:Int, y:Int, entity:TiledObject)
 	{
 		var cantItems:Int = Std.parseInt(entity.properties.get("cantItems"));
 		var propertyValue:Int = Std.parseInt(entity.properties.get("ItemType"));
 		var itemType:ItemType = ItemType.NOT_APPLY;
 		var delayedItemDeploy:Bool = false;
+		var aBlockType:BlockType;
+		
+		if (entity.type=='Brick'){
+			aBlockType = BlockType.BRICK;
+		}else{
+			aBlockType = BlockType.BONUS;
+		}
 		
 		if (propertyValue == 1)
 		{
@@ -202,8 +206,7 @@ class PlayState extends FlxState
 	function playerVsBlock(aPlayer:Player, aBrick:Block):Void
 	{
 		// La condición valida si el player esta debajo del bloque
-		// hay que sumarle 16 al bloque para tomar su parte de "Abajo"
-		if (aPlayer.y >= (aBrick.y +16) && aPlayer.velocity.y == 0)
+		if (aPlayer.y >= (aBrick.y +aBrick.height) && aPlayer.velocity.y == 0)
 		{
 			aBrick.hit();
 		}

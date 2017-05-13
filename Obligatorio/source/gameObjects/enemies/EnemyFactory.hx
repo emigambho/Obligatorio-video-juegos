@@ -40,11 +40,11 @@ class EnemyFactory
 		grpEnemiesApplyPhysics.add(grpTortoise);
 	}
 
-	public function spawn(aX:Float, aY:Float, enemyType:EnemyType):Enemy
+	public function spawn(aX:Float, aY:Float, aEnemyType:EnemyType):Enemy
 	{
 		var enemy:Enemy = null;
 
-		switch enemyType
+		switch aEnemyType
 	{
 		case EnemyType.MUSHROOM:
 			enemy = grpMushroom.recycle(Mushroom);

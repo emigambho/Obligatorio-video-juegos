@@ -68,7 +68,7 @@ class Tortoise extends FlxSprite implements Enemy
 		super.update(elapsed);
 	}
 
-	public function hit()
+	private function hit()
 	{
 		GGD.addPoints(x +2, y -8, 500);
 
@@ -88,7 +88,7 @@ class Tortoise extends FlxSprite implements Enemy
 		}
 	}
 
-	public function slide(slideToTheRight:Bool)
+	private function startSlide(slideToTheRight:Bool)
 	{
 		if (slideToTheRight)
 		{
@@ -191,7 +191,7 @@ class Tortoise extends FlxSprite implements Enemy
 				if (belowThePlayer)
 				{
 					hit();
-					aPlayer.jump();
+					aPlayer.bounce();
 				}
 				else
 				{
@@ -204,10 +204,10 @@ class Tortoise extends FlxSprite implements Enemy
 
 				if (belowThePlayer)
 				{
-					aPlayer.jump();
+					aPlayer.bounce();
 				}
 
-				slide(slideToTheRight);
+				startSlide(slideToTheRight);
 			}
 		}
 	}

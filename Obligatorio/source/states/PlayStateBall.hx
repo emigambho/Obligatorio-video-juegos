@@ -85,19 +85,19 @@ class PlayStateBall extends FlxState
 	function ballVsCoin(ball:Ball, coin:Coin)
 	{
 		coin.deploy(FlxG.random.int(1 + 16, 320 - 16*2),FlxG.random.int(1 + 16, 240 - 16 * 2));
-		GGD.coins ++;
+		GGD.addCoin();
 		GGD.hud.updateHUD();
 	}
 	
 	function ballVsMovingBar(ball:Ball, mBar:MovingBar)
 	{
-		GGD.coins--;
+		//GGD.coins--;
 		GGD.hud.updateHUD();
 	}
 
 	function ballVsWall(ball:Ball, obj:Dynamic)
 	{
-		GGD.coins--;
+		//GGD.coins--;
 		GGD.hud.updateHUD();
 		if (GGD.coins == 0){
 			ball.kill();

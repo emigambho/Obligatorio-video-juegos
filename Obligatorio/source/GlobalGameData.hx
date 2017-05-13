@@ -6,18 +6,12 @@ import gameObjects.Player;
 typedef GGD = GlobalGameData;
 class GlobalGameData
 {
-	public static var score:Float = 0;
-	public static var coins:Int = 0;
-	
-
+	public static var score(get, null):Float = 0;
+	public static var coins(get, null):Int = 0;
 	public static var hud(get, null):HUD;
-	
-	
 	public static var player(get, null):Player;
 
-	public function new() 
-	{
-	}
+	public function new() {	}
 	
 	public static function addCoin():Void
 	{
@@ -36,8 +30,7 @@ class GlobalGameData
 	{
 		hud = null;
 		player = null;
-	}
-	
+	}	
 	
 	static function get_hud():HUD 
 	{
@@ -54,6 +47,16 @@ class GlobalGameData
 			player = new Player();
 		} 
 		return player;
+	}
+	
+	static function get_score():Float 
+	{
+		return score;
+	}	
+	
+	static function get_coins():Int 
+	{
+		return coins;
 	}
 	
 }

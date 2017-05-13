@@ -45,7 +45,7 @@ class BossState extends FlxState
 		tileMap = new FlxTilemap();
 		tileMap.loadMapFromArray(cast(tiledMap.getLayer("Background"), TiledTileLayer).tileArray, tiledMap.width, tiledMap.height, AssetPaths.boss_tilesheet__png, tiledMap.tileWidth, tiledMap.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 1);
 		tileMap.follow();
-
+		
 		grpLava = new FlxTypedGroup<Lava>();
 
 		add(tileMap);

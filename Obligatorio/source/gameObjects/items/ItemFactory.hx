@@ -43,11 +43,11 @@ class ItemFactory
 		grpItemsApplyPhysics.add(grpLife);		
 	}
 	
-	public function deployItem(aX:Float, aY:Float, itemType:ItemType, deployType:DeployType):Void
+	public function deployItem(aX:Float, aY:Float, aItemType:ItemType, aDeployType:DeployType):Item
 	{
 		var item:Item = null;
 		
-		switch itemType
+		switch aItemType
 		{
 			case ItemType.LIFE:
 				item = grpLife.recycle(Life);
@@ -58,7 +58,7 @@ class ItemFactory
 				throw "The item type is not valid.";	
 		}
 		
-		if (deployType == DeployType.STATIC)
+		if (aDeployType == DeployType.STATIC)
 		{
 			item.deploy(aX, aY);
 		}
@@ -66,6 +66,8 @@ class ItemFactory
 		{
 			item.deployFromBlock(aX, aY);
 		}
+		
+		return item;
 	}
 	
 }

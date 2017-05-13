@@ -8,19 +8,26 @@ class Linear implements IPath
 	private var mFinish:Point;
 	private var mLength:Float;
 
-	public function new(aStart:Point,aFinish:Point)
+	public function new(aStart:Point, aFinish:Point)
 	{
 		mPosition = new Point();
+
+		set(aStart, aFinish);
+	}
+
+	public function set(aStart:Point, aFinish:Point)
+	{
 		mStart = aStart;
 		mFinish = aFinish;
 
-		mLength = Math.sqrt((mFinish.x - mStart.x) * (mFinish.x - mStart.x) + (mFinish.y - mStart.y) * (mFinish.y - mStart.y));
+		mLength = Math.sqrt((mFinish.x - mStart.x) * (mFinish.x - mStart.x) + (mFinish.y - mStart.y) * (mFinish.y - mStart.y));		
 	}
-
+	
 	public function getPos(aScalar:Float):Point
 	{
 		mPosition.x = Interpolation.LERP(mStart.x, mFinish.x, aScalar);
 		mPosition.y = Interpolation.LERP(mStart.y, mFinish.y, aScalar);
+		
 		return mPosition;
 	}
 

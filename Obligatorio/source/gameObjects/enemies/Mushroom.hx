@@ -14,8 +14,8 @@ class Mushroom extends FlxSprite implements Enemy
 	static inline var GRAVITY:Int = 400;
 	static inline var SPEED:Float = 55;
 
-	var directionOfWalking:Int;
-	var timeToEndAnimationDeath:Float;
+	var facingDirection:Int;
+	var timeoutDeathAnimation:Float;
 	var brain:FSM;
 
 	public function new()
@@ -38,16 +38,16 @@ class Mushroom extends FlxSprite implements Enemy
 	{
 		if (isTouching(FlxObject.WALL))
 		{
-			directionOfWalking *= -1;
-			velocity.x = SPEED * directionOfWalking;
+			facingDirection *= -1;
+			velocity.x = SPEED * facingDirection;
 		}
 	}
 	
 	public function deathState(elapsed:Float):Void
 	{
-		timeToEndAnimationDeath -= elapsed;
+		timeoutDeathAnimation -= elapsed;
 		
-		if (timeToEndAnimationDeath <= 0){
+		if (timeoutDeathAnimation <= 0){
 			kill();
 		}
 	}	
@@ -59,21 +59,11 @@ class Mushroom extends FlxSprite implements Enemy
 		if (velocity.x == 0 && alive && isTouching(FlxObject.FLOOR))
 		{
 			animation.play("walk");
-			velocity.x = SPEED * directionOfWalking;
+			velocity.x = SPEED * facingDirection;
 			brain.activeState = walkState;
 		}		
 	}
 	
-	public function spawn(aX:Float, aY:Float)
-	{
-		reset(aX, aY);
-		
-		directionOfWalking = -1;
-		animation.play("walk");		
-		velocity.x = -SPEED;		
-		brain.activeState = walkState;
-	}
-
 	public function stop()
 	{
 		velocity.x = 0;
@@ -100,12 +90,22 @@ class Mushroom extends FlxSprite implements Enemy
 		velocity.x = 0;
 		GGD.addPoints(x +2, y -8, 100);
 		
-		timeToEndAnimationDeath = .8;
+		timeoutDeathAnimation = .8;
 		brain.activeState = deathState;
 	}
 	
 	
 	/* INTERFACE interfaces.Enemy */
+
+	public function spawn(aX:Float, aY:Float)
+	{
+		reset(aX, aY);
+		
+		facingDirection = -1;
+		animation.play("walk");		
+		velocity.x = -SPEED;		
+		brain.activeState = walkState;
+	}
 	
 	public function touchThePlayer(aPlayer:Player):Void 
 	{
@@ -114,7 +114,7 @@ class Mushroom extends FlxSprite implements Enemy
 			if ((aPlayer.y +10) <= y)
 			{
 				death();
-				aPlayer.jump();
+				aPlayer.bounce();
 			}
 			else
 			{
