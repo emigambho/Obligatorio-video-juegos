@@ -30,28 +30,36 @@ class ApplicationMain {
 		var types = [];
 		
 		
-		urls.push ("assets/data/room-01.tmx");
+		urls.push ("assets/data/borrar/level_boss.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
-		urls.push ("assets/data/room-02.tmx");
+		urls.push ("assets/data/borrar/room-02.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/borrar/room-boss-v1.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/level_0.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/level_1.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/level_2.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/level_boss2.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
 		urls.push ("assets/data/room-ball-1.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
-		
-		
-		urls.push ("assets/data/room-boss-v1.tmx");
-		types.push (lime.Assets.AssetType.TEXT);
-		
-		
-		urls.push ("assets/data/room-boss.tmx");
-		types.push (lime.Assets.AssetType.TEXT);
-		
-		
-		urls.push ("assets/images/14993352_10154777843339421_7526152237682186451_n-360x240.png");
-		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("assets/images/Ball.png");
@@ -74,6 +82,14 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
+		urls.push ("assets/images/borrar/boss-tilesheet.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/borrar/stoneBlock.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("assets/images/borrar/_.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
@@ -86,15 +102,19 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
-		urls.push ("assets/images/boss-tilesheet.png");
-		types.push (lime.Assets.AssetType.IMAGE);
-		
-		
 		urls.push ("assets/images/boss.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("assets/images/brick.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/bubble.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/cloud.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -110,6 +130,14 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
+		urls.push ("assets/images/fish.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/flag.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("assets/images/flower.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
@@ -122,11 +150,15 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
-		urls.push ("assets/images/Mario-Wallpaper-super-mario-bros-5429603-1024-768.jpg");
+		urls.push ("assets/images/menu_background.jpg");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
 		urls.push ("assets/images/mushroom.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/octopus.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -142,7 +174,7 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
-		urls.push ("assets/images/stoneBlock.png");
+		urls.push ("assets/images/tilesheet-sea.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -239,7 +271,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "1331",
+			build: "1494",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,

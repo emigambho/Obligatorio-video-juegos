@@ -87,8 +87,7 @@ class Mushroom extends FlxSprite implements Enemy
 	{
 		alive = false;
 		animation.play("death");		
-		velocity.x = 0;
-		GGD.addPoints(x +2, y -8, 100);
+		velocity.x = 0;	
 		
 		timeoutDeathAnimation = .8;
 		brain.activeState = deathState;
@@ -114,6 +113,7 @@ class Mushroom extends FlxSprite implements Enemy
 			if ((aPlayer.y +10) <= y)
 			{
 				death();
+				GGD.addPoints(x +2, y -8, 100);
 				aPlayer.bounce();
 			}
 			else
@@ -121,5 +121,12 @@ class Mushroom extends FlxSprite implements Enemy
 				aPlayer.death();
 			}
 		}		
+	}
+	
+	public function burnedByLava() 
+	{
+		if (alive){
+			death();	
+		}
 	}
 }

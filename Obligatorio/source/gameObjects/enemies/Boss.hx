@@ -1,6 +1,7 @@
 package gameObjects.enemies;
 
 import flash.geom.Point;
+import gameObjects.Player;
 import gameObjects.enemies.EnemyFactory.EnemyType;
 import helpers.FiniteStateMachine;
 import helpers.path.Linear;
@@ -16,31 +17,28 @@ import GlobalGameData;
 import helpers.FiniteStateMachine.FSM;
 import GlobalGameData.GGD;
 
-class Boss extends FlxSprite
+class Boss extends FlxSprite implements Enemy
 {
 	static inline var DETECTION_THRESHOLD:Int = 70; // Es el rango en el cual el Boss detecta al Player.
-	static inline var Y_OBJETIVE:Int = 55; // Es la altura a la que sube el Boss para perseguir al Player.
+	static inline var Y_OBJETIVE:Int = -40; // Es la altura a la que sube el Boss para perseguir al Player.
 	static inline var CHASE_ACCELERATION:Int = 80;
 	static inline var SMASH_VELOCITY = 300;
 	static inline var SLEEP_TIME = 1.2; // Tiempo que el jefe "duerme" después de atacar.
 
+	public var emitter(null, set):FlxEmitter;
+	public var enemyFactory(null, set): EnemyFactory;	
+	
 	var brain:FSM;
 	var timeToWakeUp:Float;
-
-	var emitter:FlxEmitter;
-	var enemyFactory: EnemyFactory;
 
 	var start:Point = new Point();
 	var end:Point = new Point();
 	var myPath:Linear;
 	var pathWalker:PathWalker;
 
-	public function new(aX:Float, aY:Float, aEmitter:FlxEmitter, aEnemyFactory:EnemyFactory)
+	public function new()
 	{
-		super(aX, aY);
-
-		emitter = aEmitter;
-		enemyFactory = aEnemyFactory;
+		super();
 
 		loadGraphic(AssetPaths.boss__png, true, 50, 59);
 
@@ -51,9 +49,6 @@ class Boss extends FlxSprite
 		animation.play("onHold");
 
 		brain = new FSM();
-		brain.activeState = onHoldState;
-
-		acceleration.y = 300;
 
 		maxVelocity.x = 130;
 		maxVelocity.y = 300;
@@ -180,5 +175,40 @@ class Boss extends FlxSprite
 
 		var enemy3 = enemyFactory.spawn(FlxG.random.int(400, 464), 0, EnemyType.MUSHROOM);
 		cast(enemy3, Mushroom).stop();
+	}
+	
+	public function set_emitter(value:FlxEmitter):FlxEmitter 
+	{
+		return emitter = value;
+	}
+	
+	public function set_enemyFactory(value:EnemyFactory):EnemyFactory 
+	{
+		return enemyFactory = value;
+	}
+	
+	
+	/* INTERFACE interfaces.Enemy */
+	
+	public function touchThePlayer(aPlayer:Player):Void 
+	{
+		aPlayer.death();
+	}
+	
+	public function spawn(aX:Float, aY:Float):Void 
+	{
+		reset(aX, aY);
+
+		acceleration.y = 300;
+		
+		brain.activeState = onHoldState;
+	}
+	
+	public function burnedByLava() 
+	{
+		if (animation.curAnim.name == "smash")
+		{
+			damage();
+		}		
 	}
 }

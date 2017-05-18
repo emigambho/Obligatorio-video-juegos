@@ -6,84 +6,78 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.addons.editors.tiled.TiledMap;
 import flixel.addons.editors.tiled.TiledObject;
 import flixel.addons.editors.tiled.TiledObjectLayer;
-import flixel.addons.editors.tiled.TiledPropertySet;
-import flixel.addons.editors.tiled.TiledTileLayer;
-import flixel.addons.display.FlxBackdrop;
+import flixel.effects.particles.FlxEmitter;
+import flixel.effects.particles.FlxParticle;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.text.FlxText;
-import flixel.tile.FlxBaseTilemap.FlxTilemapAutoTiling;
-import flixel.tile.FlxTilemap;
-import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
+import gameObjects.Bubble;
+import gameObjects.enemies.Boss;
 import gameObjects.enemies.EnemyFactory;
+import gameObjects.enemies.EnemyToLoad;
 import gameObjects.items.ItemFactory;
 import gameObjects.level.Block;
-import gameObjects.items.Coin;
 import gameObjects.Player;
-import gameObjects.items.Life;
-import gameObjects.enemies.Flower;
-import gameObjects.enemies.Mushroom;
-import gameObjects.enemies.Tortoise;
 import gameObjects.level.Door;
 import GlobalGameData;
 import gameObjects.HUD;
+import gameObjects.level.Lava;
+import gameObjects.level.LevelInitialization;
 import interfaces.Enemy;
 import interfaces.Item;
 
 class PlayStateMario extends FlxState
 {
-	var tileMap:FlxTilemap;
-
+	static private inline var PRE_LOAD_WIDTH:Float = 40;
+	
 	var player:Player;
 	var grpBlock:FlxTypedGroup<Block>;
 	var grpDoor:FlxTypedGroup<Door>;
+	var grpBubble:FlxTypedGroup<Bubble>;
+	var grpEnemiesToLoad:List<EnemyToLoad>;
+	var grpLava:FlxTypedGroup<Lava>;
 
 	var itemFactory: ItemFactory;
 	var enemyFactory: EnemyFactory;
 
+	var level:LevelInitialization;
+	
 	override public function create():Void
 	{
-		var bg1:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_1__png, 0.1, 0, true, false);
-		var bg2:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_2__png, 0.4, 0, true, false);
-
-		var tiledMap:TiledMap = new TiledMap(AssetPaths.room_01__tmx);
-		tileMap = new FlxTilemap();
-		tileMap.loadMapFromArray(cast(tiledMap.getLayer("Background"), TiledTileLayer).tileArray, tiledMap.width, tiledMap.height, AssetPaths.tilesheet__png, tiledMap.tileWidth, tiledMap.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 8);
-		tileMap.follow();
-
+		level = new LevelInitialization(this, GGD.levelName);
+		
 		grpBlock = new FlxTypedGroup<Block>();
 		grpDoor = new FlxTypedGroup<Door>();
+		grpBubble = new FlxTypedGroup<Bubble>();
+		grpLava = new FlxTypedGroup<Lava>();
 
-		add(bg1);
-		add(bg2);
-
+		player = new Player(level.isSea, grpBubble);
+		GGD.player = player;
+		
 		enemyFactory = new EnemyFactory(this);
 		itemFactory = new ItemFactory(this);
-				
-		add(tileMap);
+		
 		add(grpBlock);
 		add(grpDoor);
-
-		player = GGD.player;
-
-		add(player);
+		add(grpLava);
+		
+		if (level.isSea){
+			add(grpBubble);
+		}		
+		
+		add(player);		
 		add(GGD.hud);
 
-		// Carga las "Entidades" en el mapa
-		var tmpMap:TiledObjectLayer = cast tiledMap.getLayer("GameObjects");
-		for (entity in tmpMap.objects)
-		{
-			placeEntities(entity);
-		}
+		placeEntities();
 
 		FlxG.camera.follow(player, FlxCameraFollowStyle.PLATFORMER);
 		FlxG.camera.bgColor = FlxColor.fromRGB(146, 144, 255);
 		FlxG.mouse.visible = false;
 		super.create();
+		
+		loadEnemies(FlxG.camera.width);		
 	}
 
 	override public function destroy():Void
@@ -91,8 +85,18 @@ class PlayStateMario extends FlxState
 		GGD.clear();
 		super.destroy();
 	}
+	
+	function placeEntities()
+	{
+		grpEnemiesToLoad = new List<EnemyToLoad>();
+		
+		for (entity in level.entities)
+		{
+			placeEntity(entity);
+		}		
+	}
 
-	function placeEntities(entity:TiledObject)
+	function placeEntity(entity:TiledObject)
 	{
 		var entityName:String = entity.type;
 		var x:Int = Std.parseInt(entity.xmlData.x.get("x"));
@@ -109,14 +113,20 @@ class PlayStateMario extends FlxState
 				player.y = y;
 
 			case "Mushroom":
-				enemyFactory.spawn(x, y, EnemyType.MUSHROOM);
+				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.MUSHROOM, x, y));
 
 			case "Tortoise":
-				enemyFactory.spawn(x, y-7, EnemyType.TORTOISE);
+				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.TORTOISE, x, y-7));
 
 			case "Flower":
-				enemyFactory.spawn(x+8, y, EnemyType.FLOWER);
+				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.FLOWER, x + 8, y));
 				
+			case 'Fish':
+				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.FISH, x, y));
+				
+			case 'Octopus':
+				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.OCTOPUS, x, y));
+
 			case "Brick":
 				createAndAddBlock(x, y, entity);
 
@@ -128,9 +138,29 @@ class PlayStateMario extends FlxState
 
 			case "Door":
 				grpDoor.add(new Door(x +8, y));
+				
+			case "Boss":
+				var boss:Boss =  cast(enemyFactory.spawn(x, y, EnemyType.BOSS), Boss);
+				boss.emitter = createEmitter();
+				boss.enemyFactory = enemyFactory;
+				
+			case "Lava":
+				grpLava.add(new Lava(x, y +4));				
 		}
 	}
 
+	function loadEnemies(xLimit:Int)
+	{
+		for (enemy in grpEnemiesToLoad)
+		{
+			if (enemy.x < xLimit)
+			{
+				enemyFactory.spawn2(enemy);
+				grpEnemiesToLoad.remove(enemy);
+			}
+		}
+	}	
+	
 	function createAndAddBlock(x:Int, y:Int, entity:TiledObject)
 	{
 		var cantItems:Int = Std.parseInt(entity.properties.get("cantItems"));
@@ -138,13 +168,16 @@ class PlayStateMario extends FlxState
 		var itemType:ItemType = ItemType.NOT_APPLY;
 		var delayedItemDeploy:Bool = false;
 		var aBlockType:BlockType;
-		
-		if (entity.type=='Brick'){
+
+		if (entity.type=='Brick')
+		{
 			aBlockType = BlockType.BRICK;
-		}else{
+		}
+		else
+		{
 			aBlockType = BlockType.BONUS;
 		}
-		
+
 		if (propertyValue == 1)
 		{
 			itemType = ItemType.COIN;
@@ -152,45 +185,61 @@ class PlayStateMario extends FlxState
 		else if (propertyValue == 2)
 		{
 			itemType = ItemType.LIFE;
-			delayedItemDeploy = true;			
+			delayedItemDeploy = true;
 		}
 
-		if (cantItems > 0 && itemType == ItemType.NOT_APPLY){
+		if (cantItems > 0 && itemType == ItemType.NOT_APPLY)
+		{
 			throw "The item type must be entered.";
 		}
-		
+
 		var block:Block = new Block(x, y, cantItems, itemFactory, itemType, delayedItemDeploy, aBlockType);
 		grpBlock.add(block);
 	}
-	
+
 	override public function update(elapsed:Float):Void
 	{
 		if (player.alive)
 		{
-			FlxG.collide(player, tileMap);
-			FlxG.collide(player, grpBlock, playerVsBlock);
+			FlxG.collide(player, level.tileMap);
+			FlxG.collide(player, grpBlock, playerVsBlock);			
 			FlxG.overlap(player, enemyFactory.grpEnemies, playerVsEnemy);
 			FlxG.overlap(player, itemFactory.grpItems, playerVsItem);
 			FlxG.overlap(player, grpDoor, playerVsDoor);
+			FlxG.overlap(player, grpLava, playerVsLava);
 		}
 
-		FlxG.collide(enemyFactory.grpEnemiesApplyPhysics, tileMap);
+		FlxG.collide(grpBubble, level.tileMap);
+		FlxG.overlap(enemyFactory.grpEnemies, grpLava, enemyVsLava);
+		FlxG.collide(enemyFactory.grpEnemiesApplyPhysics, level.tileMap);
 		FlxG.collide(enemyFactory.grpEnemiesApplyPhysics, grpBlock);
-		FlxG.collide(itemFactory.grpItemsApplyPhysics, tileMap);
+		FlxG.collide(itemFactory.grpItemsApplyPhysics, level.tileMap);
 		FlxG.collide(itemFactory.grpItemsApplyPhysics, grpBlock);
+
+		loadEnemies(Std.int(FlxG.camera.scroll.x + FlxG.camera.width + PRE_LOAD_WIDTH));
 		
 		super.update(elapsed);
 	}
-
+	
+	function enemyVsLava(aEnemy:Enemy, aLava:Lava) 
+	{
+		aEnemy.burnedByLava();
+	}	
+	
 	function playerVsEnemy(aPlayer:Player, aEnemy:Enemy)
 	{
 		aEnemy.touchThePlayer(aPlayer);
 	}
-	
+
 	function playerVsItem(aPlayer:Player, aItem:Item)
 	{
 		aItem.pickUp();
 	}
+	
+	function playerVsLava(aPlayer:Player, aLava:Lava)
+	{
+		aPlayer.death();
+	}	
 
 	function playerVsDoor(aPlayer:Player, aDoor:Door)
 	{
@@ -211,5 +260,23 @@ class PlayStateMario extends FlxState
 			aBrick.hit();
 		}
 	}
-
+	
+	function createEmitter():FlxEmitter 
+	{
+		var emitter:FlxEmitter = new FlxEmitter(0, 0);
+		emitter.lifespan.min = 0.4;
+		emitter.lifespan.max = 0.4;
+		
+		for (i in 0 ... 15)
+		{
+			var p = new FlxParticle();
+			p.loadGraphic(AssetPaths.spark__png, false, 8, 8);
+			p.exists = false;
+			emitter.add(p);
+		}
+		
+		add(emitter);
+		
+		return emitter;
+	}	
 }

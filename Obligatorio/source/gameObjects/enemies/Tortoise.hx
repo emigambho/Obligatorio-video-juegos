@@ -211,5 +211,10 @@ class Tortoise extends FlxSprite implements Enemy
 			}
 		}
 	}
+	
+	public function burnedByLava() 
+	{
+		trace("Falta");
+	}
 
 }

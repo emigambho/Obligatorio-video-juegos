@@ -22,12 +22,12 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		super();
 		
 		txtScore = new FlxText(20, 10, 0, "Score:\n0", 8);
-		txtScore.color = FlxColor.BLACK;
+		txtScore.color = FlxColor.WHITE;
 		add(txtScore);
 		
 		txtMoney = new FlxText(100, 12, 0, "X 0", 8);
 		txtMoney.alignment = LEFT;
-		txtMoney.color = FlxColor.BLACK;
+		txtMoney.color = FlxColor.WHITE;
 		add(txtMoney);
 		
 		var sprMoney = new FlxSprite(90, 14, AssetPaths.hud_coin__png);

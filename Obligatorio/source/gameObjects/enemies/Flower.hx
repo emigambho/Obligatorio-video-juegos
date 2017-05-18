@@ -95,4 +95,9 @@ class Flower extends FlxSprite implements Enemy
 		yFinal = yInitial - height + 1;
 		brain.activeState = upState;
 	}
+	
+	public function burnedByLava() 
+	{
+		throw "Not implemented";
+	}
 }

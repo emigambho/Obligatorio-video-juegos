@@ -2,6 +2,7 @@ package;
 
 import gameObjects.HUD;
 import gameObjects.Player;
+import gameObjects.level.LevelInitialization;
 
 typedef GGD = GlobalGameData;
 class GlobalGameData
@@ -9,8 +10,11 @@ class GlobalGameData
 	public static var score(get, null):Float = 0;
 	public static var coins(get, null):Int = 0;
 	public static var hud(get, null):HUD;
-	public static var player(get, null):Player;
+	//public static var player(get, null):Player;
+	public static var player:Player;
 
+	public static var levelName:String;
+	
 	public function new() {	}
 	
 	public static function addCoin():Void
@@ -41,13 +45,13 @@ class GlobalGameData
 		return hud;
 	}
 	
-	static function get_player():Player 
+	/*static function get_player():Player 
 	{
 		if (player == null){
 			player = new Player();
 		} 
 		return player;
-	}
+	}*/
 	
 	static function get_score():Float 
 	{
