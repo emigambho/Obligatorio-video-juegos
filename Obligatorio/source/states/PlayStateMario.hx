@@ -23,6 +23,7 @@ import gameObjects.Player;
 import gameObjects.level.Door;
 import GlobalGameData;
 import gameObjects.HUD;
+import gameObjects.level.Flag;
 import gameObjects.level.Lava;
 import gameObjects.level.LevelInitialization;
 import interfaces.Enemy;
@@ -43,6 +44,7 @@ class PlayStateMario extends FlxState
 	var enemyFactory: EnemyFactory;
 
 	var level:LevelInitialization;
+	var flag:FlxSprite;
 	
 	override public function create():Void
 	{
@@ -59,6 +61,8 @@ class PlayStateMario extends FlxState
 		enemyFactory = new EnemyFactory(this);
 		itemFactory = new ItemFactory(this);
 		
+		level.addPipelines();
+		
 		add(grpBlock);
 		add(grpDoor);
 		add(grpLava);
@@ -66,11 +70,11 @@ class PlayStateMario extends FlxState
 		if (level.isSea){
 			add(grpBubble);
 		}		
-		
-		add(player);		
-		add(GGD.hud);
 
 		placeEntities();
+
+		add(player);
+		add(GGD.hud);		
 
 		FlxG.camera.follow(player, FlxCameraFollowStyle.PLATFORMER);
 		FlxG.camera.bgColor = FlxColor.fromRGB(146, 144, 255);
@@ -137,7 +141,7 @@ class PlayStateMario extends FlxState
 				itemFactory.deployItem(x, y, ItemType.COIN, DeployType.STATIC);
 
 			case "Door":
-				grpDoor.add(new Door(x +8, y));
+				grpDoor.add(new Door(x, y));
 				
 			case "Boss":
 				var boss:Boss =  cast(enemyFactory.spawn(x, y, EnemyType.BOSS), Boss);
@@ -146,6 +150,9 @@ class PlayStateMario extends FlxState
 				
 			case "Lava":
 				grpLava.add(new Lava(x, y +4));				
+			case "Flag":
+				flag = new Flag(x, y);
+				add(flag);
 		}
 	}
 
@@ -207,6 +214,10 @@ class PlayStateMario extends FlxState
 			FlxG.overlap(player, itemFactory.grpItems, playerVsItem);
 			FlxG.overlap(player, grpDoor, playerVsDoor);
 			FlxG.overlap(player, grpLava, playerVsLava);
+			
+			if(flag!= null){
+				FlxG.overlap(player, flag, playerVsFlag);
+			}
 		}
 
 		FlxG.collide(grpBubble, level.tileMap);
@@ -219,6 +230,12 @@ class PlayStateMario extends FlxState
 		loadEnemies(Std.int(FlxG.camera.scroll.x + FlxG.camera.width + PRE_LOAD_WIDTH));
 		
 		super.update(elapsed);
+	}
+	
+	function playerVsFlag(aPlayer:Player, aFlag:Flag)
+	{
+		aPlayer.grabTheFlag(aFlag);
+		aFlag.playerGrab(aPlayer);
 	}
 	
 	function enemyVsLava(aEnemy:Enemy, aLava:Lava) 

@@ -82,26 +82,6 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
-		urls.push ("assets/images/borrar/boss-tilesheet.png");
-		types.push (lime.Assets.AssetType.IMAGE);
-		
-		
-		urls.push ("assets/images/borrar/stoneBlock.png");
-		types.push (lime.Assets.AssetType.IMAGE);
-		
-		
-		urls.push ("assets/images/borrar/_.png");
-		types.push (lime.Assets.AssetType.IMAGE);
-		
-		
-		urls.push ("assets/images/borrar/_bg_1.png");
-		types.push (lime.Assets.AssetType.IMAGE);
-		
-		
-		urls.push ("assets/images/borrar/_boss.png");
-		types.push (lime.Assets.AssetType.IMAGE);
-		
-		
 		urls.push ("assets/images/boss.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
@@ -171,10 +151,6 @@ class ApplicationMain {
 		
 		
 		urls.push ("assets/images/spark.png");
-		types.push (lime.Assets.AssetType.IMAGE);
-		
-		
-		urls.push ("assets/images/tilesheet-sea.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -271,7 +247,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "1494",
+			build: "1583",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,

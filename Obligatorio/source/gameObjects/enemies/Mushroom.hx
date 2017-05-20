@@ -27,8 +27,8 @@ class Mushroom extends FlxSprite implements Enemy
 		animation.add("idle", [0]);
 		animation.add("walk", [0, 1], 6, true);
 		animation.add("death", [2]);
+		animation.add("burn", [3]);
 		
-		acceleration.y = GRAVITY;
 		maxVelocity.y = GRAVITY;
 		
 		brain = new FSM();
@@ -85,8 +85,7 @@ class Mushroom extends FlxSprite implements Enemy
 
 	private function death()
 	{
-		alive = false;
-		animation.play("death");		
+		alive = false;		
 		velocity.x = 0;	
 		
 		timeoutDeathAnimation = .8;
@@ -102,6 +101,7 @@ class Mushroom extends FlxSprite implements Enemy
 		
 		facingDirection = -1;
 		animation.play("walk");		
+		acceleration.y = GRAVITY;
 		velocity.x = -SPEED;		
 		brain.activeState = walkState;
 	}
@@ -112,6 +112,7 @@ class Mushroom extends FlxSprite implements Enemy
 		{
 			if ((aPlayer.y +10) <= y)
 			{
+				animation.play("death");
 				death();
 				GGD.addPoints(x +2, y -8, 100);
 				aPlayer.bounce();
@@ -126,6 +127,9 @@ class Mushroom extends FlxSprite implements Enemy
 	public function burnedByLava() 
 	{
 		if (alive){
+			animation.play("burn");
+			acceleration.set();
+			velocity.set();
 			death();	
 		}
 	}

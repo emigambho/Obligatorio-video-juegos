@@ -37,7 +37,7 @@ class PlayStateBall extends FlxState
 
 		tiledMap = new TiledMap(AssetPaths.room_ball_1__tmx);
 		tileMap = new FlxTilemap();
-		tileMap.loadMapFromArray(cast(tiledMap.getLayer("Wall"), TiledTileLayer).tileArray, tiledMap.width, tiledMap.height, AssetPaths.boss_tilesheet__png, tiledMap.tileWidth, tiledMap.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 1);
+		tileMap.loadMapFromArray(cast(tiledMap.getLayer("Wall"), TiledTileLayer).tileArray, tiledMap.width, tiledMap.height, AssetPaths.tilesheet__png, tiledMap.tileWidth, tiledMap.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 1);
 		tileMap.follow();
 
 		grpMovingBars = new FlxTypedGroup<MovingBar>();

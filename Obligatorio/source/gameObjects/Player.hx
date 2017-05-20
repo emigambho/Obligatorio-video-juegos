@@ -6,12 +6,17 @@ import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import gameObjects.Bubble;
+import gameObjects.level.Flag;
 import haxe.Timer;
+import helpers.FiniteStateMachine.FSM;
 
 class Player extends FlxSprite
 {
 	static inline var MINIMUM_BUBBLE_TIME:Float = 0.4;
 	static inline var MAXIMUM_BUBBLE_TIME:Float = 1.5;	
+	static inline var CINEMATIC_SPEED:Float = 80;
+	static inline var Y_FLOOR:Float = 208;
+	static inline var X_EXIT_DOOR:Float = 2292;
 	
 	var runSpeed:Int;
 	var jumpSpeed:Int;
@@ -20,6 +25,8 @@ class Player extends FlxSprite
 	var isSeaLevel:Bool;
 	var bubbleTime:Float = 0;
 	var grpBubble:FlxTypedGroup<Bubble>;
+	
+	var brain:FSM;
 
 	public function new(aIsSeaLevel:Bool, aGrpBubble:FlxTypedGroup<Bubble>)
 	{
@@ -38,10 +45,14 @@ class Player extends FlxSprite
 		animation.add("death", [5]);
 		animation.add("swim", [6, 7, 8], 3, true);
 		animation.add("sink", [9, 10], 3, true);
+		animation.add("slide", [11]);
 
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 
+		brain = new FSM();
+		brain.activeState = walkState;
+		
 		setSize(8, 16);
 		offset.set(4, 0);
 	}
@@ -76,7 +87,7 @@ class Player extends FlxSprite
 		drag.x = frictionX;
 	}
 
-	override public function update(elapsed:Float):Void
+	function walkState(elapsed:Float):Void
 	{
 		if (alive)
 		{
@@ -89,13 +100,11 @@ class Player extends FlxSprite
 				acceleration.x = -runSpeed;
 				facing = FlxObject.LEFT;
 			}
-
 			if (FlxG.keys.anyPressed([RIGHT, D]))
 			{
 				acceleration.x = runSpeed;
 				facing = FlxObject.RIGHT;
 			}
-
 			if (FlxG.keys.anyJustPressed([SPACE, UP, W]) && (isSeaLevel || isTouching(FlxObject.FLOOR)))
 			{
 				velocity.y = -jumpSpeed;
@@ -107,8 +116,53 @@ class Player extends FlxSprite
 			//}
 
 			playAnimation();
+		}		
+	}
+	
+	function slideState(elapsed:Float):Void
+	{
+		if (y >= Y_FLOOR -32)
+		{
+			velocity.set();
+			y = Y_FLOOR -32;
 		}
+	}
+	
+	function walkToTheCastleState(elapsed:Float):Void
+	{
+		animation.play("walk");
+		acceleration.y = gravity;
+		velocity.x = CINEMATIC_SPEED;
 
+		if (x >= X_EXIT_DOOR){
+			// Llegue a la puerta, desaparezco.
+			x = X_EXIT_DOOR;
+			animation.play("idle");
+			acceleration.set();
+			velocity.set();			
+			Timer.delay(this.kill, 300);			
+		}
+	}
+	
+	public function grabTheFlag(aFlag:Flag)
+	{
+		x = aFlag.x; // Ajusto al personaje para que quede tocando el mástil
+		
+		velocity.set(0, CINEMATIC_SPEED);
+		acceleration.set();
+		animation.play("slide");
+		facing = FlxObject.RIGHT;
+		brain.activeState = slideState;
+	}
+	
+	public function walkToTheCastle()
+	{
+		brain.activeState = walkToTheCastleState;
+	}
+	
+	override public function update(elapsed:Float):Void
+	{
+		brain.update(elapsed);
 		super.update(elapsed);
 	}
 
@@ -135,7 +189,6 @@ class Player extends FlxSprite
 				if (velocity.y < 0)
 				{
 					animation.play("swim");
-
 				}
 				else
 				{

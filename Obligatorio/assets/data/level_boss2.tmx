@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="15" tilewidth="16" tileheight="16" nextobjectid="11">
- <tileset firstgid="1" name="ffff" tilewidth="16" tileheight="16" tilecount="14" columns="7">
-  <image source="../images/tilesheet.png" width="112" height="32"/>
+ <tileset firstgid="1" name="ffff" tilewidth="16" tileheight="16" tilecount="40" columns="8">
+  <image source="../images/tilesheet.png" width="128" height="80"/>
  </tileset>
  <layer name="Background" width="30" height="15">
   <data encoding="csv">
@@ -18,8 +18,8 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-8,8,8,8,8,8,8,0,0,0,0,8,8,8,8,8,8,8,8,0,0,0,0,8,8,8,8,8,8,8,
-8,8,8,8,8,8,8,0,0,0,0,8,8,8,8,8,8,8,8,0,0,0,0,8,8,8,8,8,8,8
+25,25,25,25,25,25,25,0,0,0,0,25,25,25,25,25,25,25,25,0,0,0,0,25,25,25,25,25,25,25,
+25,25,25,25,25,25,25,0,0,0,0,25,25,25,25,25,25,25,25,0,0,0,0,25,25,25,25,25,25,25
 </data>
  </layer>
  <objectgroup name="GameObjects">
