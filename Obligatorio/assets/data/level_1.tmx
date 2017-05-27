@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="15" tilewidth="16" tileheight="16" nextobjectid="14">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="15" tilewidth="16" tileheight="16" nextobjectid="28">
  <tileset firstgid="1" name="ffff" tilewidth="16" tileheight="16" tilecount="40" columns="8">
   <image source="../images/tilesheet.png" width="128" height="80"/>
  </tileset>
@@ -42,8 +42,8 @@
 </data>
  </layer>
  <objectgroup name="GameObjects">
-  <object id="1" type="Player" x="1573" y="198.5" width="6" height="6"/>
-  <object id="2" type="Mushroom" x="292" y="195.5" width="6" height="6"/>
+  <object id="1" type="Player" x="85" y="196.5" width="6" height="6"/>
+  <object id="2" type="Mushroom" x="532.667" y="196.833" width="6" height="6"/>
   <object id="3" type="Mushroom" x="564.5" y="197.5" width="6" height="6"/>
   <object id="4" type="Mushroom" x="834" y="194" width="6" height="6"/>
   <object id="5" type="Mushroom" x="1140.5" y="195" width="6" height="6"/>
@@ -52,5 +52,60 @@
   <object id="11" type="Mushroom" x="1988" y="116.667" width="6" height="6"/>
   <object id="12" type="Flag" x="2196.83" y="54.5" width="6" height="6"/>
   <object id="13" type="Flower" x="1638.25" y="165.125" width="4.5" height="5.25"/>
+  <object id="14" type="Brick" x="149" y="163" width="6" height="6">
+   <properties>
+    <property name="ItemType" type="int" value="1"/>
+    <property name="cantItems" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="15" type="Brick" x="163" y="164" width="6" height="6">
+   <properties>
+    <property name="ItemType" type="int" value="1"/>
+    <property name="cantItems" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="16" type="Brick" x="179.333" y="163" width="6" height="6">
+   <properties>
+    <property name="ItemType" type="int" value="1"/>
+    <property name="cantItems" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="17" type="Brick" x="196" y="163.333" width="6" height="6">
+   <properties>
+    <property name="ItemType" type="int" value="1"/>
+    <property name="cantItems" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="18" type="Brick" x="214" y="163" width="6" height="6">
+   <properties>
+    <property name="ItemType" type="int" value="1"/>
+    <property name="cantItems" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="19" type="Brick" x="226" y="163.667" width="6" height="6">
+   <properties>
+    <property name="ItemType" type="int" value="1"/>
+    <property name="cantItems" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="20" type="Brick" x="243.667" y="163.667" width="6" height="6">
+   <properties>
+    <property name="ItemType" type="int" value="1"/>
+    <property name="cantItems" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="21" type="Brick" x="258" y="163.667" width="6" height="6">
+   <properties>
+    <property name="ItemType" type="int" value="1"/>
+    <property name="cantItems" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="22" type="Brick" x="275" y="164.333" width="6" height="6">
+   <properties>
+    <property name="ItemType" type="int" value="1"/>
+    <property name="cantItems" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="26" type="TortoiseHammer" x="197" y="148.667" width="8" height="8"/>
  </objectgroup>
 </map>

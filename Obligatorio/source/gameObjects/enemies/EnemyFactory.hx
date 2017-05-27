@@ -2,14 +2,13 @@ package gameObjects.enemies;
 
 import flixel.group.FlxGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import gameObjects.enemies.Boss;
-import gameObjects.enemies.Octopus;
 import interfaces.Enemy;
 
 enum EnemyType
 {
 	MUSHROOM;
 	TORTOISE;
+	TORTOISE_HAMMER;
 	FLOWER;
 	BOSS;
 	FISH;
@@ -18,20 +17,23 @@ enum EnemyType
 
 class EnemyFactory
 {
+	public var grpEnemies:FlxGroup;
+	public var grpEnemiesApplyPhysics:FlxGroup;
+	
 	var grpMushroom:FlxTypedGroup<Mushroom>;
-	var grpTortoise:FlxTypedGroup<Tortoise>;
+	var grpTortoise:FlxTypedGroup<Tortoise>;	
+	var grpTortoiseHammer:FlxTypedGroup<TortoiseHammer>;
 	var grpFlower:FlxTypedGroup<Flower>;
 	var grpBoss:FlxTypedGroup<Boss>;
 	var grpFishes:FlxTypedGroup<Fish>;
 	var grpOctopuses:FlxTypedGroup<Octopus>;
 
-	public var grpEnemies:FlxGroup;
-	public var grpEnemiesApplyPhysics:FlxGroup;
-
 	public function new(aState:FlxGroup)
 	{
+		
 		grpMushroom = new FlxTypedGroup<Mushroom>();
 		grpTortoise = new FlxTypedGroup<Tortoise>();
+		grpTortoiseHammer = new FlxTypedGroup<TortoiseHammer>();
 		grpFlower = new FlxTypedGroup<Flower>();
 		grpBoss = new FlxTypedGroup<Boss>();
 		grpFishes = new FlxTypedGroup<Fish>();
@@ -39,6 +41,7 @@ class EnemyFactory
 
 		aState.add(grpMushroom);
 		aState.add(grpTortoise);
+		aState.add(grpTortoiseHammer);
 		aState.add(grpFlower);
 		aState.add(grpBoss);
 		aState.add(grpFishes);
@@ -47,6 +50,7 @@ class EnemyFactory
 		grpEnemies = new FlxGroup();
 		grpEnemies.add(grpMushroom);
 		grpEnemies.add(grpTortoise);
+		grpEnemies.add(grpTortoiseHammer);
 		grpEnemies.add(grpFlower);
 		grpEnemies.add(grpBoss);
 		grpEnemies.add(grpFishes);
@@ -69,6 +73,9 @@ class EnemyFactory
 			case EnemyType.TORTOISE:
 				enemy = grpTortoise.recycle(Tortoise);
 
+			case EnemyType.TORTOISE_HAMMER:
+				enemy = grpTortoiseHammer.recycle(TortoiseHammer);
+				
 			case EnemyType.FLOWER:
 				enemy = grpFlower.recycle(Flower);
 				

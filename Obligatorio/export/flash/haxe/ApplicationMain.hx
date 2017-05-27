@@ -122,6 +122,10 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
+		urls.push ("assets/images/hammer.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("assets/images/hud_coin.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
@@ -159,6 +163,10 @@ class ApplicationMain {
 		
 		
 		urls.push ("assets/images/tortoise.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/tortoise_hammer.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -247,7 +255,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "1583",
+			build: "1692",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,

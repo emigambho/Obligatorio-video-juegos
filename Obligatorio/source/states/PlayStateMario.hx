@@ -26,6 +26,8 @@ import gameObjects.HUD;
 import gameObjects.level.Flag;
 import gameObjects.level.Lava;
 import gameObjects.level.LevelInitialization;
+import gameObjects.projectiles.Hammer;
+import gameObjects.projectiles.ProjectileFactory;
 import interfaces.Enemy;
 import interfaces.Item;
 
@@ -41,6 +43,7 @@ class PlayStateMario extends FlxState
 	var grpLava:FlxTypedGroup<Lava>;
 
 	var itemFactory: ItemFactory;
+	var projectileFactory: ProjectileFactory;
 	var enemyFactory: EnemyFactory;
 
 	var level:LevelInitialization;
@@ -58,6 +61,9 @@ class PlayStateMario extends FlxState
 		player = new Player(level.isSea, grpBubble);
 		GGD.player = player;
 		
+		projectileFactory = new ProjectileFactory(this);
+		GGD.projectileFactory = projectileFactory;
+		
 		enemyFactory = new EnemyFactory(this);
 		itemFactory = new ItemFactory(this);
 		
@@ -69,7 +75,7 @@ class PlayStateMario extends FlxState
 		
 		if (level.isSea){
 			add(grpBubble);
-		}		
+		}
 
 		placeEntities();
 
@@ -122,6 +128,9 @@ class PlayStateMario extends FlxState
 			case "Tortoise":
 				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.TORTOISE, x, y-7));
 
+			case "TortoiseHammer":
+				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.TORTOISE_HAMMER, x, y-8));
+				
 			case "Flower":
 				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.FLOWER, x + 8, y));
 				

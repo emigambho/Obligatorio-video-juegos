@@ -19,6 +19,7 @@ class Flag extends FlxSprite
 
 		loadGraphic(AssetPaths.flag__png, false, 16, 16);
 
+		// La caja de colisión llega hasta el piso, así detecto si el jugador "toca" la bandera.
 		setSize(8, Y_FLOOR - y);
 		offset.set(8, 0);
 	}

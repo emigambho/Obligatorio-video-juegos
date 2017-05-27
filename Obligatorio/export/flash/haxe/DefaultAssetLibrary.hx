@@ -86,6 +86,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -141,6 +143,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/flag.png", AssetType.IMAGE);
 		className.set ("assets/images/flower.png", __ASSET__assets_images_flower_png);
 		type.set ("assets/images/flower.png", AssetType.IMAGE);
+		className.set ("assets/images/hammer.png", __ASSET__assets_images_hammer_png);
+		type.set ("assets/images/hammer.png", AssetType.IMAGE);
 		className.set ("assets/images/hud_coin.png", __ASSET__assets_images_hud_coin_png);
 		type.set ("assets/images/hud_coin.png", AssetType.IMAGE);
 		className.set ("assets/images/lava.png", __ASSET__assets_images_lava_png);
@@ -161,6 +165,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/tilesheet.png", AssetType.IMAGE);
 		className.set ("assets/images/tortoise.png", __ASSET__assets_images_tortoise_png);
 		type.set ("assets/images/tortoise.png", AssetType.IMAGE);
+		className.set ("assets/images/tortoise_hammer.png", __ASSET__assets_images_tortoise_hammer_png);
+		type.set ("assets/images/tortoise_hammer.png", AssetType.IMAGE);
 		className.set ("flixel/sounds/beep.mp3", __ASSET__flixel_sounds_beep_mp3);
 		type.set ("flixel/sounds/beep.mp3", AssetType.MUSIC);
 		className.set ("flixel/sounds/flixel.mp3", __ASSET__flixel_sounds_flixel_mp3);
@@ -270,6 +276,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
+		id = "assets/images/hammer.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
 		id = "assets/images/hud_coin.png";
 		path.set (id, id);
 		
@@ -307,6 +317,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		type.set (id, AssetType.IMAGE);
 		id = "assets/images/tortoise.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/tortoise_hammer.png";
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
@@ -421,6 +435,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("assets/images/flower.png", __ASSET__assets_images_flower_png);
 		type.set ("assets/images/flower.png", AssetType.IMAGE);
 		
+		className.set ("assets/images/hammer.png", __ASSET__assets_images_hammer_png);
+		type.set ("assets/images/hammer.png", AssetType.IMAGE);
+		
 		className.set ("assets/images/hud_coin.png", __ASSET__assets_images_hud_coin_png);
 		type.set ("assets/images/hud_coin.png", AssetType.IMAGE);
 		
@@ -450,6 +467,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("assets/images/tortoise.png", __ASSET__assets_images_tortoise_png);
 		type.set ("assets/images/tortoise.png", AssetType.IMAGE);
+		
+		className.set ("assets/images/tortoise_hammer.png", __ASSET__assets_images_tortoise_hammer_png);
+		type.set ("assets/images/tortoise_hammer.png", AssetType.IMAGE);
 		
 		className.set ("flixel/sounds/beep.mp3", __ASSET__flixel_sounds_beep_mp3);
 		type.set ("flixel/sounds/beep.mp3", AssetType.MUSIC);
@@ -1136,6 +1156,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_images_fish_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_flag_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_flower_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_images_hammer_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_hud_coin_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_lava_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_menu_background_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1146,6 +1167,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_images_spark_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_tilesheet_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_tortoise_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_images_tortoise_hammer_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__flixel_sounds_beep_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__flixel_sounds_flixel_mp3 extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends flash.text.Font { }
@@ -1155,6 +1177,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 #elseif html5
+
+
 
 
 
@@ -1227,6 +1251,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/images/fish.png") #if display private #end class __ASSET__assets_images_fish_png extends lime.graphics.Image {}
 @:image("assets/images/flag.png") #if display private #end class __ASSET__assets_images_flag_png extends lime.graphics.Image {}
 @:image("assets/images/flower.png") #if display private #end class __ASSET__assets_images_flower_png extends lime.graphics.Image {}
+@:image("assets/images/hammer.png") #if display private #end class __ASSET__assets_images_hammer_png extends lime.graphics.Image {}
 @:image("assets/images/hud_coin.png") #if display private #end class __ASSET__assets_images_hud_coin_png extends lime.graphics.Image {}
 @:image("assets/images/lava.png") #if display private #end class __ASSET__assets_images_lava_png extends lime.graphics.Image {}
 @:image("assets/images/menu_background.jpg") #if display private #end class __ASSET__assets_images_menu_background_jpg extends lime.graphics.Image {}
@@ -1237,6 +1262,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/images/spark.png") #if display private #end class __ASSET__assets_images_spark_png extends lime.graphics.Image {}
 @:image("assets/images/tilesheet.png") #if display private #end class __ASSET__assets_images_tilesheet_png extends lime.graphics.Image {}
 @:image("assets/images/tortoise.png") #if display private #end class __ASSET__assets_images_tortoise_png extends lime.graphics.Image {}
+@:image("assets/images/tortoise_hammer.png") #if display private #end class __ASSET__assets_images_tortoise_hammer_png extends lime.graphics.Image {}
 @:file("C:/HaxeToolkit/haxe/lib/flixel/4,2,1/assets/sounds/beep.mp3") #if display private #end class __ASSET__flixel_sounds_beep_mp3 extends lime.utils.Bytes {}
 @:file("C:/HaxeToolkit/haxe/lib/flixel/4,2,1/assets/sounds/flixel.mp3") #if display private #end class __ASSET__flixel_sounds_flixel_mp3 extends lime.utils.Bytes {}
 @:font("C:/HaxeToolkit/haxe/lib/flixel/4,2,1/assets/fonts/nokiafc22.ttf") #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends lime.text.Font {}
