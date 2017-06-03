@@ -92,8 +92,5 @@ class Octopus extends FlxSprite implements Enemy
 		aPlayer.death();
 	}
 	
-	public function burnedByLava():Void 
-	{
-		throw "Not implemented";
-	}
+	
 }

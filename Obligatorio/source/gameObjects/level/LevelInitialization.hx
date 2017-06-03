@@ -27,9 +27,11 @@ class LevelInitialization
 		tileMap = new FlxTilemap();
 
 		switch levelName
-	{
-		case 'level_01':
-			level01();
+		{
+			case 'level_00':
+				level00();
+			case 'level_01':
+				level01();
 			case 'level_02':
 				level02();
 			case 'level_boss':
@@ -49,6 +51,15 @@ class LevelInitialization
 			state.add(tileMapPipelines);
 		}
 	}
+	
+	function level00()
+	{
+		addMountainBackground();
+
+		hasPipes = true;
+
+		loadFromTiled(AssetPaths.level_0__tmx);
+	}	
 
 	function level01()
 	{
@@ -80,8 +91,7 @@ class LevelInitialization
 		entities = cast (tiledMap.getLayer("GameObjects"), TiledObjectLayer).objects;
 
 		loadLayer(tileMap, "Background");
-
-		tileMap.follow();
+		//tileMap.follow();
 
 		state.add(tileMap);
 	}

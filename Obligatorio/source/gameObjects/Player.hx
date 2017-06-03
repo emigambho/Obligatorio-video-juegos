@@ -236,6 +236,6 @@ class Player extends FlxSprite
 		acceleration.y = gravity;
 		velocity.y = -jumpSpeed;
 
-		Timer.delay( function() { FlxG.resetState(); }, 1000);
+		//Timer.delay( function() { FlxG.resetState(); }, 1000);
 	}
 }

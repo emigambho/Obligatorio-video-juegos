@@ -148,9 +148,4 @@ class TortoiseHammer extends FlxSprite implements Enemy
 		}	
 	}
 	
-	public function burnedByLava() 
-	{
-		throw "not implemented";
-	}	
-
 }

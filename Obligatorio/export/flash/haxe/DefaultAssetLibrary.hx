@@ -88,6 +88,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
+		
+		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -97,6 +101,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		#if flash
 		
+		className.set ("assets/data/borrar/level_1_old.tmx", __ASSET__assets_data_borrar_level_1_old_tmx);
+		type.set ("assets/data/borrar/level_1_old.tmx", AssetType.TEXT);
+		className.set ("assets/data/borrar/level_2_old.tmx", __ASSET__assets_data_borrar_level_2_old_tmx);
+		type.set ("assets/data/borrar/level_2_old.tmx", AssetType.TEXT);
 		className.set ("assets/data/borrar/level_boss.tmx", __ASSET__assets_data_borrar_level_boss_tmx);
 		type.set ("assets/data/borrar/level_boss.tmx", AssetType.TEXT);
 		className.set ("assets/data/borrar/room-02.tmx", __ASSET__assets_data_borrar_room_02_tmx);
@@ -129,6 +137,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/brick.png", AssetType.IMAGE);
 		className.set ("assets/images/bubble.png", __ASSET__assets_images_bubble_png);
 		type.set ("assets/images/bubble.png", AssetType.IMAGE);
+		className.set ("assets/images/canon.png", __ASSET__assets_images_canon_png);
+		type.set ("assets/images/canon.png", AssetType.IMAGE);
+		className.set ("assets/images/canonball.png", __ASSET__assets_images_canonball_png);
+		type.set ("assets/images/canonball.png", AssetType.IMAGE);
 		className.set ("assets/images/cloud.png", __ASSET__assets_images_cloud_png);
 		type.set ("assets/images/cloud.png", AssetType.IMAGE);
 		className.set ("assets/images/coin.png", __ASSET__assets_images_coin_png);
@@ -184,6 +196,14 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#elseif html5
 		
 		var id;
+		id = "assets/data/borrar/level_1_old.tmx";
+		path.set (id, id);
+		
+		type.set (id, AssetType.TEXT);
+		id = "assets/data/borrar/level_2_old.tmx";
+		path.set (id, id);
+		
+		type.set (id, AssetType.TEXT);
 		id = "assets/data/borrar/level_boss.tmx";
 		path.set (id, id);
 		
@@ -245,6 +265,14 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		type.set (id, AssetType.IMAGE);
 		id = "assets/images/bubble.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/canon.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/canonball.png";
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
@@ -366,6 +394,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		var useManifest = false;
 		
+		className.set ("assets/data/borrar/level_1_old.tmx", __ASSET__assets_data_borrar_level_1_old_tmx);
+		type.set ("assets/data/borrar/level_1_old.tmx", AssetType.TEXT);
+		
+		className.set ("assets/data/borrar/level_2_old.tmx", __ASSET__assets_data_borrar_level_2_old_tmx);
+		type.set ("assets/data/borrar/level_2_old.tmx", AssetType.TEXT);
+		
 		className.set ("assets/data/borrar/level_boss.tmx", __ASSET__assets_data_borrar_level_boss_tmx);
 		type.set ("assets/data/borrar/level_boss.tmx", AssetType.TEXT);
 		
@@ -413,6 +447,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("assets/images/bubble.png", __ASSET__assets_images_bubble_png);
 		type.set ("assets/images/bubble.png", AssetType.IMAGE);
+		
+		className.set ("assets/images/canon.png", __ASSET__assets_images_canon_png);
+		type.set ("assets/images/canon.png", AssetType.IMAGE);
+		
+		className.set ("assets/images/canonball.png", __ASSET__assets_images_canonball_png);
+		type.set ("assets/images/canonball.png", AssetType.IMAGE);
 		
 		className.set ("assets/images/cloud.png", __ASSET__assets_images_cloud_png);
 		type.set ("assets/images/cloud.png", AssetType.IMAGE);
@@ -1133,6 +1173,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 #if !display
 #if flash
 
+@:keep @:bind #if display private #end class __ASSET__assets_data_borrar_level_1_old_tmx extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_borrar_level_2_old_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_borrar_level_boss_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_borrar_room_02_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_borrar_room_boss_v1_tmx extends flash.utils.ByteArray { }
@@ -1149,6 +1191,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_images_boss_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_brick_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_bubble_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_images_canon_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_images_canonball_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_cloud_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_coin_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_coininbrick_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1215,6 +1259,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
+
+
 @:keep #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends lime.text.Font { public function new () { super (); name = "Nokia Cellphone FC Small"; } } 
 @:keep #if display private #end class __ASSET__flixel_fonts_monsterrat_ttf extends lime.text.Font { public function new () { super (); name = "Monsterrat"; } } 
 
@@ -1228,6 +1276,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 #if (windows || mac || linux || cpp)
 
 
+@:file("assets/data/borrar/level_1_old.tmx") #if display private #end class __ASSET__assets_data_borrar_level_1_old_tmx extends lime.utils.Bytes {}
+@:file("assets/data/borrar/level_2_old.tmx") #if display private #end class __ASSET__assets_data_borrar_level_2_old_tmx extends lime.utils.Bytes {}
 @:file("assets/data/borrar/level_boss.tmx") #if display private #end class __ASSET__assets_data_borrar_level_boss_tmx extends lime.utils.Bytes {}
 @:file("assets/data/borrar/room-02.tmx") #if display private #end class __ASSET__assets_data_borrar_room_02_tmx extends lime.utils.Bytes {}
 @:file("assets/data/borrar/room-boss-v1.tmx") #if display private #end class __ASSET__assets_data_borrar_room_boss_v1_tmx extends lime.utils.Bytes {}
@@ -1244,6 +1294,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/images/boss.png") #if display private #end class __ASSET__assets_images_boss_png extends lime.graphics.Image {}
 @:image("assets/images/brick.png") #if display private #end class __ASSET__assets_images_brick_png extends lime.graphics.Image {}
 @:image("assets/images/bubble.png") #if display private #end class __ASSET__assets_images_bubble_png extends lime.graphics.Image {}
+@:image("assets/images/canon.png") #if display private #end class __ASSET__assets_images_canon_png extends lime.graphics.Image {}
+@:image("assets/images/canonball.png") #if display private #end class __ASSET__assets_images_canonball_png extends lime.graphics.Image {}
 @:image("assets/images/cloud.png") #if display private #end class __ASSET__assets_images_cloud_png extends lime.graphics.Image {}
 @:image("assets/images/coin.png") #if display private #end class __ASSET__assets_images_coin_png extends lime.graphics.Image {}
 @:image("assets/images/coinInBrick.png") #if display private #end class __ASSET__assets_images_coininbrick_png extends lime.graphics.Image {}

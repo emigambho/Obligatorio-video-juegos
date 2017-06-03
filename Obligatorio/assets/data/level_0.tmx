@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="16" tileheight="16" nextobjectid="21">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="15" tilewidth="16" tileheight="16" nextobjectid="45">
  <tileset firstgid="1" name="bloques" tilewidth="16" tileheight="16" tilecount="40" columns="8">
   <image source="../images/tilesheet.png" width="128" height="80"/>
  </tileset>
- <layer name="Background" width="40" height="40">
+ <layer name="PipeLayer" width="40" height="15">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -19,64 +19,168 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,26,27,0,0,0,0,0,0,0,0,0,0,0,26,27,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,29,0,0,0,0,0,0,0,0,0,0,0,28,29,0,0,0,26,27,
-0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,28,29,0,0,0,0,0,0,0,0,0,0,0,28,29,0,0,0,28,29,
-1,2,3,0,4,5,7,0,0,0,0,0,0,0,0,1,2,3,0,0,28,29,0,0,0,0,0,0,0,0,0,0,0,28,29,0,0,0,28,29,
-25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,
-25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer name="Background" width="40" height="15">
+  <data encoding="csv">
+36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,0,0,0,0,0,0,0,36,36,36,36,0,0,0,36,36,36,36,36,36,36,0,0,0,0,0,0,0,36,36,36,36,36,36,36,36,0,0,0,
+36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,1,2,3,4,5,7,0,0,0,0,0,0,0,0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+36,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,
+36,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25
 </data>
  </layer>
  <objectgroup name="GameObjects">
-  <object id="1" type="Player" x="53.75" y="597.333" width="6" height="6"/>
-  <object id="4" type="Mushroom" x="229" y="531.25" width="6" height="6"/>
-  <object id="7" type="Tortoise" x="452" y="597" width="6" height="6"/>
-  <object id="8" type="Bonus" x="132" y="548.5" width="6" height="6"/>
-  <object id="9" type="Brick" x="179.5" y="549.25" width="6" height="6">
+  <object id="1" type="Player" x="101.25" y="196.833" width="6" height="6"/>
+  <object id="9" type="Brick" x="515.5" y="148.75" width="6" height="6">
    <properties>
-    <property name="ItemType" type="int" value="1"/>
-    <property name="cantItems" type="int" value="2"/>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
    </properties>
   </object>
-  <object id="10" type="Brick" x="212.25" y="548" width="6" height="6">
+  <object id="10" type="Brick" x="548.25" y="147.5" width="6" height="6">
    <properties>
-    <property name="ItemType" type="int" value="2"/>
-    <property name="cantItems" type="int" value="3"/>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
    </properties>
   </object>
-  <object id="11" type="Brick" x="244.75" y="548.5" width="6" height="6">
+  <object id="11" type="Brick" x="580.75" y="148" width="6" height="6">
    <properties>
-    <property name="ItemType" type="int" value="2"/>
-    <property name="cantItems" type="int" value="2"/>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
    </properties>
   </object>
-  <object id="12" type="Coin" x="197" y="596.25" width="6" height="6"/>
-  <object id="13" type="Coin" x="227" y="596.5" width="6" height="6"/>
-  <object id="14" type="Coin" x="261" y="597" width="6" height="6"/>
-  <object id="15" type="Bonus" x="196.5" y="548" width="6" height="6"/>
-  <object id="16" type="Bonus" x="227.5" y="549.25" width="6" height="6"/>
-  <object id="17" type="Bonus" x="212" y="486" width="6" height="6"/>
-  <object id="18" type="Flower" x="614" y="565.25" width="4.5" height="5.25"/>
-  <object id="20" type="Door" x="532.167" y="532.667" width="6" height="6"/>
+  <object id="21" type="Brick" x="531.5" y="148.5" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="22" type="Brick" x="565.5" y="149" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="23" type="Brick" x="502" y="150" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="24" type="Brick" x="485.5" y="148.5" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="25" type="Brick" x="468" y="148.5" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="26" type="Brick" x="133" y="149" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="27" type="Mushroom" x="580.5" y="133" width="6" height="6"/>
+  <object id="30" type="Brick" x="148" y="149" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="31" type="Brick" x="163.5" y="149" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="32" type="Brick" x="180" y="149" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="33" type="Brick" x="259" y="149" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="2"/>
+    <property name="cantItems" value="1"/>
+   </properties>
+  </object>
+  <object id="34" type="Brick" x="291" y="149" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="35" type="Brick" x="274.5" y="149" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="36" type="Brick" x="244" y="149" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="37" type="Brick" x="324" y="149" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="38" type="Brick" x="340.5" y="149" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="39" type="Brick" x="308.5" y="149" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="40" type="Coin" x="116.5" y="132.5" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="41" type="Coin" x="149" y="132.5" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="42" type="Coin" x="165" y="133.5" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="43" type="Coin" x="180" y="133" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

@@ -20,13 +20,29 @@ class MenuState extends FlxState
 		var _btnPlay:FlxButton = new FlxButton(37, 50, "Play Mario", clickPlay);
 		add(_btnPlay);
 		
-		var btnLevel2:FlxButton = new FlxButton(130, 50, "Sea level", 
+		var btnLevel0:FlxButton = new FlxButton(130, 50, "Level 0", 
+			function () {  
+				GGD.levelName = "level_00";
+				FlxG.switchState(new PlayStateMario());			
+			}
+		);
+		add(btnLevel0);
+		
+		var btnLevel2:FlxButton = new FlxButton(130, 80, "Level 2", 
 			function () {  
 				GGD.levelName = "level_02";
 				FlxG.switchState(new PlayStateMario());			
 			}
 		);
-		add(btnLevel2);		
+		add(btnLevel2);
+		
+		var btnLevel3:FlxButton = new FlxButton(130, 110, "Level 3", 
+			function () {  
+				GGD.levelName = "level_03";
+				FlxG.switchState(new PlayStateMario());			
+			}
+		);
+		add(btnLevel3);		
 		
 		var _btnMiniGames:FlxButton = new FlxButton(37, 80, "Mini Juegos", clickMiniGames);
 		add(_btnMiniGames);

@@ -1,6 +1,7 @@
 package gameObjects.level;
 
 import enums.BlockType;
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxAssets.FlxGraphicAsset;
@@ -18,6 +19,9 @@ class Block extends FlxSprite
 
 	public function new(aX:Float, aY:Float, aCantItems:Int, aItemFactory:ItemFactory, aItemType:ItemType, aDelayedItemDeploy:Bool, aBlockType:BlockType)
 	{
+		aX += 2;
+		aY += 1;
+		
 		super(aX, aY);
 
 		immovable = true;
@@ -38,6 +42,9 @@ class Block extends FlxSprite
 			animation.add("empty", [3]);
 			animation.play("idle");
 		}
+		
+		setSize(12, 16);
+		offset.set(2, 1);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -64,7 +71,7 @@ class Block extends FlxSprite
 	}
 
 	public function hit():Void
-	{
+	{		
 		_velocity = -200;
 		_acceleration = 1700;
 

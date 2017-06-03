@@ -10,6 +10,9 @@ class Hammer extends FlxSprite implements Projectile
 	static inline var GRAVITY:Int = 600;
 	static inline var Y_SPEED:Float = 300;
 	static inline var X_SPEED:Float = 100;
+	static inline var TIME_LIFE:Float = 2;
+
+	var timer:Float;
 
 	public function new()
 	{
@@ -28,7 +31,9 @@ class Hammer extends FlxSprite implements Projectile
 
 	override public function update(elapsed:Float):Void
 	{
-		if (y > 240)
+		timer -= elapsed;
+
+		if (timer <= 0)
 		{
 			kill();
 		}
@@ -41,12 +46,13 @@ class Hammer extends FlxSprite implements Projectile
 	public function shoot(aX:Float, aY:Float, directionX: Float, directionY:Float):Void
 	{
 		reset(aX, aY);
-		
+
 		if (directionX >= 0)
 		{
 			directionX = 1;
 			facing = FlxObject.RIGHT;
-		}else
+		}
+		else
 		{
 			directionX = -1;
 			facing = FlxObject.LEFT;
@@ -57,6 +63,7 @@ class Hammer extends FlxSprite implements Projectile
 		acceleration.y = GRAVITY;
 
 		animation.play("spin");
+		timer = TIME_LIFE;
 	}
 
 	public function touchThePlayer(aPlayer:Player):Void

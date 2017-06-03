@@ -55,9 +55,5 @@ class Fish extends FlxSprite implements Enemy
 		aPlayer.death();
 	}
 	
-	public function burnedByLava():Void 
-	{
-		throw "not implemented";
-	}
-
+	
 }
