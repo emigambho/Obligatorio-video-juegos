@@ -186,7 +186,14 @@ class Boss extends FlxSprite implements Enemy
 	{
 		return enemyFactory = value;
 	}
-	
+
+	public function burnedByLava() 
+	{
+		if (animation.curAnim.name == "smash")
+		{
+			damage();
+		}		
+	}	
 	
 	/* INTERFACE interfaces.Enemy */
 	
@@ -204,11 +211,4 @@ class Boss extends FlxSprite implements Enemy
 		brain.activeState = onHoldState;
 	}
 	
-	public function burnedByLava() 
-	{
-		if (animation.curAnim.name == "smash")
-		{
-			damage();
-		}		
-	}
 }

@@ -6,8 +6,9 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 import helpers.FiniteStateMachine;
 import GlobalGameData;
 import interfaces.Enemy;
+import interfaces.InteractWithBlocks;
 
-class Tortoise extends FlxSprite implements Enemy
+class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 {
 	static inline var GRAVITY:Int = 400;
 	static inline var SPEED:Float = 45;
@@ -68,16 +69,13 @@ class Tortoise extends FlxSprite implements Enemy
 		super.update(elapsed);
 	}
 
-	private function hit()
+	public function hit()
 	{
-		GGD.addPoints(x +2, y -8, 500);
-
 		if ( animation.curAnim.name == 'fly')
 		{
 			velocity.y = 0;
 			animation.play("walk");
 			brain.activeState = walkState;
-
 		}
 		else if (animation.curAnim.name == 'walk' || animation.curAnim.name == "slide")
 		{
@@ -190,8 +188,9 @@ class Tortoise extends FlxSprite implements Enemy
 			{
 				if (belowThePlayer)
 				{
-					hit();
+					hit();					
 					aPlayer.bounce();
+					GGD.addPoints(x +2, y -8, 500);
 				}
 				else
 				{
@@ -212,9 +211,12 @@ class Tortoise extends FlxSprite implements Enemy
 		}
 	}
 	
-	public function burnedByLava() 
+	
+	/* INTERFACE interfaces.InteractWithBlocks */
+	
+	public function hitByBlock(blockPosition:Int):Void 
 	{
-		trace("Falta");
+		
 	}
 
 }

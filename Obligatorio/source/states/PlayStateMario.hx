@@ -17,6 +17,7 @@ import gameObjects.Bubble;
 import gameObjects.enemies.Boss;
 import gameObjects.enemies.EnemyFactory;
 import gameObjects.enemies.EnemyToLoad;
+import gameObjects.enemies.Tortoise;
 import gameObjects.items.ItemFactory;
 import gameObjects.level.Block;
 import gameObjects.Player;
@@ -26,13 +27,17 @@ import gameObjects.HUD;
 import gameObjects.level.Flag;
 import gameObjects.level.Lava;
 import gameObjects.level.LevelInitialization;
+import gameObjects.projectiles.Hammer;
+import gameObjects.projectiles.ProjectileFactory;
+import helpers.Helper;
 import interfaces.Enemy;
+import interfaces.InteractWithBlocks;
 import interfaces.Item;
 
 class PlayStateMario extends FlxState
 {
 	static private inline var PRE_LOAD_WIDTH:Float = 40;
-	
+
 	var player:Player;
 	var grpBlock:FlxTypedGroup<Block>;
 	var grpDoor:FlxTypedGroup<Door>;
@@ -41,15 +46,16 @@ class PlayStateMario extends FlxState
 	var grpLava:FlxTypedGroup<Lava>;
 
 	var itemFactory: ItemFactory;
+	var projectileFactory: ProjectileFactory;
 	var enemyFactory: EnemyFactory;
 
 	var level:LevelInitialization;
 	var flag:FlxSprite;
-	
+
 	override public function create():Void
 	{
 		level = new LevelInitialization(this, GGD.levelName);
-		
+
 		grpBlock = new FlxTypedGroup<Block>();
 		grpDoor = new FlxTypedGroup<Door>();
 		grpBubble = new FlxTypedGroup<Bubble>();
@@ -57,31 +63,44 @@ class PlayStateMario extends FlxState
 
 		player = new Player(level.isSea, grpBubble);
 		GGD.player = player;
-		
+
+		projectileFactory = new ProjectileFactory(this);
+		GGD.projectileFactory = projectileFactory;
+
 		enemyFactory = new EnemyFactory(this);
 		itemFactory = new ItemFactory(this);
-		
+
 		level.addPipelines();
-		
+
 		add(grpBlock);
 		add(grpDoor);
 		add(grpLava);
-		
-		if (level.isSea){
+
+		if (level.isSea)
+		{
 			add(grpBubble);
-		}		
+		}
 
 		placeEntities();
 
 		add(player);
-		add(GGD.hud);		
-
-		FlxG.camera.follow(player, FlxCameraFollowStyle.PLATFORMER);
-		FlxG.camera.bgColor = FlxColor.fromRGB(146, 144, 255);
-		FlxG.mouse.visible = false;
-		super.create();
+		add(GGD.hud);
+		
+		cameraInit();
 		
 		loadEnemies(FlxG.camera.width);		
+
+		super.create();
+	}
+	
+	inline function cameraInit()
+	{
+		FlxG.camera.follow(player, FlxCameraFollowStyle.PLATFORMER);
+		FlxG.camera.bgColor = FlxColor.fromRGB(146, 144, 255);
+		FlxG.mouse.visible = false;		
+
+		// En la parte izquierda del nivel hay una pared para que el jugador no se caiga, no dejo que se vea esa pared.
+		FlxG.camera.setScrollBoundsRect(16, 0, level.tileMap.width-16, level.tileMap.height, true);		
 	}
 
 	override public function destroy():Void
@@ -89,15 +108,15 @@ class PlayStateMario extends FlxState
 		GGD.clear();
 		super.destroy();
 	}
-	
+
 	function placeEntities()
 	{
 		grpEnemiesToLoad = new List<EnemyToLoad>();
-		
+
 		for (entity in level.entities)
 		{
 			placeEntity(entity);
-		}		
+		}
 	}
 
 	function placeEntity(entity:TiledObject)
@@ -120,14 +139,18 @@ class PlayStateMario extends FlxState
 				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.MUSHROOM, x, y));
 
 			case "Tortoise":
-				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.TORTOISE, x, y-7));
+				var isWalking:Int = Std.parseInt(entity.properties.get("IsWalking"));
+				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.TORTOISE, x, y - 7));
+
+			case "TortoiseHammer":
+				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.TORTOISE_HAMMER, x, y-8));
 
 			case "Flower":
 				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.FLOWER, x + 8, y));
-				
+
 			case 'Fish':
 				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.FISH, x, y));
-				
+
 			case 'Octopus':
 				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.OCTOPUS, x, y));
 
@@ -142,14 +165,14 @@ class PlayStateMario extends FlxState
 
 			case "Door":
 				grpDoor.add(new Door(x, y));
-				
+
 			case "Boss":
 				var boss:Boss =  cast(enemyFactory.spawn(x, y, EnemyType.BOSS), Boss);
 				boss.emitter = createEmitter();
 				boss.enemyFactory = enemyFactory;
-				
+
 			case "Lava":
-				grpLava.add(new Lava(x, y +4));				
+				grpLava.add(new Lava(x, y +4));
 			case "Flag":
 				flag = new Flag(x, y);
 				add(flag);
@@ -166,8 +189,8 @@ class PlayStateMario extends FlxState
 				grpEnemiesToLoad.remove(enemy);
 			}
 		}
-	}	
-	
+	}
+
 	function createAndAddBlock(x:Int, y:Int, entity:TiledObject)
 	{
 		var cantItems:Int = Std.parseInt(entity.properties.get("cantItems"));
@@ -203,46 +226,61 @@ class PlayStateMario extends FlxState
 		var block:Block = new Block(x, y, cantItems, itemFactory, itemType, delayedItemDeploy, aBlockType);
 		grpBlock.add(block);
 	}
-
+	
 	override public function update(elapsed:Float):Void
 	{
+		if (FlxG.keys.pressed.R)
+		{
+			FlxG.resetState();
+		}
+		
 		if (player.alive)
 		{
 			FlxG.collide(player, level.tileMap);
-			FlxG.collide(player, grpBlock, playerVsBlock);			
+			FlxG.overlap(player, grpBlock, playerVsBlock);
 			FlxG.overlap(player, enemyFactory.grpEnemies, playerVsEnemy);
 			FlxG.overlap(player, itemFactory.grpItems, playerVsItem);
 			FlxG.overlap(player, grpDoor, playerVsDoor);
 			FlxG.overlap(player, grpLava, playerVsLava);
-			
-			if(flag!= null){
+
+			if (flag!= null)
+			{
 				FlxG.overlap(player, flag, playerVsFlag);
 			}
 		}
 
 		FlxG.collide(grpBubble, level.tileMap);
-		FlxG.overlap(enemyFactory.grpEnemies, grpLava, enemyVsLava);
 		FlxG.collide(enemyFactory.grpEnemiesApplyPhysics, level.tileMap);
-		FlxG.collide(enemyFactory.grpEnemiesApplyPhysics, grpBlock);
 		FlxG.collide(itemFactory.grpItemsApplyPhysics, level.tileMap);
-		FlxG.collide(itemFactory.grpItemsApplyPhysics, grpBlock);
+
+		FlxG.overlap(grpBlock, enemyFactory.grpEnemies, blockOverlap);
+		FlxG.overlap(grpBlock, itemFactory.grpItems, blockOverlap);
+		FlxG.overlap(enemyFactory.grpEnemies, grpLava, enemyVsLava);
+		//FlxG.collide(itemFactory.grpItemsApplyPhysics, grpBlock);
 
 		loadEnemies(Std.int(FlxG.camera.scroll.x + FlxG.camera.width + PRE_LOAD_WIDTH));
-		
+
 		super.update(elapsed);
 	}
-	
+
 	function playerVsFlag(aPlayer:Player, aFlag:Flag)
 	{
 		aPlayer.grabTheFlag(aFlag);
 		aFlag.playerGrab(aPlayer);
 	}
-	
-	function enemyVsLava(aEnemy:Enemy, aLava:Lava) 
+
+	function enemyVsLava(aEnemy:Enemy, aLava:Lava)
 	{
-		aEnemy.burnedByLava();
-	}	
-	
+		//aEnemy.burnedByLava();
+	}
+
+	function blockOverlap(aBlock:Block, aOther:FlxSprite)
+	{
+		var blockPosition:Int = Helper.getRelativePosition(aOther, aBlock);		
+		
+		cast(aOther, InteractWithBlocks).hitByBlock(blockPosition);
+	}
+
 	function playerVsEnemy(aPlayer:Player, aEnemy:Enemy)
 	{
 		aEnemy.touchThePlayer(aPlayer);
@@ -256,7 +294,7 @@ class PlayStateMario extends FlxState
 	function playerVsLava(aPlayer:Player, aLava:Lava)
 	{
 		aPlayer.death();
-	}	
+	}
 
 	function playerVsDoor(aPlayer:Player, aDoor:Door)
 	{
@@ -271,19 +309,15 @@ class PlayStateMario extends FlxState
 
 	function playerVsBlock(aPlayer:Player, aBrick:Block):Void
 	{
-		// La condición valida si el player esta debajo del bloque
-		if (aPlayer.y >= (aBrick.y +aBrick.height) && aPlayer.velocity.y == 0)
-		{
-			aBrick.hit();
-		}
+		aBrick.hit();
 	}
-	
-	function createEmitter():FlxEmitter 
+
+	function createEmitter():FlxEmitter
 	{
 		var emitter:FlxEmitter = new FlxEmitter(0, 0);
 		emitter.lifespan.min = 0.4;
 		emitter.lifespan.max = 0.4;
-		
+
 		for (i in 0 ... 15)
 		{
 			var p = new FlxParticle();
@@ -291,9 +325,9 @@ class PlayStateMario extends FlxState
 			p.exists = false;
 			emitter.add(p);
 		}
-		
+
 		add(emitter);
-		
+
 		return emitter;
-	}	
+	}
 }

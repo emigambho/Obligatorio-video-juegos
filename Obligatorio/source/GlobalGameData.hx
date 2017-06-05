@@ -3,6 +3,7 @@ package;
 import gameObjects.HUD;
 import gameObjects.Player;
 import gameObjects.level.LevelInitialization;
+import gameObjects.projectiles.ProjectileFactory;
 
 typedef GGD = GlobalGameData;
 class GlobalGameData
@@ -12,6 +13,8 @@ class GlobalGameData
 	public static var hud(get, null):HUD;
 	//public static var player(get, null):Player;
 	public static var player:Player;
+	
+	public static var projectileFactory:ProjectileFactory;
 
 	public static var levelName:String;
 	
@@ -36,6 +39,7 @@ class GlobalGameData
 	{
 		hud = null;
 		player = null;
+		projectileFactory = null;
 	}	
 	
 	static function get_hud():HUD 

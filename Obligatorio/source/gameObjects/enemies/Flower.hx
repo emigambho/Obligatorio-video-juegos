@@ -7,6 +7,8 @@ import interfaces.Enemy;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import helpers.FiniteStateMachine.FSM;
+import GlobalGameData;
+import gameObjects.projectiles.ProjectileFactory.ProjectileType;
 
 class Flower extends FlxSprite implements Enemy
 {
@@ -41,9 +43,22 @@ class Flower extends FlxSprite implements Enemy
 
 		if (y < yFinal)
 		{
+			shootFireball();
+			
 			waitTime = WAIT_TIME_OUTSIDE;
 			brain.activeState = waitUp;
 		}
+	}
+	
+	inline function shootFireball() 
+	{
+		var deltaX:Float = (GGD.player.x + GGD.player.width/2) -x;
+		var deltaY:Float = (GGD.player.y + GGD.player.height / 2) -y;
+		var length:Float = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+		deltaX /= length;
+		deltaY /= length;
+		
+		GGD.projectileFactory.shoot(x, y, deltaX, deltaY, ProjectileType.FIREBALL);
 	}
 
 	public function waitUp(elapsed:Float):Void
@@ -96,8 +111,5 @@ class Flower extends FlxSprite implements Enemy
 		brain.activeState = upState;
 	}
 	
-	public function burnedByLava() 
-	{
-		throw "Not implemented";
-	}
+
 }
