@@ -264,7 +264,7 @@ class PlayStateMario extends FlxState
 		{
 			FlxG.camera.fade(FlxColor.BLACK,.33, false, function()
 			{
-				FlxG.switchState(new PlayStateBall());
+				FlxG.switchState(new PlayStateMiniGames());
 			});
 		}
 	}

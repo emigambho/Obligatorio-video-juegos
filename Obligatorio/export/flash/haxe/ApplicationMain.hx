@@ -62,6 +62,10 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
+		urls.push ("assets/data/room-ball-2.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
 		urls.push ("assets/images/Ball.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
@@ -247,7 +251,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "1583",
+			build: "1584",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,
