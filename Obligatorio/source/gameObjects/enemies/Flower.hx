@@ -94,13 +94,8 @@ class Flower extends FlxSprite implements Enemy
 	
 	
 	/* INTERFACE interfaces.Enemy */
-	
-	public function touchThePlayer(aPlayer:Player):Void 
-	{
-		aPlayer.death();
-	}
-	
-	public function spawn(aX:Float, aY:Float):Void 
+
+	public function spawn(aX:Float, aY:Float, spawnMode:SpawnMode):Void 
 	{
 		reset(aX, aY);
 		
@@ -109,7 +104,11 @@ class Flower extends FlxSprite implements Enemy
 		yInitial = aY;
 		yFinal = yInitial - height + 1;
 		brain.activeState = upState;
+	}	
+	
+	public function touchThePlayer(aPlayer:Player):Void 
+	{
+		aPlayer.death();
 	}
 	
-
 }

@@ -41,7 +41,7 @@ class Fish extends FlxSprite implements Enemy
 	
 	/* INTERFACE interfaces.Enemy */
 	
-	public function spawn(aX:Float, aY:Float)
+	public function spawn(aX:Float, aY:Float, spawnMode:SpawnMode)
 	{
 		reset(aX, aY);
 

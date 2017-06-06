@@ -5,10 +5,12 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import flixel.util.FlxColor;
 import gameObjects.Bubble;
 import gameObjects.level.Flag;
 import haxe.Timer;
 import helpers.FiniteStateMachine.FSM;
+import GlobalGameData;
 
 class Player extends FlxSprite
 {
@@ -16,7 +18,7 @@ class Player extends FlxSprite
 	static inline var MAXIMUM_BUBBLE_TIME:Float = 1.5;	
 	static inline var CINEMATIC_SPEED:Float = 80;
 	static inline var Y_FLOOR:Float = 208;
-	static inline var X_EXIT_DOOR:Float = 2292;
+	static inline var X_EXIT_DOOR:Float = 3888;
 	
 	var runSpeed:Int;
 	var jumpSpeed:Int;
@@ -26,6 +28,7 @@ class Player extends FlxSprite
 	var bubbleTime:Float = 0;
 	var grpBubble:FlxTypedGroup<Bubble>;
 	
+	var timer:Float;
 	var brain:FSM;
 
 	public function new(aIsSeaLevel:Bool, aGrpBubble:FlxTypedGroup<Bubble>)
@@ -110,11 +113,6 @@ class Player extends FlxSprite
 				velocity.y = -jumpSpeed;
 			}
 
-			//if (FlxG.keys.anyJustReleased([SPACE, UP, W]))
-			//{
-			//velocity.y = Math.max(velocity.y, -JUMP_SPEED/3);
-			//}
-
 			playAnimation();
 		}		
 	}
@@ -137,11 +135,18 @@ class Player extends FlxSprite
 		if (x >= X_EXIT_DOOR){
 			// Llegue a la puerta, desaparezco.
 			x = X_EXIT_DOOR;
-			animation.play("idle");
-			acceleration.set();
-			velocity.set();			
-			Timer.delay(this.kill, 300);			
+			brain.activeState = waitState;
+			
+			// Dejo que se vea el jugador un instante.			
+			Timer.delay(GGD.nextLevel, 300);
 		}
+	}
+	
+	function waitState(elapsed:Float):Void
+	{	
+		animation.play("idle");
+		acceleration.set();
+		velocity.set();		
 	}
 	
 	public function grabTheFlag(aFlag:Flag)
@@ -235,7 +240,5 @@ class Player extends FlxSprite
 	{
 		acceleration.y = gravity;
 		velocity.y = -jumpSpeed;
-
-		//Timer.delay( function() { FlxG.resetState(); }, 1000);
 	}
 }

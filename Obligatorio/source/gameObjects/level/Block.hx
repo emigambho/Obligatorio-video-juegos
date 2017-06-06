@@ -16,6 +16,7 @@ class Block extends FlxSprite
 	var cantItems :Int;
 	var itemFactory:ItemFactory;
 	var itemType:ItemType;
+	var blockType:BlockType;
 
 	public function new(aX:Float, aY:Float, aCantItems:Int, aItemFactory:ItemFactory, aItemType:ItemType, aDelayedItemDeploy:Bool, aBlockType:BlockType)
 	{
@@ -30,21 +31,22 @@ class Block extends FlxSprite
 		itemFactory = aItemFactory;
 		itemType = aItemType;
 		delayedItemDeploy = aDelayedItemDeploy;
+		blockType = aBlockType;
 		
 		if (aBlockType == BlockType.BRICK)
 		{
-			loadGraphic(AssetPaths.brick__png, false, 16, 16);
+			loadGraphic(AssetPaths.brick__png, true, 16, 16);
 		}
 		else
 		{
 			loadGraphic(AssetPaths.bonus__png, true, 16, 16);
-			animation.add("idle", [0, 1, 2, 1], 5, true);
+			animation.add("full", [0, 1, 2, 1], 5, true);
 			animation.add("empty", [3]);
-			animation.play("idle");
+			animation.play("full");	
 		}
 		
-		setSize(12, 16);
-		offset.set(2, 1);
+		setSize(14, 16);
+		offset.set(1, 1);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -85,6 +87,11 @@ class Block extends FlxSprite
 	{
 		cantItems--;
 		itemFactory.deployItem(x, y, itemType, DeployType.FROM_BLOCK);
+		
+		if (blockType == BlockType.BONUS && cantItems == 0)
+		{
+			animation.play("empty");				
+		}
 	}
 
 }

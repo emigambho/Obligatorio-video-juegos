@@ -20,22 +20,24 @@ class LevelInitialization
 
 	public var isSea:Bool = false;
 
-	public function new(aState:FlxState, levelName:String)
+	public function new(aState:FlxState, nroLevel:Int)
 	{
 		state = aState;
 
 		tileMap = new FlxTilemap();
 
-		switch levelName
+		switch nroLevel
 		{
-			case 'level_00':
-				level00();
-			case 'level_01':
-				level01();
-			case 'level_02':
-				level02();
-			case 'level_boss':
-				levelBoss();
+			case 0:
+				level_0();
+			case 1:
+				level_1();
+			case 2:
+				level_2();
+			case 3:
+				level_3();
+			case 4:
+				level_4();
 			default:
 				throw "Invalid level";
 		}
@@ -52,7 +54,7 @@ class LevelInitialization
 		}
 	}
 	
-	function level00()
+	function level_0()
 	{
 		addMountainBackground();
 
@@ -61,7 +63,7 @@ class LevelInitialization
 		loadFromTiled(AssetPaths.level_0__tmx);
 	}	
 
-	function level01()
+	function level_1()
 	{
 		addMountainBackground();
 
@@ -70,14 +72,24 @@ class LevelInitialization
 		loadFromTiled(AssetPaths.level_1__tmx);
 	}
 
-	function level02()
+	function level_2()
 	{
 		isSea = true;
+		hasPipes = true;
 
 		loadFromTiled(AssetPaths.level_2__tmx);
 	}
+	
+	function level_3()
+	{
+		addMountainBackground();
+	
+		hasPipes = true;
 
-	function levelBoss()
+		//loadFromTiled(AssetPaths.level_1__tmx);		
+	}
+
+	function level_4()
 	{
 		addDirtBackground();
 

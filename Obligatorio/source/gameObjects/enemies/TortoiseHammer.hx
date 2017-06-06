@@ -3,28 +3,25 @@ package gameObjects.enemies;
 import flash.geom.Point;
 import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.system.FlxAssets.FlxGraphicAsset;
 import gameObjects.Player;
-import gameObjects.projectiles.Hammer;
 import gameObjects.projectiles.ProjectileFactory.ProjectileType;
 import helpers.FiniteStateMachine.FSM;
-import helpers.path.Linear;
-import helpers.path.PathWalker;
 import interfaces.Enemy;
+import interfaces.InteractWithBlocks;
 import GlobalGameData;
 
-class TortoiseHammer extends FlxSprite implements Enemy
+class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithBlocks
 {
-	static private inline var TIME_BETWEEN_THROWING:Float = 1.1;
-	static private inline var TIME_THROWING:Float = .15;
+	static inline var TIME_BETWEEN_CHANGES_DIRECTION = .8;
+	static inline var TIME_BETWEEN_THROWING:Float = 1;
+	static inline var TIME_THROWING:Float = .15;
+	static inline var GRAVITY:Int = 560;
+	static inline var WALK_SPEED:Int = 35;
 	
-	var start:Point = new Point();
-	var end:Point = new Point();
-	var myPath:Linear;	
-	var pathWalker:PathWalker;
-
+	var timerChangeDirection:Float;
 	var timer:Float;
-	var brain:FSM;
+	var frameWithBlockImmunity:Int = 0;
+	var brain:FSM;	
 	
 	public function new()
 	{
@@ -38,9 +35,6 @@ class TortoiseHammer extends FlxSprite implements Enemy
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		
-		myPath = new Linear(start, end);
-		pathWalker = new PathWalker(myPath, .9, PlayMode.Pong);
-		
 		brain = new FSM();
 		
 		setSize(14, 24);
@@ -49,6 +43,11 @@ class TortoiseHammer extends FlxSprite implements Enemy
 	
 	override public function update(elapsed:Float):Void
 	{
+		if (frameWithBlockImmunity > 0)
+		{
+			frameWithBlockImmunity--;
+		}		
+		
 		brain.update(elapsed);
 		super.update(elapsed);
 	}	
@@ -65,6 +64,31 @@ class TortoiseHammer extends FlxSprite implements Enemy
 			timer = TIME_THROWING;
 			brain.activeState = throwingState;
 		}
+	}
+	
+	inline function move(elapsed:Float)
+	{
+		timerChangeDirection -= elapsed;
+		
+		if (timerChangeDirection <= 0)
+		{
+			changeDirection();
+		}		
+		
+		if (GGD.player.x >= x)
+		{
+			facing = FlxObject.RIGHT;
+		}
+		else
+		{
+			facing = FlxObject.LEFT;
+		}
+	}
+	
+	inline function changeDirection()
+	{
+		timerChangeDirection = TIME_BETWEEN_CHANGES_DIRECTION;
+		velocity.x *= -1;
 	}
 	
 	function throwingState(elapsed:Float)
@@ -96,20 +120,15 @@ class TortoiseHammer extends FlxSprite implements Enemy
 		}		
 	}
 	
-	inline function move(elapsed:Float)
+	public function deathState(elapsed:Float):Void
 	{
-		pathWalker.update(elapsed);
-		x = pathWalker.x;
-		
-		if (GGD.player.x >= x)
+		timer -= elapsed;
+
+		if (timer <= 0)
 		{
-			facing = FlxObject.RIGHT;
+			kill();
 		}
-		else
-		{
-			facing = FlxObject.LEFT;
-		}
-	}
+	}	
 	
 	function death()
 	{
@@ -117,19 +136,38 @@ class TortoiseHammer extends FlxSprite implements Enemy
 		kill();		
 	}
 	
+	function deathByBlock()
+	{
+		alive = false;
+		acceleration.set(0, GRAVITY);
+		velocity.x *= 2;
+		velocity.y = -100;
+		scale.y = -1;
+		allowCollisions = FlxObject.NONE;
+
+		timer = 1.5;
+		brain.activeState = deathState;
+
+		GGD.addPoints(x +2, y -8, 100);
+	}
+	
 	/* INTERFACE interfaces.Enemy */
 
-	public function spawn(aX:Float, aY:Float)
+	public function spawn(aX:Float, aY:Float, spawnMode:SpawnMode)
 	{
 		reset(aX, aY);
 
+		timerChangeDirection = TIME_BETWEEN_CHANGES_DIRECTION;
+		velocity.x = WALK_SPEED;
+		
 		timer = TIME_BETWEEN_THROWING;
 		brain.activeState = walkState;
 
-		start.setTo(x, y);
-		end.setTo(x+30, y);
-		myPath.set(start, end);
-		pathWalker.reset();
+		frameWithBlockImmunity = 0;
+		//start.setTo(x, y);
+		//end.setTo(x+30, y);
+		//myPath.set(start, end);
+		//pathWalker.reset();
 	}	
 	
 	public function touchThePlayer(aPlayer:Player):Void 
@@ -145,7 +183,28 @@ class TortoiseHammer extends FlxSprite implements Enemy
 			{
 				aPlayer.death();
 			}
-		}	
+		}
+	}
+	
+	
+	/* INTERFACE interfaces.InteractWithBlocks */
+	
+	public function hitByBlock(blockPosition:Int):Void 
+	{
+		if (alive && frameWithBlockImmunity == 0)
+		{
+			frameWithBlockImmunity = 4;
+			
+			if (blockPosition == FlxObject.DOWN)
+			{
+				deathByBlock();
+			}
+
+			if (blockPosition == FlxObject.LEFT || blockPosition == FlxObject.RIGHT)
+			{
+				changeDirection();
+			}
+		}		
 	}
 	
 }

@@ -30,26 +30,6 @@ class ApplicationMain {
 		var types = [];
 		
 		
-		urls.push ("assets/data/borrar/level_1_old.tmx");
-		types.push (lime.Assets.AssetType.TEXT);
-		
-		
-		urls.push ("assets/data/borrar/level_2_old.tmx");
-		types.push (lime.Assets.AssetType.TEXT);
-		
-		
-		urls.push ("assets/data/borrar/level_boss.tmx");
-		types.push (lime.Assets.AssetType.TEXT);
-		
-		
-		urls.push ("assets/data/borrar/room-02.tmx");
-		types.push (lime.Assets.AssetType.TEXT);
-		
-		
-		urls.push ("assets/data/borrar/room-boss-v1.tmx");
-		types.push (lime.Assets.AssetType.TEXT);
-		
-		
 		urls.push ("assets/data/level_0.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
@@ -271,7 +251,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "1866",
+			build: "1964",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,

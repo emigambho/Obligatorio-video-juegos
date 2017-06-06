@@ -22,7 +22,7 @@ class MenuState extends FlxState
 		
 		var btnLevel0:FlxButton = new FlxButton(130, 50, "Level 0", 
 			function () {  
-				GGD.levelName = "level_00";
+				GGD.currentLevel = 0;
 				FlxG.switchState(new PlayStateMario());			
 			}
 		);
@@ -30,15 +30,15 @@ class MenuState extends FlxState
 		
 		var btnLevel2:FlxButton = new FlxButton(130, 80, "Level 2", 
 			function () {  
-				GGD.levelName = "level_02";
-				FlxG.switchState(new PlayStateMario());			
+				GGD.currentLevel = 2;
+				FlxG.switchState(new PlayStateMario());
 			}
 		);
 		add(btnLevel2);
 		
 		var btnLevel3:FlxButton = new FlxButton(130, 110, "Level 3", 
 			function () {  
-				GGD.levelName = "level_03";
+				GGD.currentLevel = 3;
 				FlxG.switchState(new PlayStateMario());			
 			}
 		);
@@ -53,12 +53,12 @@ class MenuState extends FlxState
 		var _btnExit:FlxButton = new FlxButton(37, 140, "Exit", clickExit);
 		add(_btnExit);
 
-		FlxG.camera.bgColor = FlxColor.fromRGB(146, 144, 255);
+		FlxG.mouse.visible = true;
 	}
 
 	private function clickPlay():Void
 	{
-		GGD.levelName = "level_01";
+		GGD.currentLevel = 1;
 		FlxG.switchState(new PlayStateMario());
 	}
 
@@ -69,7 +69,7 @@ class MenuState extends FlxState
 	
 	private function clickBoss():Void
 	{
-		GGD.levelName = "level_boss";
+		GGD.currentLevel = 4;
 		FlxG.switchState(new PlayStateMario());
 	}
 

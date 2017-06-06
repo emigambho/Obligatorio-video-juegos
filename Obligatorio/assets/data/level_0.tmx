@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="15" tilewidth="16" tileheight="16" nextobjectid="45">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="15" tilewidth="16" tileheight="16" nextobjectid="71">
  <tileset firstgid="1" name="bloques" tilewidth="16" tileheight="16" tilecount="40" columns="8">
   <image source="../images/tilesheet.png" width="128" height="80"/>
  </tileset>
@@ -33,7 +33,7 @@
 36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-36,0,0,0,0,0,0,0,36,36,36,36,0,0,0,36,36,36,36,36,36,36,0,0,0,0,0,0,0,36,36,36,36,36,36,36,36,0,0,0,
+36,0,0,0,0,0,0,0,36,36,36,36,0,0,0,0,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,0,0,0,
 36,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 36,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 36,1,2,3,4,5,7,0,0,0,0,0,0,0,0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -97,7 +97,11 @@
     <property name="cantItems" value="0"/>
    </properties>
   </object>
-  <object id="27" type="Mushroom" x="580.5" y="133" width="6" height="6"/>
+  <object id="27" type="Tortoise" x="580.5" y="133" width="6" height="6">
+   <properties>
+    <property name="IsWalking" type="int" value="1"/>
+   </properties>
+  </object>
   <object id="30" type="Brick" x="148" y="149" width="6" height="6">
    <properties>
     <property name="ItemType" value="0"/>
@@ -116,7 +120,7 @@
     <property name="cantItems" value="0"/>
    </properties>
   </object>
-  <object id="33" type="Brick" x="259" y="149" width="6" height="6">
+  <object id="33" type="Brick" x="259.5" y="151" width="6" height="6">
    <properties>
     <property name="ItemType" value="2"/>
     <property name="cantItems" value="1"/>
@@ -128,13 +132,7 @@
     <property name="cantItems" value="0"/>
    </properties>
   </object>
-  <object id="35" type="Brick" x="274.5" y="149" width="6" height="6">
-   <properties>
-    <property name="ItemType" value="0"/>
-    <property name="cantItems" value="0"/>
-   </properties>
-  </object>
-  <object id="36" type="Brick" x="244" y="149" width="6" height="6">
+  <object id="35" type="Brick" x="276.5" y="151" width="6" height="6">
    <properties>
     <property name="ItemType" value="0"/>
     <property name="cantItems" value="0"/>
@@ -158,7 +156,7 @@
     <property name="cantItems" value="0"/>
    </properties>
   </object>
-  <object id="40" type="Coin" x="116.5" y="132.5" width="6" height="6">
+  <object id="40" type="Coin" x="132" y="133.5" width="6" height="6">
    <properties>
     <property name="ItemType" value="0"/>
     <property name="cantItems" value="0"/>
@@ -177,6 +175,48 @@
    </properties>
   </object>
   <object id="43" type="Coin" x="180" y="133" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="58" type="Brick" x="371" y="148" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="59" type="Brick" x="387.5" y="148" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="61" type="Brick" x="437" y="148" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="62" type="Brick" x="355.5" y="148" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="2"/>
+    <property name="cantItems" value="1"/>
+   </properties>
+  </object>
+  <object id="64" type="Brick" x="420.5" y="148" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="65" type="Brick" x="405" y="148" width="6" height="6">
+   <properties>
+    <property name="ItemType" value="0"/>
+    <property name="cantItems" value="0"/>
+   </properties>
+  </object>
+  <object id="70" type="Brick" x="453" y="151" width="6" height="6">
    <properties>
     <property name="ItemType" value="0"/>
     <property name="cantItems" value="0"/>

@@ -62,7 +62,7 @@ class EnemyFactory
 		grpEnemiesApplyPhysics.add(grpBoss);
 	}
 
-	public function spawn(aX:Float, aY:Float, aEnemyType:EnemyType):Enemy
+	public function spawn(aX:Float, aY:Float, aEnemyType:EnemyType, spawnMode:SpawnMode):Enemy
 	{
 		var enemy:Enemy = null;
 
@@ -89,13 +89,13 @@ class EnemyFactory
 				enemy = grpOctopuses.recycle(Octopus);
 		}
 
-		enemy.spawn(aX, aY);
+		enemy.spawn(aX, aY, spawnMode);
 
 		return enemy;
 	}
 	
 	public function spawn2(enemyToLoad:EnemyToLoad):Enemy
 	{	
-		return spawn(enemyToLoad.x, enemyToLoad.y, enemyToLoad.enemyType);
+		return spawn(enemyToLoad.x, enemyToLoad.y, enemyToLoad.enemyType, enemyToLoad.spawnMode);
 	}
 }

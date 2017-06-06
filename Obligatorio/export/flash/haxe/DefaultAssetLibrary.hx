@@ -87,11 +87,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
-		
-		
-		
-		
-		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -101,16 +96,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		#if flash
 		
-		className.set ("assets/data/borrar/level_1_old.tmx", __ASSET__assets_data_borrar_level_1_old_tmx);
-		type.set ("assets/data/borrar/level_1_old.tmx", AssetType.TEXT);
-		className.set ("assets/data/borrar/level_2_old.tmx", __ASSET__assets_data_borrar_level_2_old_tmx);
-		type.set ("assets/data/borrar/level_2_old.tmx", AssetType.TEXT);
-		className.set ("assets/data/borrar/level_boss.tmx", __ASSET__assets_data_borrar_level_boss_tmx);
-		type.set ("assets/data/borrar/level_boss.tmx", AssetType.TEXT);
-		className.set ("assets/data/borrar/room-02.tmx", __ASSET__assets_data_borrar_room_02_tmx);
-		type.set ("assets/data/borrar/room-02.tmx", AssetType.TEXT);
-		className.set ("assets/data/borrar/room-boss-v1.tmx", __ASSET__assets_data_borrar_room_boss_v1_tmx);
-		type.set ("assets/data/borrar/room-boss-v1.tmx", AssetType.TEXT);
 		className.set ("assets/data/level_0.tmx", __ASSET__assets_data_level_0_tmx);
 		type.set ("assets/data/level_0.tmx", AssetType.TEXT);
 		className.set ("assets/data/level_1.tmx", __ASSET__assets_data_level_1_tmx);
@@ -196,26 +181,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#elseif html5
 		
 		var id;
-		id = "assets/data/borrar/level_1_old.tmx";
-		path.set (id, id);
-		
-		type.set (id, AssetType.TEXT);
-		id = "assets/data/borrar/level_2_old.tmx";
-		path.set (id, id);
-		
-		type.set (id, AssetType.TEXT);
-		id = "assets/data/borrar/level_boss.tmx";
-		path.set (id, id);
-		
-		type.set (id, AssetType.TEXT);
-		id = "assets/data/borrar/room-02.tmx";
-		path.set (id, id);
-		
-		type.set (id, AssetType.TEXT);
-		id = "assets/data/borrar/room-boss-v1.tmx";
-		path.set (id, id);
-		
-		type.set (id, AssetType.TEXT);
 		id = "assets/data/level_0.tmx";
 		path.set (id, id);
 		
@@ -393,21 +358,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#if (windows || mac || linux)
 		
 		var useManifest = false;
-		
-		className.set ("assets/data/borrar/level_1_old.tmx", __ASSET__assets_data_borrar_level_1_old_tmx);
-		type.set ("assets/data/borrar/level_1_old.tmx", AssetType.TEXT);
-		
-		className.set ("assets/data/borrar/level_2_old.tmx", __ASSET__assets_data_borrar_level_2_old_tmx);
-		type.set ("assets/data/borrar/level_2_old.tmx", AssetType.TEXT);
-		
-		className.set ("assets/data/borrar/level_boss.tmx", __ASSET__assets_data_borrar_level_boss_tmx);
-		type.set ("assets/data/borrar/level_boss.tmx", AssetType.TEXT);
-		
-		className.set ("assets/data/borrar/room-02.tmx", __ASSET__assets_data_borrar_room_02_tmx);
-		type.set ("assets/data/borrar/room-02.tmx", AssetType.TEXT);
-		
-		className.set ("assets/data/borrar/room-boss-v1.tmx", __ASSET__assets_data_borrar_room_boss_v1_tmx);
-		type.set ("assets/data/borrar/room-boss-v1.tmx", AssetType.TEXT);
 		
 		className.set ("assets/data/level_0.tmx", __ASSET__assets_data_level_0_tmx);
 		type.set ("assets/data/level_0.tmx", AssetType.TEXT);
@@ -1173,11 +1123,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 #if !display
 #if flash
 
-@:keep @:bind #if display private #end class __ASSET__assets_data_borrar_level_1_old_tmx extends flash.utils.ByteArray { }
-@:keep @:bind #if display private #end class __ASSET__assets_data_borrar_level_2_old_tmx extends flash.utils.ByteArray { }
-@:keep @:bind #if display private #end class __ASSET__assets_data_borrar_level_boss_tmx extends flash.utils.ByteArray { }
-@:keep @:bind #if display private #end class __ASSET__assets_data_borrar_room_02_tmx extends flash.utils.ByteArray { }
-@:keep @:bind #if display private #end class __ASSET__assets_data_borrar_room_boss_v1_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_level_0_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_level_1_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_level_2_tmx extends flash.utils.ByteArray { }
@@ -1258,11 +1203,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
-
-
-
-
-
 @:keep #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends lime.text.Font { public function new () { super (); name = "Nokia Cellphone FC Small"; } } 
 @:keep #if display private #end class __ASSET__flixel_fonts_monsterrat_ttf extends lime.text.Font { public function new () { super (); name = "Monsterrat"; } } 
 
@@ -1276,11 +1216,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 #if (windows || mac || linux || cpp)
 
 
-@:file("assets/data/borrar/level_1_old.tmx") #if display private #end class __ASSET__assets_data_borrar_level_1_old_tmx extends lime.utils.Bytes {}
-@:file("assets/data/borrar/level_2_old.tmx") #if display private #end class __ASSET__assets_data_borrar_level_2_old_tmx extends lime.utils.Bytes {}
-@:file("assets/data/borrar/level_boss.tmx") #if display private #end class __ASSET__assets_data_borrar_level_boss_tmx extends lime.utils.Bytes {}
-@:file("assets/data/borrar/room-02.tmx") #if display private #end class __ASSET__assets_data_borrar_room_02_tmx extends lime.utils.Bytes {}
-@:file("assets/data/borrar/room-boss-v1.tmx") #if display private #end class __ASSET__assets_data_borrar_room_boss_v1_tmx extends lime.utils.Bytes {}
 @:file("assets/data/level_0.tmx") #if display private #end class __ASSET__assets_data_level_0_tmx extends lime.utils.Bytes {}
 @:file("assets/data/level_1.tmx") #if display private #end class __ASSET__assets_data_level_1_tmx extends lime.utils.Bytes {}
 @:file("assets/data/level_2.tmx") #if display private #end class __ASSET__assets_data_level_2_tmx extends lime.utils.Bytes {}

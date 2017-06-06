@@ -167,13 +167,13 @@ class Boss extends FlxSprite implements Enemy
 	// Genero 3 enemigos, uno por cada plataforma.
 	function enemySpawn()
 	{
-		var enemy1 = enemyFactory.spawn(FlxG.random.int(0, 64), 0, EnemyType.MUSHROOM);
+		var enemy1 = enemyFactory.spawn(FlxG.random.int(0, 64), 0, EnemyType.MUSHROOM, SpawnMode.WALK_LEFT);
 		cast(enemy1, Mushroom).stop();
 
-		var enemy2 = enemyFactory.spawn(FlxG.random.int(208, 256), 0, EnemyType.MUSHROOM);
+		var enemy2 = enemyFactory.spawn(FlxG.random.int(208, 256), 0, EnemyType.MUSHROOM, SpawnMode.WALK_RIGHT);
 		cast(enemy2, Mushroom).stop();
 
-		var enemy3 = enemyFactory.spawn(FlxG.random.int(400, 464), 0, EnemyType.MUSHROOM);
+		var enemy3 = enemyFactory.spawn(FlxG.random.int(400, 464), 0, EnemyType.MUSHROOM, SpawnMode.WALK_RIGHT);
 		cast(enemy3, Mushroom).stop();
 	}
 	
@@ -197,18 +197,18 @@ class Boss extends FlxSprite implements Enemy
 	
 	/* INTERFACE interfaces.Enemy */
 	
-	public function touchThePlayer(aPlayer:Player):Void 
-	{
-		aPlayer.death();
-	}
-	
-	public function spawn(aX:Float, aY:Float):Void 
+	public function spawn(aX:Float, aY:Float, spawnMode:SpawnMode):Void 
 	{
 		reset(aX, aY);
 
 		acceleration.y = 300;
 		
 		brain.activeState = onHoldState;
+	}	
+	
+	public function touchThePlayer(aPlayer:Player):Void 
+	{
+		aPlayer.death();
 	}
 	
 }

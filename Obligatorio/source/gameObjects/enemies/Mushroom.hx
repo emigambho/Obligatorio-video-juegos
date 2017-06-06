@@ -5,12 +5,11 @@ import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.text.FlxText;
 import haxe.Timer;
-import GlobalGameData;
 import helpers.FiniteStateMachine.FSM;
-import helpers.Helper;
 import interfaces.Enemy;
 import interfaces.InteractWithBlocks;
 import interfaces.InteractWithLava;
+import GlobalGameData;
 
 class Mushroom extends FlxSprite implements Enemy implements InteractWithBlocks implements InteractWithLava
 {
@@ -84,17 +83,14 @@ class Mushroom extends FlxSprite implements Enemy implements InteractWithBlocks 
 
 	override public function update(elapsed:Float):Void
 	{
-		if (y >= Helper.Y_SCREEN_OUT) 
+		if (y >= GGD.Y_SCREEN_OUT) 
 		{
 			trace("Se callo un hongo");
 			kill();
 		}
 		
-		if (frameWithBlockImmunity > 0)
-		{
-			frameWithBlockImmunity--;
-		}		
-
+		if (frameWithBlockImmunity > 0) frameWithBlockImmunity--;
+		
 		brain.update(elapsed);
 		super.update(elapsed);
 	}
@@ -127,7 +123,7 @@ class Mushroom extends FlxSprite implements Enemy implements InteractWithBlocks 
 
 	/* INTERFACE interfaces.Enemy */
 
-	public function spawn(aX:Float, aY:Float)
+	public function spawn(aX:Float, aY:Float, spawnMode:SpawnMode)
 	{
 		reset(aX, aY);
 

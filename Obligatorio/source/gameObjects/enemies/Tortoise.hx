@@ -18,7 +18,8 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 	var timeToStartRevive:Float;
 	var timeToRevive:Float;
 
-	var frameWithImmunity:Int = 0;
+	var frameWithPlayerImmunity:Int = 0;
+	var frameWithBlockImmunity:Int = 0;
 
 	public function new()
 	{
@@ -48,22 +49,15 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 
 		if (isTouching(FlxObject.WALL))
 		{
-			if (facing == FlxObject.LEFT)
-			{
-				facing = FlxObject.RIGHT;
-				velocity.x = SPEED;
-			}
-			else
-			{
-				facing = FlxObject.LEFT;
-				velocity.x = -SPEED;
-			}
+			changeDirection();
 		}
 	}
 
 	override public function update(elapsed:Float):Void
 	{
-		if (frameWithImmunity > 0) frameWithImmunity--;
+		if (frameWithPlayerImmunity > 0) frameWithPlayerImmunity--;
+		
+		if (frameWithBlockImmunity > 0) frameWithBlockImmunity--;
 
 		brain.update(elapsed);
 		super.update(elapsed);
@@ -107,33 +101,37 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 	{
 		if ( (facing == FlxObject.LEFT && isTouching(FlxObject.LEFT)) || (facing == FlxObject.RIGHT && isTouching(FlxObject.RIGHT)) )
 		{
-			if (facing == FlxObject.LEFT)
-			{
-				facing = FlxObject.RIGHT;
-				velocity.x = SLIDING_SPEED;
-			}
-			else
-			{
-				facing = FlxObject.LEFT;
-				velocity.x = -SLIDING_SPEED;
-			}
+			changeDirection();
 		}
+	}
+	
+	inline function changeDirection()
+	{
+		var speed:Float;
+			
+		if (animation.curAnim.name == "slide"){
+			speed = SLIDING_SPEED;
+		} else{
+			speed = SPEED;
+		}
+		
+		if (facing == FlxObject.LEFT)
+		{
+			facing = FlxObject.RIGHT;
+			velocity.x = speed;
+		}
+		else
+		{
+			facing = FlxObject.LEFT;
+			velocity.x = -speed;
+		}		
 	}
 
 	public function walkState(elapsed:Float):Void
 	{
 		if (isTouching(FlxObject.WALL))
 		{
-			if (facing == FlxObject.LEFT)
-			{
-				facing = FlxObject.RIGHT;
-				velocity.x = SPEED;
-			}
-			else
-			{
-				facing = FlxObject.LEFT;
-				velocity.x = -SPEED;
-			}
+			changeDirection();
 		}
 	}
 
@@ -163,22 +161,30 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 
 	/* INTERFACE interfaces.Enemy */
 
-	public function spawn(aX:Float, aY:Float):Void
+	public function spawn(aX:Float, aY:Float, spawnMode:SpawnMode):Void
 	{
 		reset(aX, aY);
 
 		facing = FlxObject.LEFT;
 		velocity.x = -SPEED;
-		animation.play("fly");
-
-		brain.activeState = flyState;
+		
+		if (spawnMode == SpawnMode.FLY)
+		{
+			animation.play("fly");
+			brain.activeState = flyState;
+		}else if (spawnMode == SpawnMode.WALK_LEFT)
+		{
+			velocity.y = 0;
+			animation.play("walk");
+			brain.activeState = walkState;
+		}
 	}
 
 	public function touchThePlayer(aPlayer:Player):Void
 	{
-		if (frameWithImmunity == 0)
+		if (frameWithPlayerImmunity == 0)
 		{
-			frameWithImmunity = 10;
+			frameWithPlayerImmunity = 10;
 
 			// ¿Los "pies" de Mario están en la parte superior de la tortuga?
 			var belowThePlayer = ((aPlayer.y + aPlayer.height) <= (y + height /2));
@@ -216,7 +222,21 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 	
 	public function hitByBlock(blockPosition:Int):Void 
 	{
-		
+		if (alive && frameWithBlockImmunity == 0)
+		{
+			frameWithBlockImmunity = 4;
+			
+			if (blockPosition == FlxObject.DOWN)
+			{
+				//deathByBlock();
+				kill();
+			}
+
+			if (blockPosition == FlxObject.LEFT || blockPosition == FlxObject.RIGHT)
+			{
+				changeDirection();
+			}
+		}		
 	}
 
 }

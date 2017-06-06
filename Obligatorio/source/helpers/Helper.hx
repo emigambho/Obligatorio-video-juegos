@@ -4,6 +4,7 @@ import flixel.FlxSprite;
 
 class Helper
 {
+	
 
 	public static function getRelativePosition(obj1:FlxSprite, obj2:FlxSprite):Int
 	{
@@ -35,8 +36,5 @@ class Helper
 				return FlxObject.UP;
 			}
 		}
-	}
-	
-	public static inline var Y_SCREEN_OUT = 250;
-	
+	}	
 }
