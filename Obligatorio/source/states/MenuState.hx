@@ -64,7 +64,7 @@ class MenuState extends FlxState
 
 	private function clickMiniGames():Void
 	{
-		FlxG.switchState(new PlayStateBall());
+		FlxG.switchState(new PlayStateMiniGames());
 	}
 	
 	private function clickBoss():Void

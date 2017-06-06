@@ -46,7 +46,11 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
-		urls.push ("assets/data/room-ball-1.tmx");
+		urls.push ("assets/data/mini_game_1.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/mini_game_2.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
@@ -251,7 +255,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "1964",
+			build: "1968",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,

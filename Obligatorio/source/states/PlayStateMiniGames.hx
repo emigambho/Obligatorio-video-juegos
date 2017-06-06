@@ -17,7 +17,7 @@ import gameObjects.items.Coin;
 import gameObjects.level.MovingBar;
 import GlobalGameData.GGD;
 
-class PlayStateBall extends FlxState
+class PlayStateMiniGames extends FlxState
 {
 
 	private var ball:Ball;
@@ -35,7 +35,7 @@ class PlayStateBall extends FlxState
 		coin.deploy(FlxG.random.int(1 + 16, 320 - 16*2),FlxG.random.int(1 + 16, 240 - 16 * 2));
 		add(coin);
 
-		tiledMap = new TiledMap(AssetPaths.room_ball_1__tmx);
+		tiledMap = new TiledMap(AssetPaths.mini_game_1__tmx);
 		tileMap = new FlxTilemap();
 		tileMap.loadMapFromArray(cast(tiledMap.getLayer("Wall"), TiledTileLayer).tileArray, tiledMap.width, tiledMap.height, AssetPaths.tilesheet__png, tiledMap.tileWidth, tiledMap.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 1);
 		tileMap.follow();

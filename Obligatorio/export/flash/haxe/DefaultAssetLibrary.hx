@@ -87,6 +87,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -104,8 +105,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/data/level_2.tmx", AssetType.TEXT);
 		className.set ("assets/data/level_boss2.tmx", __ASSET__assets_data_level_boss2_tmx);
 		type.set ("assets/data/level_boss2.tmx", AssetType.TEXT);
-		className.set ("assets/data/room-ball-1.tmx", __ASSET__assets_data_room_ball_1_tmx);
-		type.set ("assets/data/room-ball-1.tmx", AssetType.TEXT);
+		className.set ("assets/data/mini_game_1.tmx", __ASSET__assets_data_mini_game_1_tmx);
+		type.set ("assets/data/mini_game_1.tmx", AssetType.TEXT);
+		className.set ("assets/data/mini_game_2.tmx", __ASSET__assets_data_mini_game_2_tmx);
+		type.set ("assets/data/mini_game_2.tmx", AssetType.TEXT);
 		className.set ("assets/images/Ball.png", __ASSET__assets_images_ball_png);
 		type.set ("assets/images/Ball.png", AssetType.IMAGE);
 		className.set ("assets/images/bg_1.png", __ASSET__assets_images_bg_1_png);
@@ -197,7 +200,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.TEXT);
-		id = "assets/data/room-ball-1.tmx";
+		id = "assets/data/mini_game_1.tmx";
+		path.set (id, id);
+		
+		type.set (id, AssetType.TEXT);
+		id = "assets/data/mini_game_2.tmx";
 		path.set (id, id);
 		
 		type.set (id, AssetType.TEXT);
@@ -371,8 +378,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("assets/data/level_boss2.tmx", __ASSET__assets_data_level_boss2_tmx);
 		type.set ("assets/data/level_boss2.tmx", AssetType.TEXT);
 		
-		className.set ("assets/data/room-ball-1.tmx", __ASSET__assets_data_room_ball_1_tmx);
-		type.set ("assets/data/room-ball-1.tmx", AssetType.TEXT);
+		className.set ("assets/data/mini_game_1.tmx", __ASSET__assets_data_mini_game_1_tmx);
+		type.set ("assets/data/mini_game_1.tmx", AssetType.TEXT);
+		
+		className.set ("assets/data/mini_game_2.tmx", __ASSET__assets_data_mini_game_2_tmx);
+		type.set ("assets/data/mini_game_2.tmx", AssetType.TEXT);
 		
 		className.set ("assets/images/Ball.png", __ASSET__assets_images_ball_png);
 		type.set ("assets/images/Ball.png", AssetType.IMAGE);
@@ -1127,7 +1137,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_data_level_1_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_level_2_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_level_boss2_tmx extends flash.utils.ByteArray { }
-@:keep @:bind #if display private #end class __ASSET__assets_data_room_ball_1_tmx extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_mini_game_1_tmx extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_mini_game_2_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_images_ball_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_bg_1_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_bg_2_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1203,6 +1214,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
 @:keep #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends lime.text.Font { public function new () { super (); name = "Nokia Cellphone FC Small"; } } 
 @:keep #if display private #end class __ASSET__flixel_fonts_monsterrat_ttf extends lime.text.Font { public function new () { super (); name = "Monsterrat"; } } 
 
@@ -1220,7 +1232,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:file("assets/data/level_1.tmx") #if display private #end class __ASSET__assets_data_level_1_tmx extends lime.utils.Bytes {}
 @:file("assets/data/level_2.tmx") #if display private #end class __ASSET__assets_data_level_2_tmx extends lime.utils.Bytes {}
 @:file("assets/data/level_boss2.tmx") #if display private #end class __ASSET__assets_data_level_boss2_tmx extends lime.utils.Bytes {}
-@:file("assets/data/room-ball-1.tmx") #if display private #end class __ASSET__assets_data_room_ball_1_tmx extends lime.utils.Bytes {}
+@:file("assets/data/mini_game_1.tmx") #if display private #end class __ASSET__assets_data_mini_game_1_tmx extends lime.utils.Bytes {}
+@:file("assets/data/mini_game_2.tmx") #if display private #end class __ASSET__assets_data_mini_game_2_tmx extends lime.utils.Bytes {}
 @:image("assets/images/Ball.png") #if display private #end class __ASSET__assets_images_ball_png extends lime.graphics.Image {}
 @:image("assets/images/bg_1.png") #if display private #end class __ASSET__assets_images_bg_1_png extends lime.graphics.Image {}
 @:image("assets/images/bg_2.png") #if display private #end class __ASSET__assets_images_bg_2_png extends lime.graphics.Image {}

@@ -164,10 +164,6 @@ class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithB
 		brain.activeState = walkState;
 
 		frameWithBlockImmunity = 0;
-		//start.setTo(x, y);
-		//end.setTo(x+30, y);
-		//myPath.set(start, end);
-		//pathWalker.reset();
 	}	
 	
 	public function touchThePlayer(aPlayer:Player):Void 

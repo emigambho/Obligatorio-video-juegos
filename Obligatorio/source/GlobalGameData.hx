@@ -21,8 +21,10 @@ class GlobalGameData
 
 	public static var currentLevel:Int;
 	
-	 public function new() {	}
+	public function new() {	}
+	public static var miniGame:String;
 	
+
 	public static function addCoin():Void
 	{
 		coins++;
