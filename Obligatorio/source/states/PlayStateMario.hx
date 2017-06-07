@@ -11,6 +11,7 @@ import flixel.effects.particles.FlxParticle;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxColor;
 import gameObjects.Bubble;
+import gameObjects.HUD;
 import gameObjects.Player;
 import gameObjects.enemies.Boss;
 import gameObjects.enemies.EnemyFactory;
@@ -57,6 +58,8 @@ class PlayStateMario extends FlxState
 
 		player = new Player(level.isSea, grpBubble);
 		GGD.player = player;
+		
+		GGD.hud = new HUD();
 
 		projectileFactory = new ProjectileFactory(this);
 		GGD.projectileFactory = projectileFactory;
@@ -92,7 +95,9 @@ class PlayStateMario extends FlxState
 		FlxG.mouse.visible = false;
 
 		// En la parte izquierda del nivel hay una pared para que el jugador no se caiga, no dejo que se vea esa pared.
-		FlxG.camera.setScrollBoundsRect(16, 0, level.tileMap.width-16, level.tileMap.height, true);
+		FlxG.camera.setScrollBoundsRect(16, 0, level.tileMap.width - 16, level.tileMap.height, true);
+		
+		FlxG.camera.fade(FlxColor.BLACK, .6, true);			
 	}
 
 	override public function destroy():Void
@@ -155,7 +160,8 @@ class PlayStateMario extends FlxState
 				itemFactory.deployItem(x, y, ItemType.COIN, DeployType.STATIC);
 
 			case "Door":
-				grpDoor.add(new Door(x, y));
+				createDoor(x, y, entity);
+				
 
 			case "Boss":
 				var boss:Boss = cast(enemyFactory.spawn(x, y, EnemyType.BOSS, SpawnMode.STATIC), Boss);
@@ -189,6 +195,15 @@ class PlayStateMario extends FlxState
 		var spawnMode:SpawnMode = (isWalking == 1) ? SpawnMode.WALK_LEFT : SpawnMode.FLY;
 		
 		grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.TORTOISE, x, y - 7, spawnMode));
+	}
+	
+	inline function createDoor(x:Int, y:Int, entity:TiledObject)
+	{
+		var isMiniGameNum:Int = Std.parseInt(entity.properties.get("isMiniGame"));
+		
+		var isMiniGame:Bool = (isMiniGameNum == 1);
+		
+		grpDoor.add(new Door(x, y, isMiniGame));
 	}
 
 	function createBlock(x:Int, y:Int, entity:TiledObject)
@@ -302,13 +317,7 @@ class PlayStateMario extends FlxState
 
 	function playerVsDoor(aPlayer:Player, aDoor:Door)
 	{
-		if (FlxG.keys.pressed.DOWN)
-		{
-			FlxG.camera.fade(FlxColor.BLACK,.33, false, function()
-			{
-				FlxG.switchState(new PlayStateMiniGames());
-			});
-		}
+		aDoor.playerTouch(aPlayer);
 	}
 
 	function playerVsBlock(aPlayer:Player, aBrick:Block):Void

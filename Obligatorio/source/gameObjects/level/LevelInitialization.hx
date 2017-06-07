@@ -86,14 +86,14 @@ class LevelInitialization
 	
 		hasPipes = true;
 
-		//loadFromTiled(AssetPaths.level_1__tmx);		
+		loadFromTiled(AssetPaths.level_3__tmx);		
 	}
 
 	function level_4()
 	{
 		addDirtBackground();
 
-		loadFromTiled(AssetPaths.level_boss2__tmx);
+		loadFromTiled(AssetPaths.level_4__tmx);
 	}
 
 	function loadFromTiled(level:String)
@@ -103,7 +103,6 @@ class LevelInitialization
 		entities = cast (tiledMap.getLayer("GameObjects"), TiledObjectLayer).objects;
 
 		loadLayer(tileMap, "Background");
-		//tileMap.follow();
 
 		state.add(tileMap);
 	}

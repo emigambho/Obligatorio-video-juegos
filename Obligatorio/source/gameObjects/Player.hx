@@ -4,31 +4,31 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.system.FlxAssets.FlxGraphicAsset;
-import flixel.util.FlxColor;
 import gameObjects.Bubble;
 import gameObjects.level.Flag;
-import haxe.Timer;
 import helpers.FiniteStateMachine.FSM;
+import states.MarioInfoState;
 import GlobalGameData;
 
 class Player extends FlxSprite
 {
 	static inline var MINIMUM_BUBBLE_TIME:Float = 0.4;
-	static inline var MAXIMUM_BUBBLE_TIME:Float = 1.5;	
-	static inline var CINEMATIC_SPEED:Float = 80;
+	static inline var MAXIMUM_BUBBLE_TIME:Float = 1.5;
 	static inline var Y_FLOOR:Float = 208;
-	static inline var X_EXIT_DOOR:Float = 3888;
-	
+	static inline var DISTANCE_TO_EXIT_GRASSLAND:Float = 100;
+	static inline var DISTANCE_TO_EXIT_SEA:Float = 55;
+
 	var runSpeed:Int;
 	var jumpSpeed:Int;
 	var gravity:Int;
-	
+
 	var isSeaLevel:Bool;
 	var bubbleTime:Float = 0;
 	var grpBubble:FlxTypedGroup<Bubble>;
-	
+
 	var timer:Float;
+	var x_destination:Float;
+	var waitCallback:Void->Void;
 	var brain:FSM;
 
 	public function new(aIsSeaLevel:Bool, aGrpBubble:FlxTypedGroup<Bubble>)
@@ -37,9 +37,9 @@ class Player extends FlxSprite
 
 		isSeaLevel = aIsSeaLevel;
 		grpBubble = aGrpBubble;
-		
+
 		setPhysicsValues();
-		
+
 		loadGraphic(AssetPaths.player__png, true, 16, 16);
 
 		animation.add("idle", [0]);
@@ -55,7 +55,7 @@ class Player extends FlxSprite
 
 		brain = new FSM();
 		brain.activeState = walkState;
-		
+
 		setSize(8, 16);
 		offset.set(4, 0);
 	}
@@ -95,7 +95,7 @@ class Player extends FlxSprite
 		if (alive)
 		{
 			acceleration.x = 0;
-			
+
 			bubbles(elapsed);
 
 			if (FlxG.keys.anyPressed([LEFT, A]))
@@ -114,10 +114,10 @@ class Player extends FlxSprite
 			}
 
 			playAnimation();
-		}		
+		}
 	}
-	
-	function slideState(elapsed:Float):Void
+
+	function slideMastState(elapsed:Float):Void
 	{
 		if (y >= Y_FLOOR -32)
 		{
@@ -125,46 +125,65 @@ class Player extends FlxSprite
 			y = Y_FLOOR -32;
 		}
 	}
-	
-	function walkToTheCastleState(elapsed:Float):Void
+
+	function walkToTheExitState(elapsed:Float):Void
 	{
 		animation.play("walk");
 		acceleration.y = gravity;
-		velocity.x = CINEMATIC_SPEED;
+		velocity.x = runSpeed/5;
 
-		if (x >= X_EXIT_DOOR){
-			// Llegue a la puerta, desaparezco.
-			x = X_EXIT_DOOR;
+		if (x >= x_destination)
+		{
+			// LLegue a la puerta, espero un poco y desaparesco.
+
+			animation.play("idle");
+			acceleration.set();
+			velocity.set();
+			x = x_destination;
+
+			timer = .3;
+			waitCallback = GGD.nextLevel;
 			brain.activeState = waitState;
-			
-			// Dejo que se vea el jugador un instante.			
-			Timer.delay(GGD.nextLevel, 300);
 		}
 	}
-	
+
 	function waitState(elapsed:Float):Void
-	{	
-		animation.play("idle");
-		acceleration.set();
-		velocity.set();		
+	{
+		timer -= elapsed;
+
+		if (timer <= 0)
+		{
+			brain.activeState = null;
+			waitCallback();
+		}
 	}
-	
+
 	public function grabTheFlag(aFlag:Flag)
 	{
 		x = aFlag.x; // Ajusto al personaje para que quede tocando el mástil
-		
-		velocity.set(0, CINEMATIC_SPEED);
+
+		velocity.set(0, runSpeed/5);
 		acceleration.set();
 		animation.play("slide");
 		facing = FlxObject.RIGHT;
-		brain.activeState = slideState;
+		brain.activeState = slideMastState;
 	}
-	
-	public function walkToTheCastle()
+
+	public function walkToTheExit()
 	{
-		brain.activeState = walkToTheCastleState;
+		if (isSeaLevel)
+		{
+			x_destination = x + DISTANCE_TO_EXIT_SEA;
+		} 
+		else
+		{
+			x_destination = x + DISTANCE_TO_EXIT_GRASSLAND;	
+		}
+
+		
+		brain.activeState = walkToTheExitState;
 	}
-	
+
 	override public function update(elapsed:Float):Void
 	{
 		brain.update(elapsed);
@@ -183,8 +202,8 @@ class Player extends FlxSprite
 				bubbleTime = FlxG.random.float(MINIMUM_BUBBLE_TIME, MAXIMUM_BUBBLE_TIME);
 			}
 		}
-	}	
-	
+	}
+
 	function playAnimation()
 	{
 		if (!isTouching(FlxObject.FLOOR))
@@ -225,20 +244,28 @@ class Player extends FlxSprite
 
 	public function death():Void
 	{
-		animation.play("death");
-		alive = false;
+		if (alive)
+		{
+			animation.play("death");
+			alive = false;
+			acceleration.set();
+			velocity.set();
 
-		// El personaje al morir esta medio segundo quieto en pantalla y despues salta.
-		acceleration.x = 0;
-		acceleration.y = 0;
-		velocity.x = 0;
-		velocity.y = 0;
-		Timer.delay(deadAnimation, 600);
+			// El personaje al morir esta medio segundo quieto en pantalla y despues salta.
+			timer = .6;
+			waitCallback = startJumpOffScreen;
+			brain.activeState = waitState;
+		}
 	}
-
-	function deadAnimation():Void
+	
+	function startJumpOffScreen()
 	{
 		acceleration.y = gravity;
 		velocity.y = -jumpSpeed;
+		GGD.lifes--;
+
+		timer = 1.6;
+		waitCallback = GGD.resetLevel;
+		brain.activeState = waitState;
 	}
 }

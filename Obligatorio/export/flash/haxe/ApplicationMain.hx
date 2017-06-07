@@ -42,7 +42,11 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
-		urls.push ("assets/data/level_boss2.tmx");
+		urls.push ("assets/data/level_3.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/level_4.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
@@ -131,6 +135,10 @@ class ApplicationMain {
 		
 		
 		urls.push ("assets/images/lava.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/mario_icon.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -255,7 +263,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "1968",
+			build: "2036",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,

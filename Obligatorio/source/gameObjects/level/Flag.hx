@@ -33,7 +33,7 @@ class Flag extends FlxSprite
 				isComingDown = false;
 				y = Y_FLOOR -32;
 				velocity.y = 0;
-				player.walkToTheCastle();
+				player.walkToTheExit();
 			}
 		}
 		super.update(elapsed);

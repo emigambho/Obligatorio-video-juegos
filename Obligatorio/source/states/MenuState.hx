@@ -58,8 +58,7 @@ class MenuState extends FlxState
 
 	private function clickPlay():Void
 	{
-		GGD.currentLevel = 1;
-		FlxG.switchState(new PlayStateMario());
+		GGD.newGame();		
 	}
 
 	private function clickMiniGames():Void

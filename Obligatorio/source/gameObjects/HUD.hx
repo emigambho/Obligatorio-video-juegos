@@ -16,6 +16,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 {
 	var txtScore:FlxText;
 	var txtMoney:FlxText;
+	var txtLevel:FlxText;
 	
 	public function new()
 	{
@@ -25,18 +26,24 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		txtScore.color = FlxColor.WHITE;
 		add(txtScore);
 		
-		txtMoney = new FlxText(100, 12, 0, "X 0", 8);
+		txtMoney = new FlxText(150, 12, 0, "X 0", 8);
 		txtMoney.alignment = LEFT;
 		txtMoney.color = FlxColor.WHITE;
 		add(txtMoney);
 		
-		var sprMoney = new FlxSprite(90, 14, AssetPaths.hud_coin__png);
+		txtLevel = new FlxText(250, 12, 0, "Level: 1", 8);
+		txtLevel.color = FlxColor.WHITE;
+		add(txtLevel);
+		
+		var sprMoney = new FlxSprite(140, 14, AssetPaths.hud_coin__png);
 		add(sprMoney);
 		
 		forEach(function(spr:FlxSprite)
 		{
 			spr.scrollFactor.set(0, 0);
 		});
+		
+		updateHUD();
 	}
 	
 
@@ -44,6 +51,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 	{
 		txtMoney.text = "X " + GGD.coins;
 		txtScore.text = "Score:\n" + GGD.score;
+		txtLevel.text = "Level: " + GGD.currentLevel;
 	}
 	
 	public function showPoints(aX:Float, aY:Float, aPoints:Int)

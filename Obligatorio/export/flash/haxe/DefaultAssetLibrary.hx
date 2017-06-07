@@ -88,6 +88,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -103,8 +105,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/data/level_1.tmx", AssetType.TEXT);
 		className.set ("assets/data/level_2.tmx", __ASSET__assets_data_level_2_tmx);
 		type.set ("assets/data/level_2.tmx", AssetType.TEXT);
-		className.set ("assets/data/level_boss2.tmx", __ASSET__assets_data_level_boss2_tmx);
-		type.set ("assets/data/level_boss2.tmx", AssetType.TEXT);
+		className.set ("assets/data/level_3.tmx", __ASSET__assets_data_level_3_tmx);
+		type.set ("assets/data/level_3.tmx", AssetType.TEXT);
+		className.set ("assets/data/level_4.tmx", __ASSET__assets_data_level_4_tmx);
+		type.set ("assets/data/level_4.tmx", AssetType.TEXT);
 		className.set ("assets/data/mini_game_1.tmx", __ASSET__assets_data_mini_game_1_tmx);
 		type.set ("assets/data/mini_game_1.tmx", AssetType.TEXT);
 		className.set ("assets/data/mini_game_2.tmx", __ASSET__assets_data_mini_game_2_tmx);
@@ -149,6 +153,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/hud_coin.png", AssetType.IMAGE);
 		className.set ("assets/images/lava.png", __ASSET__assets_images_lava_png);
 		type.set ("assets/images/lava.png", AssetType.IMAGE);
+		className.set ("assets/images/mario_icon.png", __ASSET__assets_images_mario_icon_png);
+		type.set ("assets/images/mario_icon.png", AssetType.IMAGE);
 		className.set ("assets/images/menu_background.jpg", __ASSET__assets_images_menu_background_jpg);
 		type.set ("assets/images/menu_background.jpg", AssetType.IMAGE);
 		className.set ("assets/images/mushroom.png", __ASSET__assets_images_mushroom_png);
@@ -196,7 +202,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.TEXT);
-		id = "assets/data/level_boss2.tmx";
+		id = "assets/data/level_3.tmx";
+		path.set (id, id);
+		
+		type.set (id, AssetType.TEXT);
+		id = "assets/data/level_4.tmx";
 		path.set (id, id);
 		
 		type.set (id, AssetType.TEXT);
@@ -288,6 +298,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
+		id = "assets/images/mario_icon.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
 		id = "assets/images/menu_background.jpg";
 		path.set (id, id);
 		
@@ -375,8 +389,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("assets/data/level_2.tmx", __ASSET__assets_data_level_2_tmx);
 		type.set ("assets/data/level_2.tmx", AssetType.TEXT);
 		
-		className.set ("assets/data/level_boss2.tmx", __ASSET__assets_data_level_boss2_tmx);
-		type.set ("assets/data/level_boss2.tmx", AssetType.TEXT);
+		className.set ("assets/data/level_3.tmx", __ASSET__assets_data_level_3_tmx);
+		type.set ("assets/data/level_3.tmx", AssetType.TEXT);
+		
+		className.set ("assets/data/level_4.tmx", __ASSET__assets_data_level_4_tmx);
+		type.set ("assets/data/level_4.tmx", AssetType.TEXT);
 		
 		className.set ("assets/data/mini_game_1.tmx", __ASSET__assets_data_mini_game_1_tmx);
 		type.set ("assets/data/mini_game_1.tmx", AssetType.TEXT);
@@ -443,6 +460,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("assets/images/lava.png", __ASSET__assets_images_lava_png);
 		type.set ("assets/images/lava.png", AssetType.IMAGE);
+		
+		className.set ("assets/images/mario_icon.png", __ASSET__assets_images_mario_icon_png);
+		type.set ("assets/images/mario_icon.png", AssetType.IMAGE);
 		
 		className.set ("assets/images/menu_background.jpg", __ASSET__assets_images_menu_background_jpg);
 		type.set ("assets/images/menu_background.jpg", AssetType.IMAGE);
@@ -1136,7 +1156,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_data_level_0_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_level_1_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_level_2_tmx extends flash.utils.ByteArray { }
-@:keep @:bind #if display private #end class __ASSET__assets_data_level_boss2_tmx extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_level_3_tmx extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_level_4_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_mini_game_1_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_mini_game_2_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_images_ball_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1159,6 +1180,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_images_hammer_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_hud_coin_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_lava_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_images_mario_icon_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_menu_background_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_mushroom_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_octopus_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1215,6 +1237,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
 @:keep #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends lime.text.Font { public function new () { super (); name = "Nokia Cellphone FC Small"; } } 
 @:keep #if display private #end class __ASSET__flixel_fonts_monsterrat_ttf extends lime.text.Font { public function new () { super (); name = "Monsterrat"; } } 
 
@@ -1231,7 +1255,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:file("assets/data/level_0.tmx") #if display private #end class __ASSET__assets_data_level_0_tmx extends lime.utils.Bytes {}
 @:file("assets/data/level_1.tmx") #if display private #end class __ASSET__assets_data_level_1_tmx extends lime.utils.Bytes {}
 @:file("assets/data/level_2.tmx") #if display private #end class __ASSET__assets_data_level_2_tmx extends lime.utils.Bytes {}
-@:file("assets/data/level_boss2.tmx") #if display private #end class __ASSET__assets_data_level_boss2_tmx extends lime.utils.Bytes {}
+@:file("assets/data/level_3.tmx") #if display private #end class __ASSET__assets_data_level_3_tmx extends lime.utils.Bytes {}
+@:file("assets/data/level_4.tmx") #if display private #end class __ASSET__assets_data_level_4_tmx extends lime.utils.Bytes {}
 @:file("assets/data/mini_game_1.tmx") #if display private #end class __ASSET__assets_data_mini_game_1_tmx extends lime.utils.Bytes {}
 @:file("assets/data/mini_game_2.tmx") #if display private #end class __ASSET__assets_data_mini_game_2_tmx extends lime.utils.Bytes {}
 @:image("assets/images/Ball.png") #if display private #end class __ASSET__assets_images_ball_png extends lime.graphics.Image {}
@@ -1254,6 +1279,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/images/hammer.png") #if display private #end class __ASSET__assets_images_hammer_png extends lime.graphics.Image {}
 @:image("assets/images/hud_coin.png") #if display private #end class __ASSET__assets_images_hud_coin_png extends lime.graphics.Image {}
 @:image("assets/images/lava.png") #if display private #end class __ASSET__assets_images_lava_png extends lime.graphics.Image {}
+@:image("assets/images/mario_icon.png") #if display private #end class __ASSET__assets_images_mario_icon_png extends lime.graphics.Image {}
 @:image("assets/images/menu_background.jpg") #if display private #end class __ASSET__assets_images_menu_background_jpg extends lime.graphics.Image {}
 @:image("assets/images/mushroom.png") #if display private #end class __ASSET__assets_images_mushroom_png extends lime.graphics.Image {}
 @:image("assets/images/octopus.png") #if display private #end class __ASSET__assets_images_octopus_png extends lime.graphics.Image {}
