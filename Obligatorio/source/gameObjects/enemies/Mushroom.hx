@@ -14,7 +14,7 @@ import GlobalGameData;
 class Mushroom extends FlxSprite implements Enemy implements InteractWithBlocks implements InteractWithLava
 {
 	static inline var GRAVITY:Int = 400;
-	static inline var SPEED:Float = 55;
+	static inline var SPEED:Float = 45;
 
 	var facingDirection:Int;
 	var timeoutDeathAnimation:Float;

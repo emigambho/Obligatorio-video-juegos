@@ -16,8 +16,9 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 import GlobalGameData;
 import helpers.FiniteStateMachine.FSM;
 import GlobalGameData.GGD;
+import interfaces.InteractWithLava;
 
-class Boss extends FlxSprite implements Enemy
+class Boss extends FlxSprite implements Enemy implements InteractWithLava
 {
 	static inline var DETECTION_THRESHOLD:Int = 70; // Es el rango en el cual el Boss detecta al Player.
 	static inline var Y_OBJETIVE:Int = -40; // Es la altura a la que sube el Boss para perseguir al Player.
@@ -28,6 +29,7 @@ class Boss extends FlxSprite implements Enemy
 	public var emitter(null, set):FlxEmitter;
 	public var enemyFactory(null, set): EnemyFactory;	
 	
+	var lifes:Int;
 	var brain:FSM;
 	var timeToWakeUp:Float;
 
@@ -60,7 +62,7 @@ class Boss extends FlxSprite implements Enemy
 		pathWalker = new PathWalker(myPath, 1.5, PlayMode.None);
 	}
 
-	public function damage()
+	public function toInactivate()
 	{
 		velocity.set(0, 0);
 		animation.play("damage");
@@ -126,7 +128,6 @@ class Boss extends FlxSprite implements Enemy
 
 	public function chaseState(elapsed:Float):Void
 	{
-
 		var playerCenter = GGD.player.x + GGD.player.width / 2;
 
 		if (x <= playerCenter && playerCenter <= (x + width))
@@ -187,14 +188,6 @@ class Boss extends FlxSprite implements Enemy
 		return enemyFactory = value;
 	}
 
-	public function burnedByLava() 
-	{
-		if (animation.curAnim.name == "smash")
-		{
-			damage();
-		}		
-	}	
-	
 	/* INTERFACE interfaces.Enemy */
 	
 	public function spawn(aX:Float, aY:Float, spawnMode:SpawnMode):Void 
@@ -202,6 +195,7 @@ class Boss extends FlxSprite implements Enemy
 		reset(aX, aY);
 
 		acceleration.y = 300;
+		lifes = 3;
 		
 		brain.activeState = onHoldState;
 	}	
@@ -209,6 +203,16 @@ class Boss extends FlxSprite implements Enemy
 	public function touchThePlayer(aPlayer:Player):Void 
 	{
 		aPlayer.death();
+	}
+	
+	/* INTERFACE interfaces.InteractWithLava */
+	
+	public function burnedByLava():Void 
+	{
+		if (animation.curAnim.name == "smash")
+		{
+			toInactivate();
+		}		
 	}
 	
 }

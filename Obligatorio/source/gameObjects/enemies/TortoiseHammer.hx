@@ -43,9 +43,12 @@ class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithB
 	
 	override public function update(elapsed:Float):Void
 	{
-		if (frameWithBlockImmunity > 0)
+		if (frameWithBlockImmunity > 0) frameWithBlockImmunity--;
+		
+		if (y >= GGD.Y_SCREEN_OUT) 
 		{
-			frameWithBlockImmunity--;
+			trace("Se callo una TortugaMartillo");
+			kill();
 		}		
 		
 		brain.update(elapsed);
@@ -120,16 +123,6 @@ class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithB
 		}		
 	}
 	
-	public function deathState(elapsed:Float):Void
-	{
-		timer -= elapsed;
-
-		if (timer <= 0)
-		{
-			kill();
-		}
-	}	
-	
 	function death()
 	{
 		GGD.addPoints(x +2, y -8, 100);
@@ -146,7 +139,7 @@ class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithB
 		allowCollisions = FlxObject.NONE;
 
 		timer = 1.5;
-		brain.activeState = deathState;
+		brain.activeState = null;
 
 		GGD.addPoints(x +2, y -8, 100);
 	}
@@ -160,7 +153,7 @@ class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithB
 		timerChangeDirection = TIME_BETWEEN_CHANGES_DIRECTION;
 		velocity.x = WALK_SPEED;
 		
-		timer = TIME_BETWEEN_THROWING;
+		timer = Math.random() * TIME_BETWEEN_THROWING;
 		brain.activeState = walkState;
 
 		frameWithBlockImmunity = 0;

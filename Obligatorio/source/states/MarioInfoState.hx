@@ -10,7 +10,7 @@ import gameObjects.HUD;
 
 class MarioInfoState extends FlxState 
 {
-	static inline var WAIT_TIME:Float = 1;
+	static inline var WAIT_TIME:Float = 1.2;
 
 	var timer:Float;
 	
@@ -23,7 +23,14 @@ class MarioInfoState extends FlxState
 		GGD.hud = new HUD();
 		add(GGD.hud);
 		
-		showLifes();	
+		if (GGD.lifes > 0)
+		{
+			showLifes();	
+		}
+		else
+		{
+			showGameOver();
+		}		
 		
 		FlxG.camera.bgColor = FlxColor.BLACK;
 	}
@@ -38,13 +45,27 @@ class MarioInfoState extends FlxState
 		add(lifes);
 	}
 	
+	function showGameOver()
+	{
+		var lifes:FlxText = new FlxText(0, 0, 0, "GAME OVER!", 16);
+		lifes.screenCenter();
+		add(lifes);		
+	}
+	
 	override public function update(elapsed:Float):Void
 	{	
 		timer -= elapsed;
 		
 		if (timer <= 0)
 		{
-			FlxG.switchState(new PlayStateMario());
+			if (GGD.lifes > 0)
+			{
+				FlxG.switchState(new PlayStateMario());
+			}
+			else
+			{
+				FlxG.switchState(new MenuState());
+			}			
 		}
 	}
 	

@@ -69,7 +69,7 @@ class GlobalGameData
 	{
 		FlxG.camera.fade(FlxColor.BLACK, .6, false, function()
 		{
-			FlxG.resetState();
+			FlxG.switchState(new MarioInfoState());
 		});		
 	}	
 	

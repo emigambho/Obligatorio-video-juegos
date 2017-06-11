@@ -174,12 +174,7 @@
     <property name="cantItems" value="0"/>
    </properties>
   </object>
-  <object id="43" type="Coin" x="180" y="133" width="6" height="6">
-   <properties>
-    <property name="ItemType" value="0"/>
-    <property name="cantItems" value="0"/>
-   </properties>
-  </object>
+  <object id="43" type="Cannon" x="292" y="117.5" width="6" height="6"/>
   <object id="58" type="Brick" x="371" y="148" width="6" height="6">
    <properties>
     <property name="ItemType" value="0"/>

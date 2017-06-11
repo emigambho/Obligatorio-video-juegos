@@ -106,6 +106,7 @@ class Life extends FlxSprite implements Item implements InteractWithBlocks
 			
 			if (blockPosition == FlxObject.DOWN)
 			{
+				y -= 5;
 				velocity.y = -150;
 			}
 

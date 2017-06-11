@@ -18,6 +18,7 @@ import gameObjects.enemies.EnemyFactory;
 import gameObjects.enemies.EnemyToLoad;
 import gameObjects.items.ItemFactory;
 import gameObjects.level.Block;
+import gameObjects.level.Cannon;
 import gameObjects.level.Door;
 import gameObjects.level.Flag;
 import gameObjects.level.Lava;
@@ -26,8 +27,10 @@ import gameObjects.projectiles.ProjectileFactory;
 import helpers.Helper;
 import interfaces.Enemy;
 import interfaces.InteractWithBlocks;
+import interfaces.InteractWithLava;
 import interfaces.Item;
 import GlobalGameData;
+import interfaces.Projectile;
 
 class PlayStateMario extends FlxState
 {
@@ -60,14 +63,12 @@ class PlayStateMario extends FlxState
 		GGD.player = player;
 		
 		GGD.hud = new HUD();
-
-		projectileFactory = new ProjectileFactory(this);
-		GGD.projectileFactory = projectileFactory;
+		
+		add(grpBlock);
 
 		enemyFactory = new EnemyFactory(this);
 		itemFactory = new ItemFactory(this);
 
-		add(grpBlock);
 		add(grpDoor);
 		add(grpLava);
 
@@ -80,6 +81,9 @@ class PlayStateMario extends FlxState
 		add(player);
 		add(GGD.hud);
 		level.addPipelines();
+		
+		projectileFactory = new ProjectileFactory(this);
+		GGD.projectileFactory = projectileFactory;
 		
 		cameraInit();
 
@@ -160,8 +164,7 @@ class PlayStateMario extends FlxState
 				itemFactory.deployItem(x, y, ItemType.COIN, DeployType.STATIC);
 
 			case "Door":
-				createDoor(x, y, entity);
-				
+				createDoor(x, y, entity);				
 
 			case "Boss":
 				var boss:Boss = cast(enemyFactory.spawn(x, y, EnemyType.BOSS, SpawnMode.STATIC), Boss);
@@ -170,9 +173,13 @@ class PlayStateMario extends FlxState
 
 			case "Lava":
 				grpLava.add(new Lava(x, y +4));
+				
 			case "Flag":
 				flag = new Flag(x, y);
 				add(flag);
+				
+			case "Cannon":
+				add(new Cannon(x, y));
 		}
 	}
 
@@ -261,6 +268,7 @@ class PlayStateMario extends FlxState
 			FlxG.overlap(player, itemFactory.grpItems, playerVsItem);
 			FlxG.overlap(player, grpDoor, playerVsDoor);
 			FlxG.overlap(player, grpLava, playerVsLava);
+			FlxG.overlap(player, projectileFactory.grpProjectile, playerVsProjectile);
 
 			if (flag!= null)
 			{
@@ -271,17 +279,21 @@ class PlayStateMario extends FlxState
 		FlxG.collide(grpBubble, level.tileMap);
 		FlxG.collide(enemyFactory.grpEnemiesApplyPhysics, level.tileMap);
 		FlxG.collide(itemFactory.grpItemsApplyPhysics, level.tileMap);
+		FlxG.collide(enemyFactory.grpEnemies, grpLava, enemyVsLava);
 
 		FlxG.overlap(grpBlock, enemyFactory.grpEnemies, blockOverlap);
 		FlxG.overlap(grpBlock, itemFactory.grpItems, blockOverlap);
-		FlxG.overlap(enemyFactory.grpEnemies, grpLava, enemyVsLava);
-		//FlxG.collide(itemFactory.grpItemsApplyPhysics, grpBlock);
 
 		loadEnemies(Std.int(FlxG.camera.scroll.x + FlxG.camera.width + PRE_LOAD_WIDTH));
 
 		super.update(elapsed);
 	}
 
+	function playerVsProjectile(aPlayer:Player, aProjectile:Projectile)
+	{
+		aPlayer.death();		
+	}
+	
 	function playerVsFlag(aPlayer:Player, aFlag:Flag)
 	{
 		aPlayer.grabTheFlag(aFlag);
@@ -290,7 +302,7 @@ class PlayStateMario extends FlxState
 
 	function enemyVsLava(aEnemy:Enemy, aLava:Lava)
 	{
-		//aEnemy.burnedByLava();
+		cast(aEnemy, InteractWithLava).burnedByLava();
 	}
 
 	function blockOverlap(aBlock:Block, aOther:FlxSprite)

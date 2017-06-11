@@ -13,10 +13,11 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 	static inline var GRAVITY:Int = 400;
 	static inline var SPEED:Float = 45;
 	static inline var SLIDING_SPEED:Float = 185;
+	static inline var TIME_TO_START_REVIVE:Float = 2;
+	static inline var TIME_TO_REVIVE:Float = 3;
 
 	var brain:FSM;
-	var timeToStartRevive:Float;
-	var timeToRevive:Float;
+	var timer:Float;
 
 	var frameWithPlayerImmunity:Int = 0;
 	var frameWithBlockImmunity:Int = 0;
@@ -44,7 +45,7 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 	{
 		if (isTouching(FlxObject.FLOOR))
 		{
-			velocity.y = -230;
+			velocity.y = -200;
 		}
 
 		if (isTouching(FlxObject.WALL))
@@ -59,6 +60,12 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 		
 		if (frameWithBlockImmunity > 0) frameWithBlockImmunity--;
 
+		if (y >= GGD.Y_SCREEN_OUT) 
+		{
+			trace("Se callo una Tortuga");
+			kill();
+		}
+		
 		brain.update(elapsed);
 		super.update(elapsed);
 	}
@@ -74,7 +81,7 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 		else if (animation.curAnim.name == 'walk' || animation.curAnim.name == "slide")
 		{
 			velocity.x = 0;
-			timeToStartRevive = 2;
+			timer = TIME_TO_START_REVIVE;
 			animation.play("shell");
 			brain.activeState = shellState;
 		}
@@ -137,11 +144,11 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 
 	public function shellState(elapsed:Float):Void
 	{
-		timeToStartRevive -= elapsed;
+		timer -= elapsed;
 
-		if (timeToStartRevive <= 0)
+		if (timer <= 0)
 		{
-			timeToRevive = 3;
+			timer = TIME_TO_REVIVE;
 			animation.play("revive");
 			brain.activeState = reviveState;
 		}
@@ -149,15 +156,28 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 
 	public function reviveState(elapsed:Float):Void
 	{
-		timeToRevive -= elapsed;
+		timer -= elapsed;
 
-		if (timeToRevive <= 0)
+		if (timer <= 0)
 		{
 			animation.play("walk");
 			velocity.x = SPEED * ((facing == FlxObject.LEFT) ? -1 : 1);
 			brain.activeState = walkState;
 		}
 	}
+	
+	function deathByBlock()
+	{
+		alive = false;
+		acceleration.set(0, GRAVITY);
+		velocity.y = -100;
+		scale.y = -1;
+		allowCollisions = FlxObject.NONE;
+		
+		brain.activeState = null;
+
+		GGD.addPoints(x +2, y -8, 100);
+	}		
 
 	/* INTERFACE interfaces.Enemy */
 
@@ -167,6 +187,8 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 
 		facing = FlxObject.LEFT;
 		velocity.x = -SPEED;
+		scale.y = 1;
+		allowCollisions = FlxObject.ANY;		
 		
 		if (spawnMode == SpawnMode.FLY)
 		{
@@ -217,7 +239,6 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 		}
 	}
 	
-	
 	/* INTERFACE interfaces.InteractWithBlocks */
 	
 	public function hitByBlock(blockPosition:Int):Void 
@@ -228,8 +249,7 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 			
 			if (blockPosition == FlxObject.DOWN)
 			{
-				//deathByBlock();
-				kill();
+				deathByBlock();
 			}
 
 			if (blockPosition == FlxObject.LEFT || blockPosition == FlxObject.RIGHT)

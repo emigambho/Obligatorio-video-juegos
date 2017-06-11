@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="250" height="15" tilewidth="16" tileheight="16" nextobjectid="85">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="250" height="15" tilewidth="16" tileheight="16" nextobjectid="86">
  <tileset firstgid="1" name="aaa" tilewidth="16" tileheight="16" tilecount="40" columns="8">
   <image source="../images/tilesheet.png" width="128" height="80"/>
  </tileset>
@@ -42,7 +42,6 @@
 </data>
  </layer>
  <objectgroup name="GameObjects">
-  <object id="1" type="Player" x="3770.33" y="116.167" width="6" height="6" rotation="90"/>
   <object id="2" type="Coin" x="379" y="182.333" width="6" height="6" rotation="90"/>
   <object id="3" type="Coin" x="395.667" y="182.333" width="6" height="6" rotation="90"/>
   <object id="4" type="Coin" x="411" y="182.333" width="6" height="6" rotation="90"/>
@@ -121,5 +120,6 @@
   <object id="82" type="Fish" x="1243" y="149.5" width="6" height="6" rotation="90"/>
   <object id="83" type="Fish" x="1707.5" y="149.5" width="6" height="6" rotation="90"/>
   <object id="84" type="Door" x="3914" y="180.5" width="6" height="6" rotation="90"/>
+  <object id="85" type="Player" x="43" y="86" width="6" height="6" rotation="90"/>
  </objectgroup>
 </map>
