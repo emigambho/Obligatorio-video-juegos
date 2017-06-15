@@ -4,6 +4,7 @@ import flash.geom.Point;
 import gameObjects.Player;
 import gameObjects.enemies.EnemyFactory.EnemyType;
 import helpers.FiniteStateMachine;
+import helpers.Helper;
 import helpers.path.Linear;
 import helpers.path.PathWalker;
 import interfaces.Enemy;
@@ -17,6 +18,7 @@ import GlobalGameData;
 import helpers.FiniteStateMachine.FSM;
 import GlobalGameData.GGD;
 import interfaces.InteractWithLava;
+import states.WinSubState;
 
 class Boss extends FlxSprite implements Enemy implements InteractWithLava
 {
@@ -31,7 +33,8 @@ class Boss extends FlxSprite implements Enemy implements InteractWithLava
 	
 	var lifes:Int;
 	var brain:FSM;
-	var timeToWakeUp:Float;
+	var timer:Float;
+	var vulnerable:Bool;
 
 	var start:Point = new Point();
 	var end:Point = new Point();
@@ -62,33 +65,15 @@ class Boss extends FlxSprite implements Enemy implements InteractWithLava
 		pathWalker = new PathWalker(myPath, 1.5, PlayMode.None);
 	}
 
-	public function toInactivate()
-	{
-		velocity.set(0, 0);
-		animation.play("damage");
-		timeToWakeUp = SLEEP_TIME;
-		brain.activeState = sleepState;
-	}
-
-	public function sleepState(elapsed:Float):Void
+	override public function update(elapsed:Float):Void
 	{
 		if (GGD.player.alive)
 		{
-			timeToWakeUp -= elapsed;
-
-			if (timeToWakeUp <= 0)
-			{
-				startGoingUp();
-			}
-		}
-	}
-
-	override public function update(elapsed:Float):Void
-	{
-		brain.update(elapsed);
+			brain.update(elapsed);
+		}	
 		super.update(elapsed);
-	}
-
+	}	
+	
 	public function onHoldState(elapsed:Float):Void
 	{
 		var length:Float = x - GGD.player.x;
@@ -97,7 +82,7 @@ class Boss extends FlxSprite implements Enemy implements InteractWithLava
 		{
 			startGoingUp();
 		}
-	}
+	}	
 
 	function startGoingUp()
 	{
@@ -112,7 +97,18 @@ class Boss extends FlxSprite implements Enemy implements InteractWithLava
 		acceleration.set();
 
 		brain.activeState = goUpState;
-	}
+	}	
+
+	public function sleepState(elapsed:Float):Void
+	{
+		timer -= elapsed;
+
+		if (timer <= 0)
+		{
+			vulnerable = false;
+			startGoingUp();
+		}
+	}	
 
 	public function goUpState(elapsed:Float):Void
 	{
@@ -160,7 +156,7 @@ class Boss extends FlxSprite implements Enemy implements InteractWithLava
 			enemySpawn();
 
 			animation.play("onHold");
-			timeToWakeUp = SLEEP_TIME;
+			timer = SLEEP_TIME;
 			brain.activeState = sleepState;
 		}
 	}
@@ -168,13 +164,13 @@ class Boss extends FlxSprite implements Enemy implements InteractWithLava
 	// Genero 3 enemigos, uno por cada plataforma.
 	function enemySpawn()
 	{
-		var enemy1 = enemyFactory.spawn(FlxG.random.int(0, 64), 0, EnemyType.MUSHROOM, SpawnMode.WALK_LEFT);
+		var enemy1 = enemyFactory.spawn(FlxG.random.int(0, 64), 0, EnemyType.MUSHROOM, SpawnMode.WALK_RIGHT);
 		cast(enemy1, Mushroom).stop();
 
-		var enemy2 = enemyFactory.spawn(FlxG.random.int(208, 256), 0, EnemyType.MUSHROOM, SpawnMode.WALK_RIGHT);
+		var enemy2 = enemyFactory.spawn(FlxG.random.int(208, 256), 0, EnemyType.MUSHROOM, SpawnMode.WALK_LEFT);
 		cast(enemy2, Mushroom).stop();
 
-		var enemy3 = enemyFactory.spawn(FlxG.random.int(400, 464), 0, EnemyType.MUSHROOM, SpawnMode.WALK_RIGHT);
+		var enemy3 = enemyFactory.spawn(FlxG.random.int(400, 464), 0, EnemyType.MUSHROOM, SpawnMode.WALK_LEFT);
 		cast(enemy3, Mushroom).stop();
 	}
 	
@@ -187,7 +183,7 @@ class Boss extends FlxSprite implements Enemy implements InteractWithLava
 	{
 		return enemyFactory = value;
 	}
-
+	
 	/* INTERFACE interfaces.Enemy */
 	
 	public function spawn(aX:Float, aY:Float, spawnMode:SpawnMode):Void 
@@ -195,14 +191,32 @@ class Boss extends FlxSprite implements Enemy implements InteractWithLava
 		reset(aX, aY);
 
 		acceleration.y = 300;
-		lifes = 3;
+		lifes = 1;
 		
 		brain.activeState = onHoldState;
 	}	
 	
 	public function touchThePlayer(aPlayer:Player):Void 
 	{
-		aPlayer.death();
+		if (vulnerable)
+		{
+			var posPlayer:Int = Helper.getRelativePosition(this, aPlayer);
+			
+			if (posPlayer == FlxObject.UP)
+			{
+				aPlayer.bounce();
+				lifes--;
+				
+				if (lifes == 0)
+				{
+					// openSubState(new WinSubState(0x99808080));
+				}
+			}			
+		}
+		else
+		{
+			aPlayer.death();	
+		}
 	}
 	
 	/* INTERFACE interfaces.InteractWithLava */
@@ -211,7 +225,12 @@ class Boss extends FlxSprite implements Enemy implements InteractWithLava
 	{
 		if (animation.curAnim.name == "smash")
 		{
-			toInactivate();
+			velocity.set(0, 0);
+			animation.play("damage");
+			vulnerable = true;
+			
+			timer = SLEEP_TIME * 2.5;			
+			brain.activeState = sleepState;
 		}		
 	}
 	

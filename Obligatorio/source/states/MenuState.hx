@@ -53,6 +53,7 @@ class MenuState extends FlxState
 		var _btnExit:FlxButton = new FlxButton(37, 140, "Exit", clickExit);
 		add(_btnExit);
 
+		FlxG.camera.fade(FlxColor.BLACK, .6, true);
 		FlxG.mouse.visible = true;
 	}
 

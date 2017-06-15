@@ -31,6 +31,7 @@ import interfaces.InteractWithLava;
 import interfaces.Item;
 import GlobalGameData;
 import interfaces.Projectile;
+import states.PauseSubState;
 
 class PlayStateMario extends FlxState
 {
@@ -101,7 +102,7 @@ class PlayStateMario extends FlxState
 		// En la parte izquierda del nivel hay una pared para que el jugador no se caiga, no dejo que se vea esa pared.
 		FlxG.camera.setScrollBoundsRect(16, 0, level.tileMap.width - 16, level.tileMap.height, true);
 		
-		FlxG.camera.fade(FlxColor.BLACK, .6, true);			
+		FlxG.camera.fade(FlxColor.BLACK, .6, true);
 	}
 
 	override public function destroy():Void
@@ -251,13 +252,13 @@ class PlayStateMario extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
+		if (FlxG.keys.pressed.ESCAPE)
+		{
+			openSubState(new PauseSubState(0x99808080));			
+		}		
 		if (FlxG.keys.pressed.R)
 		{
 			FlxG.resetState();
-		}
-		if (FlxG.keys.pressed.ESCAPE)
-		{
-			FlxG.switchState(new MenuState());	
 		}
 
 		if (player.alive)

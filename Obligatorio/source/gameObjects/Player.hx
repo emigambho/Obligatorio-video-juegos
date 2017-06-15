@@ -7,7 +7,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import gameObjects.Bubble;
 import gameObjects.level.Flag;
 import helpers.FiniteStateMachine.FSM;
-import states.MarioInfoState;
+import states.InfoState;
 import GlobalGameData;
 
 class Player extends FlxSprite
@@ -239,7 +239,7 @@ class Player extends FlxSprite
 
 	public function bounce():Void
 	{
-		velocity.y = -jumpSpeed / 2.2;
+		velocity.y = -jumpSpeed / 1.9;
 	}
 
 	public function death():Void

@@ -6,7 +6,8 @@ import gameObjects.HUD;
 import gameObjects.Player;
 import gameObjects.level.LevelInitialization;
 import gameObjects.projectiles.ProjectileFactory;
-import states.MarioInfoState;
+import states.InfoState;
+import states.MenuState;
 
 typedef GGD = GlobalGameData;
 class GlobalGameData
@@ -62,14 +63,14 @@ class GlobalGameData
 		score = 0;
 		coins = 0;
 		currentLevel = 1;
-		FlxG.switchState(new MarioInfoState());
+		FlxG.switchState(new InfoState());
 	}	
 
 	public static function resetLevel()
 	{
 		FlxG.camera.fade(FlxColor.BLACK, .6, false, function()
 		{
-			FlxG.switchState(new MarioInfoState());
+			FlxG.switchState(new InfoState());
 		});		
 	}	
 	
@@ -79,8 +80,16 @@ class GlobalGameData
 
 		FlxG.camera.fade(FlxColor.BLACK, .6, false, function()
 		{
-			FlxG.switchState(new MarioInfoState());
+			FlxG.switchState(new InfoState());
 		});
+	}
+	
+	public static function goToMainMenu()
+	{
+		FlxG.camera.fade(FlxColor.BLACK, .6, false, function()
+		{
+			FlxG.switchState(new MenuState());
+		});	
 	}
 
 }

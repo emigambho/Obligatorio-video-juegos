@@ -8,7 +8,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import gameObjects.HUD;
 
-class MarioInfoState extends FlxState 
+class InfoState extends FlxState 
 {
 	static inline var WAIT_TIME:Float = 1.2;
 

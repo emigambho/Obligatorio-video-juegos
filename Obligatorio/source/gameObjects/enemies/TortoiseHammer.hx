@@ -151,19 +151,22 @@ class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithB
 		reset(aX, aY);
 
 		timerChangeDirection = TIME_BETWEEN_CHANGES_DIRECTION;
+		acceleration.set();
 		velocity.x = WALK_SPEED;
 		
 		timer = Math.random() * TIME_BETWEEN_THROWING;
 		brain.activeState = walkState;
 
 		frameWithBlockImmunity = 0;
+		allowCollisions = FlxObject.ANY;
+		scale.y = 1;
 	}	
 	
 	public function touchThePlayer(aPlayer:Player):Void 
 	{
 		if (alive)
 		{
-			if ((aPlayer.y +10) <= y)
+			if (aPlayer.velocity.y > 0)
 			{
 				death();
 				aPlayer.bounce();

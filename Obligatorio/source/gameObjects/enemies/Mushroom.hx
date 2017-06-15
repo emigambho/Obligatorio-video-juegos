@@ -127,13 +127,20 @@ class Mushroom extends FlxSprite implements Enemy implements InteractWithBlocks 
 	{
 		reset(aX, aY);
 
+		if (spawnMode == SpawnMode.WALK_RIGHT)
+		{
+			facingDirection = 1;
+		}else
+		{
+			facingDirection = -1;
+		}
+		
 		frameWithBlockImmunity = 0;
 		allowCollisions = FlxObject.ANY;
-		scale.y = 1;
-		facingDirection = -1;
+		scale.y = 1;		
 		animation.play("walk");
 		acceleration.y = GRAVITY;
-		velocity.x = -SPEED;
+		velocity.x = SPEED * facingDirection;
 		brain.activeState = walkState;
 	}
 
@@ -141,7 +148,7 @@ class Mushroom extends FlxSprite implements Enemy implements InteractWithBlocks 
 	{
 		if (alive)
 		{
-			if ((aPlayer.y +10) <= y)
+			if (aPlayer.velocity.y > 0)
 			{
 				aPlayer.bounce();
 				animation.play("death");

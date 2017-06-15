@@ -208,13 +208,11 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 		{
 			frameWithPlayerImmunity = 10;
 
-			// ¿Los "pies" de Mario están en la parte superior de la tortuga?
-			var belowThePlayer = ((aPlayer.y + aPlayer.height) <= (y + height /2));
 			var curAnim:String = animation.curAnim.name;
 
 			if (curAnim == "walk" || curAnim == "slide" || curAnim == 'fly')
 			{
-				if (belowThePlayer)
+				if (aPlayer.velocity.y > 0)
 				{
 					hit();					
 					aPlayer.bounce();
@@ -229,7 +227,7 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 			{
 				var slideToTheRight:Bool = (aPlayer.x <= x);
 
-				if (belowThePlayer)
+				if (aPlayer.velocity.y > 0)
 				{
 					aPlayer.bounce();
 				}
