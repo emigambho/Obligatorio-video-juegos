@@ -1,4 +1,6 @@
 package gameObjects.level;
+
+import flixel.FlxG;
 import flixel.FlxState;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.editors.tiled.TiledMap;
@@ -7,6 +9,7 @@ import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.tile.FlxBaseTilemap.FlxTilemapAutoTiling;
 import flixel.tile.FlxTilemap;
+import GlobalGameData;
 
 class LevelInitialization
 {
@@ -27,9 +30,9 @@ class LevelInitialization
 		tileMap = new FlxTilemap();
 
 		switch nroLevel
-		{
-			case 0:
-				level_0();
+	{
+		case 0:
+			level_0();
 			case 1:
 				level_1();
 			case 2:
@@ -41,6 +44,31 @@ class LevelInitialization
 			default:
 				throw "Invalid level";
 		}
+
+		totalGrass();
+
+	}
+	
+	private function totalGrass()
+	{
+		var totalGrass:Int = 0;
+		var tileId:Int = 0;
+		
+		for (y in 0...tileMap.heightInTiles)
+		{
+			for (x in 0...tileMap.widthInTiles)
+			{
+				tileId = tileMap.getTile(x, y);
+				
+				if (21 <= tileId && tileId <= 23)
+				{
+					totalGrass++;
+				}
+			}
+		}
+		
+		GGD.currentGrass = 0;
+		GGD.totalGrass = totalGrass;
 	}
 
 	public function addPipelines()
@@ -53,15 +81,16 @@ class LevelInitialization
 			state.add(tileMapPipelines);
 		}
 	}
-	
+
 	function level_0()
 	{
 		addMountainBackground();
+		//addDirtBackground();
 
 		hasPipes = true;
 
 		loadFromTiled(AssetPaths.level_0__tmx);
-	}	
+	}
 
 	function level_1()
 	{
@@ -79,14 +108,14 @@ class LevelInitialization
 
 		loadFromTiled(AssetPaths.level_2__tmx);
 	}
-	
+
 	function level_3()
 	{
 		addMountainBackground();
-	
+
 		hasPipes = true;
 
-		loadFromTiled(AssetPaths.level_3__tmx);		
+		loadFromTiled(AssetPaths.level_3__tmx);
 	}
 
 	function level_4()
@@ -109,23 +138,23 @@ class LevelInitialization
 
 	inline function loadLayer(aTileMap:FlxTilemap, layerName:String)
 	{
-		aTileMap.loadMapFromArray(cast(tiledMap.getLayer(layerName), TiledTileLayer).tileArray, tiledMap.width, tiledMap.height, AssetPaths.tilesheet__png, tiledMap.tileWidth, tiledMap.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 25);
+		aTileMap.loadMapFromArray(cast(tiledMap.getLayer(layerName), TiledTileLayer).tileArray, tiledMap.width, tiledMap.height, AssetPaths.tilesheet2__png, tiledMap.tileWidth, tiledMap.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 21);
 	}
 
 	function addMountainBackground()
 	{
-		var bg1:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_1__png, 0.1, 0, true, false);
-		var bg2:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_2__png, 0.4, 0, true, false);
+		var bg1:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_1__png, 0.2, 0, true, false);
+		//var bg2:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_2__png, 0.6, 0, true, false);
 
 		state.add(bg1);
-		state.add(bg2);
+		//state.add(bg2);
 	}
 
 	function addDirtBackground()
 	{
-		var background:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_dirt__png, 0.3, 0, true, true);
+		//var background:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_dirt__png, 0.3, 0, true, true);
 
-		state.add(background);
+		//state.add(background);
 	}
 
 	function get_tileMap():FlxTilemap

@@ -5,14 +5,15 @@ import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import helpers.FiniteStateMachine;
 import GlobalGameData;
+import helpers.Helper;
 import interfaces.Enemy;
 import interfaces.InteractWithBlocks;
 
 class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 {
-	static inline var GRAVITY:Int = 400;
-	static inline var SPEED:Float = 45;
-	static inline var SLIDING_SPEED:Float = 185;
+	static inline var GRAVITY:Int = 800;
+	static inline var SPEED:Float = 90;
+	static inline var SLIDING_SPEED:Float = 370;
 	static inline var TIME_TO_START_REVIVE:Float = 2;
 	static inline var TIME_TO_REVIVE:Float = 3;
 
@@ -21,12 +22,14 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 
 	var frameWithPlayerImmunity:Int = 0;
 	var frameWithBlockImmunity:Int = 0;
+	var tileId:Int;	
+	var x_fix:Int;
 
 	public function new()
 	{
 		super();
 
-		loadGraphic(AssetPaths.tortoise__png, true, 16, 23);
+		loadGraphic(AssetPaths.tortoise__png, true, 32, 46);
 
 		animation.add("fly", [2, 3], 6, true);
 		animation.add("walk", [0, 1], 6, true);
@@ -45,7 +48,7 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 	{
 		if (isTouching(FlxObject.FLOOR))
 		{
-			velocity.y = -200;
+			velocity.y = -400;
 		}
 
 		if (isTouching(FlxObject.WALL))
@@ -140,6 +143,16 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 		{
 			changeDirection();
 		}
+		else if (isTouching(FlxObject.FLOOR))
+		{
+			x_fix = (facing == FlxObject.RIGHT) ? 33 : -1;
+			tileId = Helper.getTileFromXY(x + x_fix, y + 47);
+			
+			if (tileId == 0)
+			{
+				changeDirection();
+			}
+		}
 	}
 
 	public function shellState(elapsed:Float):Void
@@ -170,13 +183,11 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 	{
 		alive = false;
 		acceleration.set(0, GRAVITY);
-		velocity.y = -100;
+		velocity.y = -200;
 		scale.y = -1;
 		allowCollisions = FlxObject.NONE;
 		
 		brain.activeState = null;
-
-		GGD.addPoints(x +2, y -8, 100);
 	}		
 
 	/* INTERFACE interfaces.Enemy */
@@ -216,7 +227,6 @@ class Tortoise extends FlxSprite implements Enemy implements InteractWithBlocks
 				{
 					hit();					
 					aPlayer.bounce();
-					GGD.addPoints(x +2, y -8, 500);
 				}
 				else
 				{

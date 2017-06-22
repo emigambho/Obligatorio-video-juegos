@@ -1,8 +1,10 @@
 package gameObjects.items;
 
+import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import flixel.system.FlxSound;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import helpers.FiniteStateMachine.FSM;
@@ -12,23 +14,26 @@ import GlobalGameData;
 
 class Coin extends FlxSprite implements Item implements InteractWithBlocks
 {
-	static inline var JUMP_SPEED:Float = 500;
-	static inline var GRAVITY:Int = 1700;
+	static inline var JUMP_SPEED:Float = 1000;
+	static inline var GRAVITY:Int = 3200;
 
 	var yTarget:Float;
-
 	var status:FSM;
+
+	var sndCoin:FlxSound;
 	
 	public function new()
 	{
 		super(0, 0);
 
-		loadGraphic(AssetPaths.coin__png, true, 16, 16);
+		loadGraphic(AssetPaths.coin__png, true, 32, 32);
 
 		animation.add("idle", [0, 1, 2, 3, 4, 5], 12, true);
 		animation.add("jumpInTheAir", [6, 7, 8, 9], 8, true);
 		
 		status = new FSM();
+		
+		sndCoin = FlxG.sound.load(AssetPaths.snd_coin__wav);	
 	}
 
 	override public function update(elapsed:Float):Void
@@ -52,6 +57,8 @@ class Coin extends FlxSprite implements Item implements InteractWithBlocks
 	{
 		animation.play("jumpInTheAir");
 
+		sndCoin.play();
+		
 		yTarget = y;
 		acceleration.y = GRAVITY;
 		velocity.y = -JUMP_SPEED;
@@ -84,9 +91,11 @@ class Coin extends FlxSprite implements Item implements InteractWithBlocks
 	{
 		if (alive && exists)
 		{
+			sndCoin.play();
+			
 			alive = false;
 			GGD.addCoin();
-			FlxTween.tween(this, { alpha: 0, y: y - 16 }, .33, { ease: FlxEase.circOut, onComplete: finishPicksUpAnimation });
+			FlxTween.tween(this, { alpha: 0, y: y - 32 }, .33, { ease: FlxEase.circOut, onComplete: finishPicksUpAnimation });
 		}
 	}
 

@@ -6,6 +6,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.text.FlxText;
 import haxe.Timer;
 import helpers.FiniteStateMachine.FSM;
+import helpers.Helper;
 import interfaces.Enemy;
 import interfaces.InteractWithBlocks;
 import interfaces.InteractWithLava;
@@ -13,20 +14,22 @@ import GlobalGameData;
 
 class Mushroom extends FlxSprite implements Enemy implements InteractWithBlocks implements InteractWithLava
 {
-	static inline var GRAVITY:Int = 400;
-	static inline var SPEED:Float = 45;
+	static inline var GRAVITY:Int = 800;
+	static inline var SPEED:Float = 90;
 
 	var facingDirection:Int;
 	var timeoutDeathAnimation:Float;
 	var brain:FSM;
 
 	var frameWithBlockImmunity:Int = 0;
+	var tileId:Int;	
+	var x_fix:Int;
 	
 	public function new()
 	{
 		super();
 
-		loadGraphic(AssetPaths.mushroom__png, true, 16, 16);
+		loadGraphic(AssetPaths.mushroom__png, true, 32, 32);
 
 		animation.add("idle", [0]);
 		animation.add("walk", [0, 1], 6, true);
@@ -37,12 +40,24 @@ class Mushroom extends FlxSprite implements Enemy implements InteractWithBlocks 
 
 		brain = new FSM();
 	}
-
+	
+	
+	
 	public function walkState(elapsed:Float):Void
 	{
 		if (isTouching(FlxObject.WALL))
 		{
 			changeDirection();
+		} 
+		else if (isTouching(FlxObject.FLOOR))
+		{
+			x_fix = (facingDirection == 1) ? 33 : -1;
+			tileId = Helper.getTileFromXY(x + x_fix, y + 33);
+			
+			if (tileId == 0)
+			{
+				changeDirection();
+			}
 		}
 	}
 
@@ -103,22 +118,18 @@ class Mushroom extends FlxSprite implements Enemy implements InteractWithBlocks 
 
 		timeoutDeathAnimation = .8;
 		brain.activeState = deathState;
-
-		GGD.addPoints(x +2, y -8, 100);
 	}
 
 	public function deathByBlock()
 	{
 		alive = false;
 		acceleration.set(0, GRAVITY*1.4);
-		velocity.y = -100;
+		velocity.y = -200;
 		scale.y = -1;
 		allowCollisions = FlxObject.NONE;
 
 		timeoutDeathAnimation = 1.5;
 		brain.activeState = deathState;
-
-		GGD.addPoints(x +2, y -8, 100);
 	}
 
 	/* INTERFACE interfaces.Enemy */

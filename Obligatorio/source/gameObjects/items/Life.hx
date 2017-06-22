@@ -92,7 +92,6 @@ class Life extends FlxSprite implements Item implements InteractWithBlocks
 
 	public function pickUp():Void
 	{
-		GGD.addPoints(x +2, y -8, 1000);
 		kill();
 	}
 

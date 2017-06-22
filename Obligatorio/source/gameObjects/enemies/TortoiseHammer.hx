@@ -125,7 +125,6 @@ class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithB
 	
 	function death()
 	{
-		GGD.addPoints(x +2, y -8, 100);
 		kill();		
 	}
 	
@@ -140,8 +139,6 @@ class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithB
 
 		timer = 1.5;
 		brain.activeState = null;
-
-		GGD.addPoints(x +2, y -8, 100);
 	}
 	
 	/* INTERFACE interfaces.Enemy */

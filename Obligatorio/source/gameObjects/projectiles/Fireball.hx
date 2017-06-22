@@ -7,7 +7,7 @@ import interfaces.Projectile;
 class Fireball extends FlxSprite implements Projectile
 {
 	static inline var SPEED:Float = 80;
-	static inline var TIME_LIFE:Float = 3;
+	static inline var TIME_LIFE:Float = 6;
 
 	var timer:Float;
 

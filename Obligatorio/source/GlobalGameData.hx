@@ -10,12 +10,12 @@ import states.InfoState;
 import states.MenuState;
 
 typedef GGD = GlobalGameData;
+
 class GlobalGameData
 {
-	public static inline var Y_SCREEN_OUT = 250;
+	public static inline var Y_SCREEN_OUT = 820;
 
 	public static var lifes:Int;
-	public static var score(get, null):Int;
 	public static var coins(get, null):Int;
 	public static var hud:HUD;
 	public static var player:Player;
@@ -23,7 +23,11 @@ class GlobalGameData
 	public static var projectileFactory:ProjectileFactory;
 
 	public static var currentLevel:Int;
+	public static var level:LevelInitialization;
 
+	public static var totalGrass:Int;
+	public static var currentGrass:Int;
+	
 	public function new() {	}
 	public static var miniGame:String;
 
@@ -33,23 +37,12 @@ class GlobalGameData
 		hud.updateHUD();
 	}
 
-	public static function addPoints(aX:Float, aY:Float, aPoints:Int)
-	{
-		score += aPoints;
-		hud.updateHUD();
-		hud.showPoints(aX, aY, aPoints);
-	}
-
 	public static function clear():Void
 	{
 		hud = null;
 		player = null;
 		projectileFactory = null;
-	}
-
-	static function get_score():Int
-	{
-		return score;
+		level = null;
 	}
 
 	static function get_coins():Int
@@ -60,7 +53,6 @@ class GlobalGameData
 	public static function newGame()
 	{
 		lifes = 3;
-		score = 0;
 		coins = 0;
 		currentLevel = 1;
 		FlxG.switchState(new InfoState());

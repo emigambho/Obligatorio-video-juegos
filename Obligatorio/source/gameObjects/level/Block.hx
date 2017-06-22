@@ -20,8 +20,8 @@ class Block extends FlxSprite
 
 	public function new(aX:Float, aY:Float, aCantItems:Int, aItemFactory:ItemFactory, aItemType:ItemType, aDelayedItemDeploy:Bool, aBlockType:BlockType)
 	{
-		aX += 2;
-		aY += 1;
+		aX += 4;
+		aY += 2;
 		
 		super(aX, aY);
 
@@ -35,18 +35,18 @@ class Block extends FlxSprite
 		
 		if (aBlockType == BlockType.BRICK)
 		{
-			loadGraphic(AssetPaths.brick__png, true, 16, 16);
+			loadGraphic(AssetPaths.brick__png, true, 32, 32);
 		}
 		else
 		{
-			loadGraphic(AssetPaths.bonus__png, true, 16, 16);
-			animation.add("full", [0, 1, 2, 1], 5, true);
-			animation.add("empty", [3]);
+			loadGraphic(AssetPaths.bonus__png, true, 32, 32);
+			animation.add("full", [0]);
+			animation.add("empty", [1]);
 			animation.play("full");	
 		}
 		
-		setSize(14, 16);
-		offset.set(1, 1);
+		setSize(28, 32);
+		offset.set(2, 2);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -74,8 +74,8 @@ class Block extends FlxSprite
 
 	public function hit():Void
 	{		
-		_velocity = -200;
-		_acceleration = 1700;
+		_velocity = -400;
+		_acceleration = 3400;
 
 		if (!delayedItemDeploy && cantItems > 0)
 		{
