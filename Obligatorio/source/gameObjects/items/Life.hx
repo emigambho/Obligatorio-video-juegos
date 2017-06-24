@@ -1,5 +1,7 @@
 package gameObjects.items;
 import GlobalGameData;
+import flixel.FlxG;
+import flixel.system.FlxSound;
 import helpers.FiniteStateMachine.FSM;
 import interfaces.InteractWithBlocks;
 import interfaces.Item;
@@ -11,24 +13,29 @@ import GlobalGameData.GGD;
 
 class Life extends FlxSprite implements Item implements InteractWithBlocks
 {
-	static inline var GRAVITY:Int = 400;
-	static inline var SPEED:Float = 75;
-	static inline var UP_SPEED:Int = 13;
+	static inline var GRAVITY:Int = 800;
+	static inline var SPEED:Float = 130;
+	static inline var UP_SPEED:Int = 26;
 
 	var facingDirection:Int = 1;
 	var yTarget:Float = 0;
 
 	var status:FSM;
-
 	var frameWithBlockImmunity:Int = 0;
 
+	var sndAppears:FlxSound;
+	var sndGrab:FlxSound;
+	
 	public function new()
 	{
 		super(0, 0);
 
-		loadGraphic(AssetPaths.powerupLife__png, false, 16, 16);
+		loadGraphic(AssetPaths.powerupLife__png, false, 32, 32);
 
 		status = new FSM();
+		
+		sndAppears = FlxG.sound.load(AssetPaths.snd_life_appears__wav);
+		sndGrab = FlxG.sound.load(AssetPaths.snd_life__wav);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -83,7 +90,9 @@ class Life extends FlxSprite implements Item implements InteractWithBlocks
 	{
 		reset(aX, aY);
 
-		yTarget = aY -17;
+		sndAppears.play();
+		
+		yTarget = aY -33;
 		facingDirection = 1;
 		acceleration.y = 0;
 		status.activeState = blockOutState;
@@ -92,6 +101,7 @@ class Life extends FlxSprite implements Item implements InteractWithBlocks
 
 	public function pickUp():Void
 	{
+		sndGrab.play();
 		kill();
 	}
 
@@ -106,7 +116,7 @@ class Life extends FlxSprite implements Item implements InteractWithBlocks
 			if (blockPosition == FlxObject.DOWN)
 			{
 				y -= 5;
-				velocity.y = -150;
+				velocity.y = -300;
 			}
 
 			if (blockPosition == FlxObject.LEFT || blockPosition == FlxObject.RIGHT)

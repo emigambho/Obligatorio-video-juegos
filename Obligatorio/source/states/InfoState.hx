@@ -64,7 +64,7 @@ class InfoState extends FlxState
 			}
 			else
 			{
-				FlxG.switchState(new MenuState());
+				FlxG.switchState(new MainMenu());
 			}			
 		}
 	}

@@ -12,27 +12,31 @@ import GlobalGameData;
 
 class Player extends FlxSprite
 {
-	static inline var Y_FLOOR:Float = 208;
-
-	var runSpeed:Int;
-	var jumpSpeed:Int;
-	var gravity:Int;
+	static inline var RUN_SPEED:Int = 800;
+	static inline var JUMP_SPEED:Int = 640;
+	static inline var GRAVITY:Int = 1500;
+	static inline var MAX_VELOCITY_X:Int = 300;
+	static inline var MAX_VELOCITY_Y:Int = 840;
+	static inline var FRICTION_X:Int = 600;
 
 	var timer:Float;
 	var waitCallback:Void->Void;
 	var brain:FSM;
-	
+
 	var isDoubleJumpAvailable:Bool;
-	
+
 	var sndJump1:FlxSound;
 	var sndJump2:FlxSound;
 	var sndStomp:FlxSound;
+	var sndDie:FlxSound;
 
 	public function new()
 	{
 		super();
 
-		setPhysicsValues();
+		acceleration.y = GRAVITY;
+		maxVelocity.set(MAX_VELOCITY_X, MAX_VELOCITY_Y);
+		drag.x = FRICTION_X;
 
 		loadGraphic(AssetPaths.player__png, true, 32, 32);
 
@@ -40,9 +44,6 @@ class Player extends FlxSprite
 		animation.add("walk", [1, 2, 3], 6, true);
 		animation.add("jump", [4]);
 		animation.add("death", [5]);
-		animation.add("swim", [6, 7, 8], 3, true);
-		animation.add("sink", [9, 10], 3, true);
-		animation.add("slide", [11]);
 
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
@@ -52,28 +53,16 @@ class Player extends FlxSprite
 
 		setSize(16, 32);
 		offset.set(8, 0);
-		
+
+		setSounds();
+	}
+
+	inline function setSounds()
+	{
 		sndJump1 = FlxG.sound.load(AssetPaths.snd_jump_super__wav);
 		sndJump2 = FlxG.sound.load(AssetPaths.snd_jump_super__wav);
 		sndStomp = FlxG.sound.load(AssetPaths.snd_stomp__wav);
-	}
-
-	function setPhysicsValues()
-	{
-		var maxVelocityX:Int;
-		var maxVelocityY:Int;
-		var frictionX:Int;
-
-		runSpeed = 800;
-		jumpSpeed = 640;
-		gravity = 1500;
-		maxVelocityX = 300;
-		maxVelocityY = 840;
-		frictionX = 600;
-
-		acceleration.y = gravity;
-		maxVelocity.set(maxVelocityX, maxVelocityY);
-		drag.x = frictionX;
+		sndDie = FlxG.sound.load(AssetPaths.snd_mario_die__wav);
 	}
 
 	function walkState(elapsed:Float):Void
@@ -81,7 +70,7 @@ class Player extends FlxSprite
 		if (alive)
 		{
 			acceleration.x = 0;
-			
+
 			if (isTouching(FlxObject.FLOOR))
 			{
 				isDoubleJumpAvailable = true;
@@ -89,12 +78,12 @@ class Player extends FlxSprite
 
 			if (FlxG.keys.anyPressed([LEFT, A]))
 			{
-				acceleration.x = -runSpeed;
+				acceleration.x = -RUN_SPEED;
 				facing = FlxObject.LEFT;
 			}
 			if (FlxG.keys.anyPressed([RIGHT, D]))
 			{
-				acceleration.x = runSpeed;
+				acceleration.x = RUN_SPEED;
 				facing = FlxObject.RIGHT;
 			}
 			if (FlxG.keys.anyJustPressed([SPACE, UP, W]))
@@ -102,12 +91,12 @@ class Player extends FlxSprite
 				if (isTouching(FlxObject.FLOOR))
 				{
 					sndJump1.play();
-					velocity.y = -jumpSpeed;	
+					velocity.y = -JUMP_SPEED;
 				}
 				else if (isDoubleJumpAvailable)
 				{
 					sndJump2.play();
-					velocity.y = -jumpSpeed;
+					velocity.y = -JUMP_SPEED;
 					isDoubleJumpAvailable = false;
 				}
 			}
@@ -155,13 +144,14 @@ class Player extends FlxSprite
 	public function bounce():Void
 	{
 		sndStomp.play();
-		velocity.y = -jumpSpeed / 1.9;
+		velocity.y = -JUMP_SPEED / 1.9;
 	}
 
 	public function death():Void
 	{
 		if (alive)
 		{
+			sndDie.play();
 			animation.play("death");
 			alive = false;
 			acceleration.set();
@@ -176,8 +166,8 @@ class Player extends FlxSprite
 
 	function startJumpOffScreen()
 	{
-		acceleration.y = gravity;
-		velocity.y = -jumpSpeed;
+		acceleration.y = GRAVITY;
+		velocity.y = -JUMP_SPEED;
 		GGD.lifes--;
 
 		timer = 1.6;

@@ -7,7 +7,7 @@ import gameObjects.Player;
 import gameObjects.level.LevelInitialization;
 import gameObjects.projectiles.ProjectileFactory;
 import states.InfoState;
-import states.MenuState;
+import states.MainMenu;
 
 typedef GGD = GlobalGameData;
 
@@ -80,7 +80,7 @@ class GlobalGameData
 	{
 		FlxG.camera.fade(FlxColor.BLACK, .6, false, function()
 		{
-			FlxG.switchState(new MenuState());
+			FlxG.switchState(new MainMenu());
 		});	
 	}
 

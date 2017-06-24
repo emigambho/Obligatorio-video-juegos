@@ -34,19 +34,23 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
-		urls.push ("assets/data/level_0xx.tmx");
+		urls.push ("assets/data/level_01.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
-		urls.push ("assets/data/level_1.tmx");
+		urls.push ("assets/data/level_02.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
-		urls.push ("assets/data/level_2.tmx");
+		urls.push ("assets/data/level_03.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
-		urls.push ("assets/data/level_3.tmx");
+		urls.push ("assets/data/level_04.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/level_06.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
@@ -66,11 +70,23 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
+		urls.push ("assets/data/_borrar/level_0xx.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/_borrar/level_1.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/_borrar/level_2.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/_borrar/level_3.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
 		urls.push ("assets/images/Ball.png");
-		types.push (lime.Assets.AssetType.IMAGE);
-		
-		
-		urls.push ("assets/images/bg_1.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -99,10 +115,6 @@ class ApplicationMain {
 		
 		
 		urls.push ("assets/images/fireball.png");
-		types.push (lime.Assets.AssetType.IMAGE);
-		
-		
-		urls.push ("assets/images/flag.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -170,6 +182,22 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
+		urls.push ("assets/images/Trees1.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/Trees2.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/Trees3.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/Trees4.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("assets/sounds/snd_bump.wav");
 		types.push (lime.Assets.AssetType.SOUND);
 		
@@ -190,6 +218,10 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.SOUND);
 		
 		
+		urls.push ("assets/sounds/snd_level_complete.wav");
+		types.push (lime.Assets.AssetType.SOUND);
+		
+		
 		urls.push ("assets/sounds/snd_life.wav");
 		types.push (lime.Assets.AssetType.SOUND);
 		
@@ -200,6 +232,10 @@ class ApplicationMain {
 		
 		urls.push ("assets/sounds/snd_mario_die.wav");
 		types.push (lime.Assets.AssetType.SOUND);
+		
+		
+		urls.push ("assets/sounds/snd_music.mp3");
+		types.push (lime.Assets.AssetType.MUSIC);
 		
 		
 		urls.push ("assets/sounds/snd_stomp.wav");
@@ -295,7 +331,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "373",
+			build: "482",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,
@@ -313,13 +349,13 @@ class ApplicationMain {
 					display: 0,
 					fullscreen: false,
 					hardware: true,
-					height: 720,
+					height: 480,
 					parameters: "{}",
 					resizable: true,
 					stencilBuffer: true,
 					title: "pruebaMario",
 					vsync: true,
-					width: 960,
+					width: 720,
 					x: null,
 					y: null
 				},
@@ -337,7 +373,7 @@ class ApplicationMain {
 		
 		#if (js && html5)
 		#if (munit || utest)
-		openfl.Lib.embed (null, 960, 720, "000000");
+		openfl.Lib.embed (null, 720, 480, "000000");
 		#end
 		#else
 		create ();

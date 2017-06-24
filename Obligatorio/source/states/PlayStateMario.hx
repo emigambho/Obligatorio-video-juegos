@@ -9,6 +9,7 @@ import flixel.addons.editors.tiled.TiledObject;
 import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.system.FlxSound;
 import flixel.util.FlxColor;
 import gameObjects.HUD;
 import gameObjects.Player;
@@ -45,8 +46,10 @@ class PlayStateMario extends FlxState
 	var enemyFactory: EnemyFactory;
 
 	var level:LevelInitialization;
-
 	var poster:Poster;
+	var tileId:Int;
+	var sndLevelComplete:FlxSound;
+	
 
 	override public function create():Void
 	{
@@ -73,11 +76,13 @@ class PlayStateMario extends FlxState
 		placeEntities();
 		add(player);
 		add(GGD.hud);
-		level.addPipelines();
+		level.addFrontLayer();
 
 		projectileFactory = new ProjectileFactory(this);
 		GGD.projectileFactory = projectileFactory;
 
+		sndLevelComplete = FlxG.sound.load(AssetPaths.snd_level_complete__wav);
+		
 		cameraInit();
 
 		super.create();
@@ -86,7 +91,7 @@ class PlayStateMario extends FlxState
 	inline function cameraInit()
 	{
 		FlxG.camera.follow(player, FlxCameraFollowStyle.PLATFORMER);
-		FlxG.camera.bgColor = FlxColor.fromRGB(146, 144, 255);
+		FlxG.camera.bgColor = FlxColor.WHITE; // FlxColor.fromRGB(146, 144, 255);
 		FlxG.mouse.visible = false;
 
 		FlxG.camera.setScrollBoundsRect(32, 32, level.tileMap.width -64, level.tileMap.height -32, true);
@@ -249,7 +254,6 @@ class PlayStateMario extends FlxState
 		super.update(elapsed);
 	}
 	
-	var tileId:Int;
 	
 	inline function putGrass()
 	{
@@ -261,6 +265,12 @@ class PlayStateMario extends FlxState
 			GGD.hud.updateHUD();
 			Helper.setTileFromXY(player.x+16, player.y, tileId -7);
 			Helper.setTileFromXY(player.x + 16, player.y + 32, tileId +3);
+			
+			if (GGD.currentGrass == GGD.totalGrass)
+			{
+				sndLevelComplete.play();
+				openSubState(new LevelComplete(0x99808080));
+			}
 		}
 	}	
 
