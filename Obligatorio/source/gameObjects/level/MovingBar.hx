@@ -18,18 +18,14 @@ class MovingBar extends FlxNapeSprite
 		super(X, Y);
 		makeGraphic(width, height, FlxColor.BLACK, false);
 		createRectangularBody(width, height, BodyType.KINEMATIC);
-		body.allowRotation = true;
-		body.allowMovement = true;
 		body.angularVel = velocity;
 		this.setDrag(1, 1);
-		this.setBodyMaterial(1, 0.2, 0.01, 0.0001);
-		this.antialiasing = true;
 
 	}
 	
 	override public function update(elapsed:Float):Void
 	{
-		this.body.rotation += 5;
+		super.update(elapsed);
 	}
-
+	
 }

@@ -66,7 +66,15 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
+		urls.push ("assets/data/mini_game_3.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
 		urls.push ("assets/data/tilesheet2.tsx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/Tilesheet3.tsx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
@@ -159,6 +167,10 @@ class ApplicationMain {
 		
 		
 		urls.push ("assets/images/spark.png");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
+		urls.push ("assets/images/Tiled_32x32.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -331,7 +343,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "482",
+			build: "506",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,

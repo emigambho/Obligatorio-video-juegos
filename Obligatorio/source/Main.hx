@@ -1,4 +1,4 @@
-package;
+	package;
 
 import flixel.FlxGame;
 import openfl.Lib;

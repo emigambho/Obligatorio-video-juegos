@@ -51,7 +51,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 	{
 		txtLevel.color = txtLevelColor;
 		txtMoney.color = txtMoneyColor;
-		txtScore.color = txtScoreColor;
+		//txtScore.color = txtScoreColor;
 	}
 
 	public function updateHUD():Void
