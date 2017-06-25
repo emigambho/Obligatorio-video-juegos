@@ -1,10 +1,10 @@
 package helpers;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import GlobalGameData;
 
 class Helper
 {
-	
 
 	public static function getRelativePosition(obj1:FlxSprite, obj2:FlxSprite):Int
 	{
@@ -37,4 +37,15 @@ class Helper
 			}
 		}
 	}	
+	
+	public static inline function getTileFromXY(x:Float, y:Float):Int
+	{
+		return GGD.level.tileMap.getTile(Math.floor(x/32), Math.floor(y/32));
+	}
+	
+	public static inline function setTileFromXY(x:Float, y:Float, tileId:Int):Void
+	{
+		GGD.level.tileMap.setTile(Math.floor(x/32), Math.floor(y/32), tileId, true);
+	}
+	
 }

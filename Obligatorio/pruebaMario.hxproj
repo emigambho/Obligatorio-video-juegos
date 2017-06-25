@@ -6,7 +6,7 @@
     <movie input="" />
     <movie path="Project.xml" />
     <movie fps="30" />
-    <movie width="640" />
+    <movie width="720" />
     <movie height="480" />
     <movie version="1" />
     <movie minorVersion="0" />

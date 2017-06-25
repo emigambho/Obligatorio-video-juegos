@@ -14,28 +14,29 @@ using flixel.util.FlxSpriteUtil;
 
 class HUD extends FlxTypedGroup<FlxSprite>
 {
-	var txtScore:FlxText;
 	var txtMoney:FlxText;
 	var txtLevel:FlxText;
+	var txtGrass:FlxText;
 	
 	public function new()
 	{
 		super();
 		
-		txtScore = new FlxText(20, 10, 0, "Score:\n0", 8);
-		txtScore.color = FlxColor.WHITE;
-		add(txtScore);
-		
-		txtMoney = new FlxText(150, 12, 0, "X 0", 8);
+		txtMoney = new FlxText(70, 30, 0, "X 0", 24);
 		txtMoney.alignment = LEFT;
 		txtMoney.color = FlxColor.WHITE;
 		add(txtMoney);
 		
-		txtLevel = new FlxText(250, 12, 0, "Level: 1", 8);
+		txtGrass = new FlxText(370, 30, 0, "Grass: 0/0", 24);
+		txtMoney.alignment = CENTER;
+		txtMoney.color = FlxColor.WHITE;
+		add(txtGrass);		
+		
+		txtLevel = new FlxText(775, 30, 0, "Level: 1", 24);
 		txtLevel.color = FlxColor.WHITE;
 		add(txtLevel);
 		
-		var sprMoney = new FlxSprite(140, 14, AssetPaths.hud_coin__png);
+		var sprMoney = new FlxSprite(30, 32, AssetPaths.hud_coin__png);
 		add(sprMoney);
 		
 		forEach(function(spr:FlxSprite)
@@ -56,20 +57,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 	public function updateHUD():Void
 	{
 		txtMoney.text = "X " + GGD.coins;
-		txtScore.text = "Score:\n" + GGD.score;
-		txtLevel.text = "Level: " + GGD.currentLevel;
-	}
-	
-	public function showPoints(aX:Float, aY:Float, aPoints:Int)
-	{
-		var txtPoints:FlxText = cast(this.recycle(FlxText), FlxText);
-		
-		txtPoints.setPosition(aX, aY);
-		txtPoints.alpha = 1;
-		txtPoints.size = 8;
-		txtPoints.text = Std.string(aPoints);
-		
-		// No se están destruyendo, revisar!
-		FlxTween.tween(txtPoints, { alpha: 0, y: aY - 50 }, 1.6, { ease: FlxEase.circOut}); //, onComplete: finishKill });
+		txtGrass.text = "Grass: "  + GGD.currentGrass + "/" + GGD.totalGrass;
+		txtLevel.text = "Level: " + GGD.currentLevel;		
 	}
 }

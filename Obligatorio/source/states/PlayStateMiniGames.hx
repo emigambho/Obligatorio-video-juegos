@@ -136,7 +136,7 @@ class PlayStateMiniGames extends FlxState
 		GGD.hud.updateHUD();
 		if (GGD.coins == 0){
 			ball.kill();
-			FlxG.switchState(new MenuState());
+			FlxG.switchState(new MainMenu());
 		}
 		
 	}

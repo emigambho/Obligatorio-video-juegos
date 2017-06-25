@@ -9,29 +9,28 @@ import flixel.addons.editors.tiled.TiledObject;
 import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.system.FlxSound;
 import flixel.util.FlxColor;
-import gameObjects.Bubble;
 import gameObjects.HUD;
 import gameObjects.Player;
 import gameObjects.enemies.Boss;
 import gameObjects.enemies.EnemyFactory;
-import gameObjects.enemies.EnemyToLoad;
 import gameObjects.items.ItemFactory;
 import gameObjects.level.Block;
 import gameObjects.level.Cannon;
 import gameObjects.level.Door;
-import gameObjects.level.Flag;
 import gameObjects.level.Lava;
 import gameObjects.level.LevelInitialization;
+import gameObjects.level.Poster;
 import gameObjects.projectiles.ProjectileFactory;
 import helpers.Helper;
 import interfaces.Enemy;
 import interfaces.InteractWithBlocks;
 import interfaces.InteractWithLava;
 import interfaces.Item;
-import GlobalGameData;
 import interfaces.Projectile;
 import states.PauseSubState;
+import GlobalGameData;
 
 class PlayStateMario extends FlxState
 {
@@ -40,8 +39,6 @@ class PlayStateMario extends FlxState
 	var player:Player;
 	var grpBlock:FlxTypedGroup<Block>;
 	var grpDoor:FlxTypedGroup<Door>;
-	var grpBubble:FlxTypedGroup<Bubble>;
-	var grpEnemiesToLoad:List<EnemyToLoad>;
 	var grpLava:FlxTypedGroup<Lava>;
 
 	var itemFactory: ItemFactory;
@@ -49,22 +46,25 @@ class PlayStateMario extends FlxState
 	var enemyFactory: EnemyFactory;
 
 	var level:LevelInitialization;
-	var flag:FlxSprite;
+	var poster:Poster;
+	var tileId:Int;
+	var sndLevelComplete:FlxSound;
+	
 
 	override public function create():Void
 	{
 		level = new LevelInitialization(this, GGD.currentLevel);
+		GGD.level = level;
 
 		grpBlock = new FlxTypedGroup<Block>();
 		grpDoor = new FlxTypedGroup<Door>();
-		grpBubble = new FlxTypedGroup<Bubble>();
 		grpLava = new FlxTypedGroup<Lava>();
 
-		player = new Player(level.isSea, grpBubble);
+		player = new Player();
 		GGD.player = player;
-		
+
 		GGD.hud = new HUD();
-		
+
 		add(grpBlock);
 
 		enemyFactory = new EnemyFactory(this);
@@ -73,22 +73,17 @@ class PlayStateMario extends FlxState
 		add(grpDoor);
 		add(grpLava);
 
-		if (level.isSea)
-		{
-			add(grpBubble);
-		}
-
 		placeEntities();
 		add(player);
 		add(GGD.hud);
-		level.addPipelines();
-		
+		level.addFrontLayer();
+
 		projectileFactory = new ProjectileFactory(this);
 		GGD.projectileFactory = projectileFactory;
+
+		sndLevelComplete = FlxG.sound.load(AssetPaths.snd_level_complete__wav);
 		
 		cameraInit();
-
-		loadEnemies(FlxG.camera.width);
 
 		super.create();
 	}
@@ -96,12 +91,11 @@ class PlayStateMario extends FlxState
 	inline function cameraInit()
 	{
 		FlxG.camera.follow(player, FlxCameraFollowStyle.PLATFORMER);
-		FlxG.camera.bgColor = FlxColor.fromRGB(146, 144, 255);
+		FlxG.camera.bgColor = FlxColor.WHITE; // FlxColor.fromRGB(146, 144, 255);
 		FlxG.mouse.visible = false;
 
-		// En la parte izquierda del nivel hay una pared para que el jugador no se caiga, no dejo que se vea esa pared.
-		FlxG.camera.setScrollBoundsRect(16, 0, level.tileMap.width - 16, level.tileMap.height, true);
-		
+		FlxG.camera.setScrollBoundsRect(32, 32, level.tileMap.width -64, level.tileMap.height -32, true);
+
 		FlxG.camera.fade(FlxColor.BLACK, .6, true);
 	}
 
@@ -113,8 +107,6 @@ class PlayStateMario extends FlxState
 
 	function placeEntities()
 	{
-		grpEnemiesToLoad = new List<EnemyToLoad>();
-
 		for (entity in level.entities)
 		{
 			placeEntity(entity);
@@ -127,9 +119,9 @@ class PlayStateMario extends FlxState
 		var x:Int = Std.parseInt(entity.xmlData.x.get("x"));
 		var y:Int = Std.parseInt(entity.xmlData.x.get("y"));
 
-		// Ajusto la posición a un múltiplo de 16, así no es necesario ubicarlo de forma exacta en Tiled.
-		x = Math.floor(x / 16) * 16;
-		y = Math.floor(y / 16) * 16;
+		// Ajusto la posición a un múltiplo de 32, así no es necesario ubicarlo de forma exacta en Tiled.
+		x = Math.floor(x / 32) * 32;
+		y = Math.floor(y / 32) * 32;
 
 		switch (entityName)
 		{
@@ -138,22 +130,16 @@ class PlayStateMario extends FlxState
 				player.y = y;
 
 			case "Mushroom":
-				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.MUSHROOM, x, y, SpawnMode.WALK_LEFT));
+				enemyFactory.spawn(x, y, EnemyType.MUSHROOM, SpawnMode.WALK_LEFT);
 
 			case "Tortoise":
 				createTortoise(x, y, entity);
 
 			case "TortoiseHammer":
-				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.TORTOISE_HAMMER, x, y-8, SpawnMode.WALK_LEFT));
+				enemyFactory.spawn(x, y-8, EnemyType.TORTOISE_HAMMER, SpawnMode.WALK_LEFT);
 
 			case "Flower":
-				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.FLOWER, x + 8, y, SpawnMode.WALK_LEFT));
-
-			case 'Fish':
-				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.FISH, x, y, SpawnMode.WALK_LEFT));
-
-			case 'Octopus':
-				grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.OCTOPUS, x, y, SpawnMode.WALK_LEFT));
+				enemyFactory.spawn(x+8, y-8, EnemyType.FLOWER, SpawnMode.STATIC);
 
 			case "Brick":
 				createBlock(x, y, entity);
@@ -165,7 +151,11 @@ class PlayStateMario extends FlxState
 				itemFactory.deployItem(x, y, ItemType.COIN, DeployType.STATIC);
 
 			case "Door":
-				createDoor(x, y, entity);				
+				grpDoor.add(new Door(x, y));
+
+			case "Poster":
+				poster = new Poster(x, y, this);
+				add(poster);
 
 			case "Boss":
 				var boss:Boss = cast(enemyFactory.spawn(x, y, EnemyType.BOSS, SpawnMode.STATIC), Boss);
@@ -174,25 +164,9 @@ class PlayStateMario extends FlxState
 
 			case "Lava":
 				grpLava.add(new Lava(x, y +4));
-				
-			case "Flag":
-				flag = new Flag(x, y);
-				add(flag);
-				
+
 			case "Cannon":
 				add(new Cannon(x, y));
-		}
-	}
-
-	function loadEnemies(xLimit:Int)
-	{
-		for (enemy in grpEnemiesToLoad)
-		{
-			if (enemy.x < xLimit)
-			{
-				enemyFactory.spawn2(enemy);
-				grpEnemiesToLoad.remove(enemy);
-			}
 		}
 	}
 
@@ -201,17 +175,8 @@ class PlayStateMario extends FlxState
 		var isWalking:Int = Std.parseInt(entity.properties.get("IsWalking"));
 
 		var spawnMode:SpawnMode = (isWalking == 1) ? SpawnMode.WALK_LEFT : SpawnMode.FLY;
-		
-		grpEnemiesToLoad.add(new EnemyToLoad(EnemyType.TORTOISE, x, y - 7, spawnMode));
-	}
-	
-	inline function createDoor(x:Int, y:Int, entity:TiledObject)
-	{
-		var isMiniGameNum:Int = Std.parseInt(entity.properties.get("isMiniGame"));
-		
-		var isMiniGame:Bool = (isMiniGameNum == 1);
-		
-		grpDoor.add(new Door(x, y, isMiniGame));
+
+		enemyFactory.spawn(x, y-14, EnemyType.TORTOISE, spawnMode);
 	}
 
 	function createBlock(x:Int, y:Int, entity:TiledObject)
@@ -254,8 +219,8 @@ class PlayStateMario extends FlxState
 	{
 		if (FlxG.keys.pressed.ESCAPE)
 		{
-			openSubState(new PauseSubState(0x99808080));			
-		}		
+			openSubState(new PauseSubState(0x99808080));
+		}
 		if (FlxG.keys.pressed.R)
 		{
 			FlxG.resetState();
@@ -271,13 +236,14 @@ class PlayStateMario extends FlxState
 			FlxG.overlap(player, grpLava, playerVsLava);
 			FlxG.overlap(player, projectileFactory.grpProjectile, playerVsProjectile);
 
-			if (flag!= null)
+			if (poster != null)
 			{
-				FlxG.overlap(player, flag, playerVsFlag);
+				FlxG.overlap(player, poster, playerVsPoster);
 			}
+			
+			putGrass();
 		}
 
-		FlxG.collide(grpBubble, level.tileMap);
 		FlxG.collide(enemyFactory.grpEnemiesApplyPhysics, level.tileMap);
 		FlxG.collide(itemFactory.grpItemsApplyPhysics, level.tileMap);
 		FlxG.collide(enemyFactory.grpEnemies, grpLava, enemyVsLava);
@@ -285,20 +251,37 @@ class PlayStateMario extends FlxState
 		FlxG.overlap(grpBlock, enemyFactory.grpEnemies, blockOverlap);
 		FlxG.overlap(grpBlock, itemFactory.grpItems, blockOverlap);
 
-		loadEnemies(Std.int(FlxG.camera.scroll.x + FlxG.camera.width + PRE_LOAD_WIDTH));
-
 		super.update(elapsed);
 	}
+	
+	
+	inline function putGrass()
+	{
+		tileId = Helper.getTileFromXY(player.x + 16, player.y + 32);
+
+		if (tileId >= 21 && tileId <= 23 )
+		{
+			GGD.currentGrass++;
+			GGD.hud.updateHUD();
+			Helper.setTileFromXY(player.x+16, player.y, tileId -7);
+			Helper.setTileFromXY(player.x + 16, player.y + 32, tileId +3);
+			
+			if (GGD.currentGrass == GGD.totalGrass)
+			{
+				sndLevelComplete.play();
+				openSubState(new LevelComplete(0x99808080));
+			}
+		}
+	}	
 
 	function playerVsProjectile(aPlayer:Player, aProjectile:Projectile)
 	{
-		aPlayer.death();		
+		aPlayer.death();
 	}
-	
-	function playerVsFlag(aPlayer:Player, aFlag:Flag)
+
+	function playerVsPoster(aPlayer:Player, aPoster:Poster)
 	{
-		aPlayer.grabTheFlag(aFlag);
-		aFlag.playerGrab(aPlayer);
+		aPoster.playerOverlap = true;
 	}
 
 	function enemyVsLava(aEnemy:Enemy, aLava:Lava)
