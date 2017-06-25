@@ -2,53 +2,36 @@ package gameObjects;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.addons.nape.FlxNapeSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import nape.phys.Material;
 
-class Ball extends FlxSprite
+class Ball extends FlxNapeSprite
 {
 	static inline var RUN_SPEED:Float = 400;
 
 	public function new(?X:Float=0, ?Y:Float=0)
 	{
-		super(X, Y);
 		
-		maxVelocity.y = 500;
-		maxVelocity.x = 500;
+		super(X ,Y, AssetPaths.Ball__png);
+		createCircularBody(18);
+		body.allowRotation = true;
+		body.allowMovement = true;
+		this.antialiasing = true;
+		setDrag(0.96, 0.96);
 		
-		drag.x = maxVelocity.x * 0.4;
-		drag.y = maxVelocity.y * 0.4;
-		
-		
-		
-		loadRotatedGraphic(AssetPaths.Ball__png,300,-1,false,false);
 	}
 
 	override public function update(elapsed:Float):Void
 	{
-		acceleration.set(100, 120);
+		super.update(elapsed);
 		
-		if (FlxG.keys.anyPressed([LEFT, A]))
+		if (FlxG.camera.target != null && FlxG.camera.followLead.x == 0) // target check is used for debug purposes.
 		{
-			acceleration.x -= RUN_SPEED;
-			
-		}
-		if (FlxG.keys.anyPressed([RIGHT, A]))
-		{
-			acceleration.x += RUN_SPEED;
-			
-		}
-		if (FlxG.keys.anyPressed([UP, A]))
-		{
-			acceleration.y -= RUN_SPEED;
-			
-		}
-		if (FlxG.keys.anyPressed([DOWN, A]))
-		{
-			acceleration.y += RUN_SPEED;
-			
+			x = Math.round(x); // Smooths camera and orb shadow following. Does not work well with camera lead.
+			y = Math.round(y); // Smooths camera and orb shadow following. Does not work well with camera lead.
 		}
 
-		super.update(elapsed);
 	}
 
 }

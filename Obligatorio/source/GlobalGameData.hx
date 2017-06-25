@@ -32,6 +32,12 @@ class GlobalGameData
 		coins++;
 		hud.updateHUD();
 	}
+	
+	public static function removeCoin():Void
+	{
+		coins--;
+		hud.updateHUD();
+	}
 
 	public static function addPoints(aX:Float, aY:Float, aPoints:Int)
 	{

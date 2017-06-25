@@ -6,6 +6,7 @@ import flixel.FlxState;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import GlobalGameData;
+import gameObjects.HUD;
 
 class MenuState extends FlxState
 {

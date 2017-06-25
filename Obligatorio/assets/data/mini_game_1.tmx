@@ -26,14 +26,14 @@
   <object id="1" type="Ball" x="33.6667" y="34.3333" width="12.6667" height="11">
    <ellipse/>
   </object>
-  <object id="4" name="bar2" type="spinningBar" x="151.667" y="40.6667" width="16.3333" height="152.333">
+  <object id="4" name="bar2" type="spinningBar" x="185.667" y="42.6667" width="16.3333" height="152.333">
    <properties>
-    <property name="velocity" type="int" value="-200"/>
+    <property name="velocity" type="int" value="-20"/>
    </properties>
   </object>
-  <object id="6" name="bar1" type="spinningBar" x="31.3905" y="112.752" width="63.3333" height="14.3333" rotation="0.448911">
+  <object id="6" name="bar1" type="spinningBar" x="56.3905" y="112.752" width="63.3333" height="14.3333" rotation="0.448911">
    <properties>
-    <property name="velocity" type="int" value="50"/>
+    <property name="velocity" type="int" value="10"/>
    </properties>
   </object>
  </objectgroup>

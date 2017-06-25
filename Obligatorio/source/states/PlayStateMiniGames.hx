@@ -7,18 +7,26 @@ import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledPropertySet;
 import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.addons.editors.tiled.TiledTilePropertySet;
+import flixel.addons.nape.FlxNapeSpace;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.tile.FlxBaseTilemap.FlxTilemapAutoTiling;
 import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
 import gameObjects.Ball;
 import GlobalGameData;
+import gameObjects.HUD;
 import gameObjects.items.Coin;
 import gameObjects.level.MovingBar;
 import GlobalGameData.GGD;
+import nape.geom.Vec2;
 
 class PlayStateMiniGames extends FlxState
 {
+	
+	static var LEVEL_MIN_X;
+	static var LEVEL_MAX_X;
+	static var LEVEL_MIN_Y;
+	static var LEVEL_MAX_Y;
 
 	private var ball:Ball;
 	private var tileMap:FlxTilemap;
@@ -30,6 +38,21 @@ class PlayStateMiniGames extends FlxState
 	{
 		super.create();
 		FlxG.camera.bgColor = FlxColor.WHITE;
+		GGD.hud = new HUD();
+		FlxNapeSpace.init();
+		
+		LEVEL_MIN_X = -FlxG.stage.stageWidth / 2;
+		LEVEL_MAX_X = FlxG.stage.stageWidth * 1.5;
+		LEVEL_MIN_Y = -FlxG.stage.stageHeight / 2;
+		LEVEL_MAX_Y = FlxG.stage.stageHeight * 1.5;
+		
+		FlxG.mouse.visible = false;
+		
+		FlxNapeSpace.velocityIterations = 5;
+		FlxNapeSpace.positionIterations = 5;
+		
+		FlxNapeSpace.createWalls(0+10, 0+10, 320-10, 240-10);
+		// Walls border.
 
 		coin = new Coin();
 		coin.deploy(FlxG.random.int(1 + 16, 320 - 16*2),FlxG.random.int(1 + 16, 240 - 16 * 2));
@@ -48,6 +71,8 @@ class PlayStateMiniGames extends FlxState
 		{
 			placeEntities(e.type, e.xmlData.x,e.properties);
 		}
+		
+		GGD.hud.changeColor(FlxColor.BLACK, FlxColor.BLACK, FlxColor.BLACK);
 
 		add(tileMap);
 		add(GGD.hud);
@@ -76,10 +101,20 @@ class PlayStateMiniGames extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
-		FlxG.collide(ball, tileMap, ballVsWall);
-		FlxG.overlap(ball, grpMovingBars, ballVsMovingBar);
-		FlxG.overlap(ball, coin,ballVsCoin);
 		super.update(elapsed);
+		FlxG.overlap(ball, grpMovingBars, ballVsMovingBar);
+        FlxG.overlap(ball, coin,ballVsCoin);
+
+		var speed = 20;
+		if (FlxG.keys.anyPressed([A, LEFT]))
+			ball.body.applyImpulse(new Vec2(-speed, 0));
+		if (FlxG.keys.anyPressed([S, DOWN]))
+			ball.body.applyImpulse(new Vec2(0, speed));
+		if (FlxG.keys.anyPressed([D, RIGHT]))
+			ball.body.applyImpulse(new Vec2(speed, 0));
+		if (FlxG.keys.anyPressed([W, UP]))
+			ball.body.applyImpulse(new Vec2(0, -speed));
+		
 	}
 
 	function ballVsCoin(ball:Ball, coin:Coin)
@@ -91,7 +126,7 @@ class PlayStateMiniGames extends FlxState
 	
 	function ballVsMovingBar(ball:Ball, mBar:MovingBar)
 	{
-		//GGD.coins--;
+		GGD.removeCoin();
 		GGD.hud.updateHUD();
 	}
 
