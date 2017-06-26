@@ -36,6 +36,12 @@ class GlobalGameData
 		coins++;
 		hud.updateHUD();
 	}
+	
+	public static function removeCoin():Void
+	{
+		coins--;
+		hud.updateHUD();
+	}
 
 	public static function clear():Void
 	{
