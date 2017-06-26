@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="15" tilewidth="16" tileheight="16" nextobjectid="11">
- <tileset firstgid="1" name="ffff" tilewidth="16" tileheight="16" tilecount="40" columns="8">
-  <image source="../images/tilesheet.png" width="128" height="80"/>
- </tileset>
- <layer name="Background" width="30" height="15">
+<map version="1.0" tiledversion="1.0.1" orientation="orthogonal" renderorder="right-down" width="30" height="25" tilewidth="32" tileheight="32" nextobjectid="14">
+ <tileset firstgid="1" source="tilesheet2.tsx"/>
+ <layer name="Tile Layer 1" width="30" height="25">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -18,20 +16,30 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-25,25,25,25,25,25,25,0,0,0,0,25,25,25,25,25,25,25,25,0,0,0,0,25,25,25,25,25,25,25,
-25,25,25,25,25,25,25,0,0,0,0,25,25,25,25,25,25,25,25,0,0,0,0,25,25,25,25,25,25,25
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+25,25,25,25,25,25,26,0,0,0,0,24,25,25,25,25,25,25,26,0,0,0,0,24,25,25,25,25,25,25
 </data>
  </layer>
- <objectgroup name="GameObjects">
-  <object id="1" type="Lava" x="165.916" y="228.167" width="5.5" height="6.5"/>
-  <object id="2" type="Lava" x="116.583" y="228.333" width="5.5" height="6.5"/>
-  <object id="3" type="Lava" x="132.75" y="228.75" width="5.5" height="6.5"/>
-  <object id="4" type="Lava" x="149.25" y="228.25" width="5.5" height="6.5"/>
-  <object id="5" type="Lava" x="308.75" y="228.75" width="5.5" height="6.5"/>
-  <object id="6" type="Lava" x="325.75" y="229.25" width="5.5" height="6.5"/>
-  <object id="7" type="Lava" x="340.75" y="228.75" width="5.5" height="6.5"/>
-  <object id="8" type="Lava" x="356.75" y="228.75" width="5.5" height="6.5"/>
-  <object id="9" type="Player" x="36.5" y="197.5" width="6" height="6"/>
-  <object id="10" type="Boss" x="421" y="134" width="6" height="6"/>
+ <objectgroup name="Object Layer 1">
+  <object id="1" type="Lava" x="231.917" y="774.625" width="16" height="16"/>
+  <object id="5" type="Lava" x="264" y="773.667" width="16" height="16"/>
+  <object id="6" type="Lava" x="297.667" y="774.667" width="16" height="16"/>
+  <object id="7" type="Lava" x="328.667" y="773.333" width="16" height="16"/>
+  <object id="8" type="Lava" x="616.292" y="776.958" width="16" height="16"/>
+  <object id="9" type="Lava" x="682.042" y="777" width="16" height="16"/>
+  <object id="10" type="Lava" x="648.375" y="776" width="16" height="16"/>
+  <object id="11" type="Lava" x="713.042" y="775.666" width="16" height="16"/>
+  <object id="12" type="Player" x="43" y="742.667" width="16" height="16"/>
+  <object id="13" type="Boss" x="873.667" y="552" width="16" height="16"/>
  </objectgroup>
 </map>

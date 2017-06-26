@@ -106,7 +106,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
-		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -170,8 +169,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/lava.png", AssetType.IMAGE);
 		className.set ("assets/images/mario_icon.png", __ASSET__assets_images_mario_icon_png);
 		type.set ("assets/images/mario_icon.png", AssetType.IMAGE);
-		className.set ("assets/images/menu_background.jpg", __ASSET__assets_images_menu_background_jpg);
-		type.set ("assets/images/menu_background.jpg", AssetType.IMAGE);
+		className.set ("assets/images/menu_background.png", __ASSET__assets_images_menu_background_png);
+		type.set ("assets/images/menu_background.png", AssetType.IMAGE);
 		className.set ("assets/images/mushroom.png", __ASSET__assets_images_mushroom_png);
 		type.set ("assets/images/mushroom.png", AssetType.IMAGE);
 		className.set ("assets/images/player.png", __ASSET__assets_images_player_png);
@@ -186,8 +185,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/tilesheet.png", AssetType.IMAGE);
 		className.set ("assets/images/tilesheet2.png", __ASSET__assets_images_tilesheet2_png);
 		type.set ("assets/images/tilesheet2.png", AssetType.IMAGE);
-		className.set ("assets/images/tip_1.png", __ASSET__assets_images_tip_1_png);
-		type.set ("assets/images/tip_1.png", AssetType.IMAGE);
 		className.set ("assets/images/tortoise.png", __ASSET__assets_images_tortoise_png);
 		type.set ("assets/images/tortoise.png", AssetType.IMAGE);
 		className.set ("assets/images/tortoise_hammer.png", __ASSET__assets_images_tortoise_hammer_png);
@@ -349,7 +346,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
-		id = "assets/images/menu_background.jpg";
+		id = "assets/images/menu_background.png";
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
@@ -378,10 +375,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		type.set (id, AssetType.IMAGE);
 		id = "assets/images/tilesheet2.png";
-		path.set (id, id);
-		
-		type.set (id, AssetType.IMAGE);
-		id = "assets/images/tip_1.png";
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
@@ -580,8 +573,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("assets/images/mario_icon.png", __ASSET__assets_images_mario_icon_png);
 		type.set ("assets/images/mario_icon.png", AssetType.IMAGE);
 		
-		className.set ("assets/images/menu_background.jpg", __ASSET__assets_images_menu_background_jpg);
-		type.set ("assets/images/menu_background.jpg", AssetType.IMAGE);
+		className.set ("assets/images/menu_background.png", __ASSET__assets_images_menu_background_png);
+		type.set ("assets/images/menu_background.png", AssetType.IMAGE);
 		
 		className.set ("assets/images/mushroom.png", __ASSET__assets_images_mushroom_png);
 		type.set ("assets/images/mushroom.png", AssetType.IMAGE);
@@ -603,9 +596,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("assets/images/tilesheet2.png", __ASSET__assets_images_tilesheet2_png);
 		type.set ("assets/images/tilesheet2.png", AssetType.IMAGE);
-		
-		className.set ("assets/images/tip_1.png", __ASSET__assets_images_tip_1_png);
-		type.set ("assets/images/tip_1.png", AssetType.IMAGE);
 		
 		className.set ("assets/images/tortoise.png", __ASSET__assets_images_tortoise_png);
 		type.set ("assets/images/tortoise.png", AssetType.IMAGE);
@@ -1350,7 +1340,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_images_hud_coin_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_lava_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_mario_icon_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
-@:keep @:bind #if display private #end class __ASSET__assets_images_menu_background_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_images_menu_background_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_mushroom_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_player_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_poster_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1358,7 +1348,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_images_spark_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_tilesheet_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_tilesheet2_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
-@:keep @:bind #if display private #end class __ASSET__assets_images_tip_1_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_tortoise_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_tortoise_hammer_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_trees1_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1386,7 +1375,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 #elseif html5
-
 
 
 
@@ -1483,7 +1471,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/images/hud_coin.png") #if display private #end class __ASSET__assets_images_hud_coin_png extends lime.graphics.Image {}
 @:image("assets/images/lava.png") #if display private #end class __ASSET__assets_images_lava_png extends lime.graphics.Image {}
 @:image("assets/images/mario_icon.png") #if display private #end class __ASSET__assets_images_mario_icon_png extends lime.graphics.Image {}
-@:image("assets/images/menu_background.jpg") #if display private #end class __ASSET__assets_images_menu_background_jpg extends lime.graphics.Image {}
+@:image("assets/images/menu_background.png") #if display private #end class __ASSET__assets_images_menu_background_png extends lime.graphics.Image {}
 @:image("assets/images/mushroom.png") #if display private #end class __ASSET__assets_images_mushroom_png extends lime.graphics.Image {}
 @:image("assets/images/player.png") #if display private #end class __ASSET__assets_images_player_png extends lime.graphics.Image {}
 @:image("assets/images/poster.png") #if display private #end class __ASSET__assets_images_poster_png extends lime.graphics.Image {}
@@ -1491,7 +1479,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:image("assets/images/spark.png") #if display private #end class __ASSET__assets_images_spark_png extends lime.graphics.Image {}
 @:image("assets/images/tilesheet.png") #if display private #end class __ASSET__assets_images_tilesheet_png extends lime.graphics.Image {}
 @:image("assets/images/tilesheet2.png") #if display private #end class __ASSET__assets_images_tilesheet2_png extends lime.graphics.Image {}
-@:image("assets/images/tip_1.png") #if display private #end class __ASSET__assets_images_tip_1_png extends lime.graphics.Image {}
 @:image("assets/images/tortoise.png") #if display private #end class __ASSET__assets_images_tortoise_png extends lime.graphics.Image {}
 @:image("assets/images/tortoise_hammer.png") #if display private #end class __ASSET__assets_images_tortoise_hammer_png extends lime.graphics.Image {}
 @:image("assets/images/Trees1.png") #if display private #end class __ASSET__assets_images_trees1_png extends lime.graphics.Image {}

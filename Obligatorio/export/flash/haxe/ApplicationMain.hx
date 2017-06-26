@@ -138,7 +138,7 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
-		urls.push ("assets/images/menu_background.jpg");
+		urls.push ("assets/images/menu_background.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -167,10 +167,6 @@ class ApplicationMain {
 		
 		
 		urls.push ("assets/images/tilesheet2.png");
-		types.push (lime.Assets.AssetType.IMAGE);
-		
-		
-		urls.push ("assets/images/tip_1.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -331,7 +327,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "482",
+			build: "554",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,

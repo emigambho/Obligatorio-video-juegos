@@ -14,44 +14,36 @@ class MainMenu extends FlxState
 	{
 		super.create();
 
-		if (FlxG.sound.music == null)
-		{
-			FlxG.sound.playMusic(AssetPaths.snd_music__mp3, 0.6, true);
-		}
+		GGD.playMusic();
 
-		var bg = new FlxSprite(0, 0, AssetPaths.menu_background__jpg);
+		var bg = new FlxSprite(0, 0, AssetPaths.menu_background__png);
 		add(bg);
 
-		var btnPlay:FlxButton = new FlxButton(200, 100, "Play Mario", clickPlay);
-		btnPlay.scale.set(2, 2);
-		btnPlay.updateHitbox();
-		btnPlay.label.fieldWidth *= 2;
-		btnPlay.label.size = 16;
-		add(btnPlay);
+		var btnPlay:FlxButton = new FlxButton(0, 100, "Play Mario", clickPlay);
+		setButton(btnPlay);
 
-		var btnLevel0:FlxButton = new FlxButton(300, 300, "Level 0",
-		function ()
-		{
-			GGD.currentLevel = 1;
-			FlxG.switchState(new PlayStateMario());
-		}
-											   );
-		add(btnLevel0);
+		var btnMiniGames:FlxButton = new FlxButton(0, 160, "Mini Juegos", clickMiniGames);
+		setButton(btnMiniGames);
 
-		var btnMiniGames:FlxButton = new FlxButton(200, 200, "Mini Juegos", clickMiniGames);
-		btnMiniGames.scale.set(2, 2);
-		add(btnMiniGames);
+		var btnBoss:FlxButton = new FlxButton(0, 220, "Play vs Boss", clickBoss);
+		setButton(btnBoss);
 
-		var btnBoss:FlxButton = new FlxButton(200, 300, "Play vs Boss", clickBoss);
-		btnBoss.scale.set(2, 2);
-		add(btnBoss);
-
-		var btnExit:FlxButton = new FlxButton(200, 400, "Exit", clickExit);
-		btnExit.scale.set(2, 2);
-		add(btnExit);
+		var btnExit:FlxButton = new FlxButton(0, 280, "Exit", clickExit);
+		setButton(btnExit);
 
 		FlxG.camera.fade(FlxColor.BLACK, .6, true);
 		FlxG.mouse.visible = true;
+	}
+	
+	function setButton(button:FlxButton):Void
+	{
+		button.scale.set(2, 2);
+		button.updateHitbox();
+		button.x = FlxG.width / 2 - button.width / 2;
+		button.label.offset.y = -5;
+		button.label.fieldWidth *= 2;
+		button.label.size = 16;
+		add(button);
 	}
 
 	private function clickPlay():Void
@@ -75,4 +67,12 @@ class MainMenu extends FlxState
 		// EXIT GAME
 	}
 
+	
+	override public function destroy():Void
+	{
+		FlxG.sound.music.stop();
+		super.destroy();
+	}	
+	
+	
 }

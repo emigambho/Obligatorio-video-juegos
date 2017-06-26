@@ -10,6 +10,7 @@ import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxSound;
+import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import gameObjects.HUD;
 import gameObjects.Player;
@@ -21,7 +22,6 @@ import gameObjects.level.Cannon;
 import gameObjects.level.Door;
 import gameObjects.level.Lava;
 import gameObjects.level.LevelInitialization;
-import gameObjects.level.Poster;
 import gameObjects.projectiles.ProjectileFactory;
 import helpers.Helper;
 import interfaces.Enemy;
@@ -46,10 +46,12 @@ class PlayStateMario extends FlxState
 	var enemyFactory: EnemyFactory;
 
 	var level:LevelInitialization;
-	var poster:Poster;
 	var tileId:Int;
-	var sndLevelComplete:FlxSound;
 	
+	var isLevelComplete:Bool;
+	var levelCompleteEmitter:FlxEmitter;	
+	var sndLevelComplete:FlxSound;
+	var timer:Float;
 
 	override public function create():Void
 	{
@@ -65,10 +67,10 @@ class PlayStateMario extends FlxState
 
 		GGD.hud = new HUD();
 
-		add(grpBlock);
-
-		enemyFactory = new EnemyFactory(this);
 		itemFactory = new ItemFactory(this);
+		add(grpBlock);
+		enemyFactory = new EnemyFactory(this);
+		
 
 		add(grpDoor);
 		add(grpLava);
@@ -82,6 +84,10 @@ class PlayStateMario extends FlxState
 		GGD.projectileFactory = projectileFactory;
 
 		sndLevelComplete = FlxG.sound.load(AssetPaths.snd_level_complete__wav);
+		
+		levelCompleteEmitter = createEmitter();
+		
+		GGD.playMusic();
 		
 		cameraInit();
 
@@ -153,13 +159,9 @@ class PlayStateMario extends FlxState
 			case "Door":
 				grpDoor.add(new Door(x, y));
 
-			case "Poster":
-				poster = new Poster(x, y, this);
-				add(poster);
-
 			case "Boss":
 				var boss:Boss = cast(enemyFactory.spawn(x, y, EnemyType.BOSS, SpawnMode.STATIC), Boss);
-				boss.emitter = createEmitter();
+				//boss.emitter = createEmitter();
 				boss.enemyFactory = enemyFactory;
 
 			case "Lava":
@@ -217,13 +219,24 @@ class PlayStateMario extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
+		if (isLevelComplete)
+		{
+			timer -= elapsed;
+			
+			if (timer <= 0){
+				isLevelComplete = false;
+				GGD.nextLevel();
+			}
+		}
+		
 		if (FlxG.keys.pressed.ESCAPE)
 		{
 			openSubState(new PauseSubState(0x99808080));
 		}
 		if (FlxG.keys.pressed.R)
 		{
-			FlxG.resetState();
+			levelComplete();
+			//FlxG.resetState();
 		}
 
 		if (player.alive)
@@ -236,11 +249,6 @@ class PlayStateMario extends FlxState
 			FlxG.overlap(player, grpLava, playerVsLava);
 			FlxG.overlap(player, projectileFactory.grpProjectile, playerVsProjectile);
 
-			if (poster != null)
-			{
-				FlxG.overlap(player, poster, playerVsPoster);
-			}
-			
 			putGrass();
 		}
 
@@ -252,6 +260,32 @@ class PlayStateMario extends FlxState
 		FlxG.overlap(grpBlock, itemFactory.grpItems, blockOverlap);
 
 		super.update(elapsed);
+	}
+	
+	function levelComplete()
+	{
+		isLevelComplete = true;
+		timer = 2;
+		
+		FlxG.sound.music.stop();
+		sndLevelComplete.play();
+		
+		var txt:FlxText;
+		
+		var fix_x = FlxG.camera.scroll.x + FlxG.camera.width / 2;
+		var fix_y = FlxG.camera.scroll.y + FlxG.camera.height / 2;
+		
+		txt = new FlxText(fix_x, fix_y, 0, "Level\nComplete", 32);
+		txt.color = FlxColor.WHITE;
+		txt.x -= txt.width / 2;
+		txt.y -= txt.height / 2;
+		txt.alignment = CENTER;
+		//txt.scrollFactor.set();
+		add(txt);
+		
+		levelCompleteEmitter.x = fix_x;
+		levelCompleteEmitter.y = fix_y;
+		levelCompleteEmitter.start(true);
 	}
 	
 	
@@ -268,8 +302,7 @@ class PlayStateMario extends FlxState
 			
 			if (GGD.currentGrass == GGD.totalGrass)
 			{
-				sndLevelComplete.play();
-				openSubState(new LevelComplete(0x99808080));
+				levelComplete();			
 			}
 		}
 	}	
@@ -277,11 +310,6 @@ class PlayStateMario extends FlxState
 	function playerVsProjectile(aPlayer:Player, aProjectile:Projectile)
 	{
 		aPlayer.death();
-	}
-
-	function playerVsPoster(aPlayer:Player, aPoster:Poster)
-	{
-		aPoster.playerOverlap = true;
 	}
 
 	function enemyVsLava(aEnemy:Enemy, aLava:Lava)
@@ -323,17 +351,10 @@ class PlayStateMario extends FlxState
 
 	function createEmitter():FlxEmitter
 	{
-		var emitter:FlxEmitter = new FlxEmitter(0, 0);
-		emitter.lifespan.min = 0.4;
-		emitter.lifespan.max = 0.4;
-
-		for (i in 0 ... 15)
-		{
-			var p = new FlxParticle();
-			p.loadGraphic(AssetPaths.spark__png, false, 8, 8);
-			p.exists = false;
-			emitter.add(p);
-		}
+		var emitter:FlxEmitter = new FlxEmitter(0, 0, 100);
+		emitter.makeParticles(2, 2, FlxColor.WHITE, 100);
+		emitter.scale.set(1, 1, 4, 4, 8, 8);
+		emitter.color.set(FlxColor.RED, FlxColor.PINK, FlxColor.BLUE, FlxColor.CYAN);
 
 		add(emitter);
 

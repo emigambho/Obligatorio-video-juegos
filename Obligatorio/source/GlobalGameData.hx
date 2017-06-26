@@ -84,4 +84,9 @@ class GlobalGameData
 		});	
 	}
 
+	public static function playMusic()
+	{
+		FlxG.sound.playMusic(AssetPaths.snd_music__mp3, 0.6, true);
+	}
+	
 }
