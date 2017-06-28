@@ -12,7 +12,7 @@ import gameObjects.projectiles.ProjectileFactory.ProjectileType;
 
 class Flower extends FlxSprite implements Enemy
 {
-	static inline var SPEED:Float = 22;
+	static inline var SPEED:Float = 44;
 	static inline var WAIT_TIME_OUTSIDE:Float = 2;
 	static inline var WAIT_TIME_INSIDE:Float = 3.5;
 
@@ -25,7 +25,7 @@ class Flower extends FlxSprite implements Enemy
 	{
 		super();
 
-		loadGraphic(AssetPaths.flower__png, true, 16, 24);
+		loadGraphic(AssetPaths.flower__png, true, 32, 48);
 		animation.add("Biting", [0, 1], 6, true);
 		
 		brain = new FSM();
@@ -97,6 +97,9 @@ class Flower extends FlxSprite implements Enemy
 
 	public function spawn(aX:Float, aY:Float, spawnMode:SpawnMode):Void 
 	{
+		aX += 16;
+		//aY += 16;
+		
 		reset(aX, aY);
 		
 		animation.play("Biting");

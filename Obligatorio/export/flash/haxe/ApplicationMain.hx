@@ -50,11 +50,19 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
+		urls.push ("assets/data/level_05.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
 		urls.push ("assets/data/level_06.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
-		urls.push ("assets/data/level_4.tmx");
+		urls.push ("assets/data/level_07.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/level_08.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
@@ -155,10 +163,6 @@ class ApplicationMain {
 		
 		
 		urls.push ("assets/images/player.png");
-		types.push (lime.Assets.AssetType.IMAGE);
-		
-		
-		urls.push ("assets/images/poster.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
@@ -339,7 +343,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "3",
+			build: "45",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,

@@ -15,28 +15,26 @@ using flixel.util.FlxSpriteUtil;
 class HUD extends FlxTypedGroup<FlxSprite>
 {
 	var txtMoney:FlxText;
-	var txtLevel:FlxText;
 	var txtGrass:FlxText;
+	var txtLifes:FlxText;
 	
 	public function new()
 	{
 		super();
 		
-		txtMoney = new FlxText(70, 30, 0, "X 0", 24);
-		txtMoney.alignment = LEFT;
+		txtMoney = new FlxText(70, 25, 0, "X 0", 16);
 		txtMoney.color = FlxColor.WHITE;
 		add(txtMoney);
 		
-		txtGrass = new FlxText(370, 30, 0, "Grass: 0/0", 24);
-		txtMoney.alignment = CENTER;
+		txtGrass = new FlxText(300, 25, 0, "Grass: 0/0", 16);
 		txtMoney.color = FlxColor.WHITE;
 		add(txtGrass);		
 		
-		txtLevel = new FlxText(775, 30, 0, "Level: 1", 24);
-		txtLevel.color = FlxColor.WHITE;
-		add(txtLevel);
+		txtLifes = new FlxText(600, 25, 0, "Lifes: *", 16);
+		txtLifes.color = FlxColor.WHITE;
+		add(txtLifes);
 		
-		var sprMoney = new FlxSprite(30, 32, AssetPaths.hud_coin__png);
+		var sprMoney = new FlxSprite(40, 27, AssetPaths.hud_coin__png);
 		add(sprMoney);
 		
 		forEach(function(spr:FlxSprite)
@@ -47,17 +45,16 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		updateHUD();
 	}
 	
-	public function changeColor(txtMoneyColor:FlxColor,txtLevelColor:FlxColor,txtScoreColor:FlxColor):Void
+	public function changeColor(txtMoneyColor:FlxColor, txtLevelColor:FlxColor, txtScoreColor:FlxColor):Void
 	{
-		txtLevel.color = txtLevelColor;
+		txtLifes.color = txtLevelColor;
 		txtMoney.color = txtMoneyColor;
-		//txtScore.color = txtScoreColor;
 	}
 
 	public function updateHUD():Void
 	{
 		txtMoney.text = "X " + GGD.coins;
 		txtGrass.text = "Grass: "  + GGD.currentGrass + "/" + GGD.totalGrass;
-		txtLevel.text = "Level: " + GGD.currentLevel;		
+		txtLifes.text = "Lifes: " + GGD.lifes;		
 	}
 }

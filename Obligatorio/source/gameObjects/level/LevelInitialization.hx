@@ -29,8 +29,6 @@ class LevelInitialization
 		
 		switch nroLevel
 		{
-			case 0:	
-				level_0();
 			case 1:
 				loadFromTiled(AssetPaths.level_01__tmx);
 			case 2:
@@ -39,6 +37,14 @@ class LevelInitialization
 				loadFromTiled(AssetPaths.level_03__tmx);
 			case 4:
 				loadFromTiled(AssetPaths.level_04__tmx);
+			case 5:	
+				loadFromTiled(AssetPaths.level_05__tmx);
+			case 6:	
+				loadFromTiled(AssetPaths.level_06__tmx);
+			case 7:	
+				loadFromTiled(AssetPaths.level_07__tmx);
+			case 8:	
+				loadFromTiled(AssetPaths.level_08__tmx);
 			default:
 				throw "Invalid level";
 		}

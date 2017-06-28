@@ -13,18 +13,27 @@ class PauseSubState extends FlxSubState
 	{
 		super.create();
 		
-		var resumeBtn:FlxButton = new FlxButton(0, 0, "Resume", clickResume);
-		resumeBtn.screenCenter();
-		resumeBtn.y -= 25;
-		add(resumeBtn);
+		var center_y = FlxG.height / 2;
 		
-		var quitBtn:FlxButton = new FlxButton(0, 0, "Quit", clickQuit);
-		quitBtn.screenCenter();
-		quitBtn.y += 25;
-		add(quitBtn);		
+		var resumeBtn:FlxButton = new FlxButton(0, center_y-48, "Resume", clickResume);
+		setButton(resumeBtn);
+		
+		var quitBtn:FlxButton = new FlxButton(0, center_y+48, "Quit", clickQuit);
+		setButton(quitBtn);
 		
 		FlxG.mouse.visible = true;
 	}
+	
+	function setButton(button:FlxButton):Void
+	{
+		button.scale.set(2, 2);
+		button.updateHitbox();
+		button.x = FlxG.width / 2 - button.width / 2;
+		button.label.offset.y = -5;
+		button.label.fieldWidth *= 2;
+		button.label.size = 16;
+		add(button);
+	}	
 	
 	private function clickResume() 
 	{

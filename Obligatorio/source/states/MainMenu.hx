@@ -1,5 +1,6 @@
 package states;
 
+import flash.system.System;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -64,7 +65,7 @@ class MainMenu extends FlxState
 
 	private function clickExit():Void
 	{
-		// EXIT GAME
+		System.exit(0);		
 	}
 
 	

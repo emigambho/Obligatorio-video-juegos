@@ -145,7 +145,7 @@ class PlayStateMario extends FlxState
 				enemyFactory.spawn(x, y-8, EnemyType.TORTOISE_HAMMER, SpawnMode.WALK_LEFT);
 
 			case "Flower":
-				enemyFactory.spawn(x+8, y-8, EnemyType.FLOWER, SpawnMode.STATIC);
+				enemyFactory.spawn(x, y, EnemyType.FLOWER, SpawnMode.STATIC);
 
 			case "Brick":
 				createBlock(x, y, entity);

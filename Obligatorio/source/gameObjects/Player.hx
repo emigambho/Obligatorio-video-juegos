@@ -18,6 +18,7 @@ class Player extends FlxSprite
 	static inline var MAX_VELOCITY_X:Int = 300;
 	static inline var MAX_VELOCITY_Y:Int = 840;
 	static inline var FRICTION_X:Int = 600;
+	static inline var OUT_SCREEN_Y:Int = 768;
 
 	var timer:Float;
 	var waitCallback:Void->Void;
@@ -67,6 +68,11 @@ class Player extends FlxSprite
 
 	function walkState(elapsed:Float):Void
 	{
+		if (y >= OUT_SCREEN_Y) // El personaje se calló de la pantalla.
+		{
+			death();
+		}
+		
 		if (alive)
 		{
 			acceleration.x = 0;

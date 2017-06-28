@@ -37,19 +37,30 @@ class InfoState extends FlxState
 	
 	function showLifes() 
 	{
-		var mario:FlxSprite = new FlxSprite(115, 112);
-		mario.loadGraphic(AssetPaths.mario_icon__png);
-		add(mario);
+		var center_x = FlxG.width / 2;
+		var center_y = FlxG.height / 2;
 		
-		var lifes:FlxText = new FlxText(150, 116, 0, "X         " + GGD.lifes, 8);
-		add(lifes);
+		var txtLevel:FlxText = new FlxText(center_x, center_y, 0, "Level: " + GGD.currentLevel, 32);
+		txtLevel.x -= txtLevel.width / 2;
+		txtLevel.y -= (txtLevel.height / 2) +64;
+		add(txtLevel);				
+		
+		var imgMario:FlxSprite = new FlxSprite(center_x, center_y);
+		imgMario.loadGraphic(AssetPaths.mario_icon__png);
+		imgMario.x -= 96;
+		imgMario.y -= imgMario.height/2 -64;
+		add(imgMario);
+		
+		var txtLifes:FlxText = new FlxText(center_x, center_y, 0, "X   " + GGD.lifes, 32);
+		txtLifes.y -= txtLifes.height / 2 -64;
+		add(txtLifes);
 	}
 	
 	function showGameOver()
 	{
-		var lifes:FlxText = new FlxText(0, 0, 0, "GAME OVER!", 16);
-		lifes.screenCenter();
-		add(lifes);		
+		var txtGameOver:FlxText = new FlxText(0, 0, 0, "GAME OVER!", 48);
+		txtGameOver.screenCenter();
+		add(txtGameOver);		
 	}
 	
 	override public function update(elapsed:Float):Void
