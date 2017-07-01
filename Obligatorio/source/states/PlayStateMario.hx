@@ -142,7 +142,7 @@ class PlayStateMario extends FlxState
 				createTortoise(x, y, entity);
 
 			case "TortoiseHammer":
-				enemyFactory.spawn(x, y-8, EnemyType.TORTOISE_HAMMER, SpawnMode.WALK_LEFT);
+				enemyFactory.spawn(x, y, EnemyType.TORTOISE_HAMMER, SpawnMode.WALK_LEFT);
 
 			case "Flower":
 				enemyFactory.spawn(x, y, EnemyType.FLOWER, SpawnMode.STATIC);
@@ -235,8 +235,8 @@ class PlayStateMario extends FlxState
 		}
 		if (FlxG.keys.pressed.R)
 		{
-			levelComplete();
-			//FlxG.resetState();
+			//levelComplete();
+			FlxG.resetState();
 		}
 
 		if (player.alive)

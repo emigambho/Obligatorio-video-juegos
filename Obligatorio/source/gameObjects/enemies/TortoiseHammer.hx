@@ -15,8 +15,8 @@ class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithB
 	static inline var TIME_BETWEEN_CHANGES_DIRECTION = .8;
 	static inline var TIME_BETWEEN_THROWING:Float = 1;
 	static inline var TIME_THROWING:Float = .15;
-	static inline var GRAVITY:Int = 560;
-	static inline var WALK_SPEED:Int = 35;
+	static inline var GRAVITY:Int = 1120;
+	static inline var WALK_SPEED:Int = 70;
 	
 	var timerChangeDirection:Float;
 	var timer:Float;
@@ -27,7 +27,7 @@ class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithB
 	{
 		super();
 
-		loadGraphic(AssetPaths.tortoise_hammer__png, true, 16, 33);
+		loadGraphic(AssetPaths.tortoise_hammer__png, true, 32, 66);
 
 		animation.add("walk", [1, 0], 3, true);
 		animation.add("throw", [2], 6, false);
@@ -37,8 +37,8 @@ class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithB
 		
 		brain = new FSM();
 		
-		setSize(14, 24);
-		offset.set(0, 9);		
+		setSize(28, 48);
+		offset.set(0, 18);
 	}
 	
 	override public function update(elapsed:Float):Void
@@ -116,7 +116,7 @@ class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithB
 				directionX = -1;
 			}			
 			
-			GGD.projectileFactory.shoot(startX, y + 2, directionX, 0, ProjectileType.HAMMER);
+			GGD.projectileFactory.shoot(startX, y + 4, directionX, 0, ProjectileType.HAMMER);
 			
 			timer = TIME_BETWEEN_THROWING;
 			brain.activeState = walkState;			
@@ -133,7 +133,7 @@ class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithB
 		alive = false;
 		acceleration.set(0, GRAVITY);
 		velocity.x *= 2;
-		velocity.y = -100;
+		velocity.y = -200;
 		scale.y = -1;
 		allowCollisions = FlxObject.NONE;
 
@@ -145,6 +145,8 @@ class TortoiseHammer extends FlxSprite implements Enemy implements InteractWithB
 
 	public function spawn(aX:Float, aY:Float, spawnMode:SpawnMode)
 	{
+		aY -= 16;
+		
 		reset(aX, aY);
 
 		timerChangeDirection = TIME_BETWEEN_CHANGES_DIRECTION;

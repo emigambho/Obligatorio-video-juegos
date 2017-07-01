@@ -60,7 +60,7 @@ class GlobalGameData
 	{
 		lifes = 3;
 		coins = 0;
-		currentLevel = 1;
+		currentLevel = 6;
 		FlxG.switchState(new InfoState());
 	}	
 

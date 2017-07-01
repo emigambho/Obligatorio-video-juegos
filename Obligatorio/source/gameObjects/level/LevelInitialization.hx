@@ -43,8 +43,6 @@ class LevelInitialization
 				loadFromTiled(AssetPaths.level_06__tmx);
 			case 7:	
 				loadFromTiled(AssetPaths.level_07__tmx);
-			case 8:	
-				loadFromTiled(AssetPaths.level_08__tmx);
 			default:
 				throw "Invalid level";
 		}

@@ -7,9 +7,9 @@ import interfaces.Projectile;
 
 class Hammer extends FlxSprite implements Projectile
 {
-	static inline var GRAVITY:Int = 600;
-	static inline var Y_SPEED:Float = 300;
-	static inline var X_SPEED:Float = 100;
+	static inline var GRAVITY:Int = 1200;
+	static inline var Y_SPEED:Float = 600;
+	static inline var X_SPEED:Float = 200;
 	static inline var TIME_LIFE:Float = 2;
 
 	var timer:Float;
@@ -18,15 +18,15 @@ class Hammer extends FlxSprite implements Projectile
 	{
 		super();
 
-		loadGraphic(AssetPaths.hammer__png, true, 16, 16);
+		loadGraphic(AssetPaths.hammer__png, true, 32, 32);
 
 		animation.add("spin", [1, 2, 3, 0], 12, true);
 
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 
-		setSize(8, 8);
-		offset.set(4, 4);
+		setSize(16, 16);
+		offset.set(8, 8);
 	}
 
 	override public function update(elapsed:Float):Void

@@ -62,10 +62,6 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
-		urls.push ("assets/data/level_08.tmx");
-		types.push (lime.Assets.AssetType.TEXT);
-		
-		
 		urls.push ("assets/data/mini_game_1.tmx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
@@ -343,7 +339,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "45",
+			build: "62",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,

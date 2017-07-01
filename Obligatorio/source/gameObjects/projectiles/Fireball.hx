@@ -6,7 +6,7 @@ import interfaces.Projectile;
 
 class Fireball extends FlxSprite implements Projectile
 {
-	static inline var SPEED:Float = 80;
+	static inline var SPEED:Float = 160;
 	static inline var TIME_LIFE:Float = 6;
 
 	var timer:Float;
@@ -15,7 +15,7 @@ class Fireball extends FlxSprite implements Projectile
 	{
 		super();
 
-		loadGraphic(AssetPaths.fireball__png, true, 8, 8);
+		loadGraphic(AssetPaths.fireball__png, true, 16, 16);
 
 		animation.add("spin", [0, 1, 2, 3], 8, true);
 	}

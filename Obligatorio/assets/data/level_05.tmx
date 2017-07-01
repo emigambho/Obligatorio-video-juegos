@@ -14,12 +14,12 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,28,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,29,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,29,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -36,7 +36,10 @@
 40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
 40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
 40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
-40,0,0,0,39,39,39,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
+40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
+40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
+40,0,0,39,39,39,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
+40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
 40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
 40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
 40,22,22,22,22,22,22,22,23,0,0,0,0,0,0,0,0,0,0,0,0,21,22,22,22,22,22,22,22,40,
@@ -46,11 +49,8 @@
 40,0,0,0,0,0,0,0,0,0,0,0,0,0,39,39,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
 40,0,0,0,0,0,0,0,0,0,0,0,0,0,39,39,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
 40,0,0,0,0,0,0,0,0,0,0,0,0,0,39,39,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
-40,0,0,0,0,0,0,0,0,0,0,0,21,22,38,38,22,23,0,0,0,0,0,0,0,0,0,0,0,40,
-40,0,0,0,0,0,0,0,0,0,0,0,31,32,32,32,32,33,0,0,0,0,0,0,0,0,0,0,0,40,
-40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
-40,22,22,22,22,22,23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,22,22,22,22,22,40,
-40,32,32,32,32,32,33,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,31,32,32,32,32,32,40,
+40,22,22,22,22,22,23,0,0,0,0,0,21,22,38,38,22,23,0,0,0,0,0,21,22,22,22,22,22,40,
+40,32,32,32,32,32,33,0,0,0,0,0,31,32,32,32,32,33,0,0,0,0,0,31,32,32,32,32,32,40,
 40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
 40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
 40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,
@@ -61,49 +61,49 @@
  </layer>
  <objectgroup name="Entities">
   <object id="1" type="Player" x="679.667" y="743.667" width="19" height="17"/>
-  <object id="44" type="Coin" x="728.75" y="137" width="16" height="16" rotation="90">
+  <object id="44" type="Coin" x="760.75" y="231" width="16" height="16" rotation="90">
    <properties>
     <property name="ItemType" type="int" value="1"/>
     <property name="cantItems" type="int" value="2"/>
    </properties>
   </object>
-  <object id="45" type="Coin" x="791.25" y="138" width="16" height="16" rotation="90">
+  <object id="45" type="Coin" x="823.25" y="232" width="16" height="16" rotation="90">
    <properties>
     <property name="ItemType" type="int" value="1"/>
     <property name="cantItems" type="int" value="2"/>
    </properties>
   </object>
-  <object id="46" type="Coin" x="759.75" y="106" width="16" height="16" rotation="90">
+  <object id="46" type="Coin" x="791.75" y="200" width="16" height="16" rotation="90">
    <properties>
     <property name="ItemType" type="int" value="1"/>
     <property name="cantItems" type="int" value="2"/>
    </properties>
   </object>
-  <object id="47" type="Coin" x="822" y="106" width="16" height="16" rotation="90">
+  <object id="47" type="Coin" x="854" y="200" width="16" height="16" rotation="90">
    <properties>
     <property name="ItemType" type="int" value="1"/>
     <property name="cantItems" type="int" value="2"/>
    </properties>
   </object>
-  <object id="48" type="Coin" x="855" y="138" width="16" height="16" rotation="90">
+  <object id="48" type="Coin" x="887" y="232" width="16" height="16" rotation="90">
    <properties>
     <property name="ItemType" type="int" value="1"/>
     <property name="cantItems" type="int" value="2"/>
    </properties>
   </object>
-  <object id="49" type="Brick" x="201.25" y="141.833" width="14" height="13">
+  <object id="49" type="Brick" x="172.25" y="204.833" width="14" height="13">
    <properties>
     <property name="ItemType" type="int" value="0"/>
     <property name="cantItems" type="int" value="0"/>
    </properties>
   </object>
-  <object id="50" type="Bonus" x="164.75" y="139.833" width="15" height="14.3333">
+  <object id="50" type="Bonus" x="135.75" y="202.833" width="15" height="14.3333">
    <properties>
     <property name="ItemType" type="int" value="1"/>
     <property name="cantItems" type="int" value="2"/>
    </properties>
   </object>
-  <object id="51" type="Brick" x="131.917" y="138.5" width="14" height="13">
+  <object id="51" type="Brick" x="102.917" y="201.5" width="14" height="13">
    <properties>
     <property name="ItemType" type="int" value="0"/>
     <property name="cantItems" type="int" value="0"/>
@@ -111,12 +111,12 @@
   </object>
   <object id="54" type="Mushroom" x="135.5" y="520" width="17" height="16"/>
   <object id="55" type="Mushroom" x="777.5" y="521" width="17" height="16"/>
-  <object id="56" type="Tortoise" x="199" y="200" width="16" height="16">
+  <object id="56" type="Tortoise" x="199" y="294" width="16" height="16">
    <properties>
     <property name="IsWalking" type="int" value="1"/>
    </properties>
   </object>
-  <object id="57" type="Tortoise" x="775" y="202" width="16" height="16">
+  <object id="57" type="Tortoise" x="775" y="296" width="16" height="16">
    <properties>
     <property name="IsWalking" type="int" value="1"/>
    </properties>
@@ -126,6 +126,6 @@
     <property name="IsWalking" type="int" value="1"/>
    </properties>
   </object>
-  <object id="59" type="Flower" x="455.5" y="362" width="17" height="16"/>
+  <object id="59" type="Flower" x="458.5" y="458" width="17" height="16"/>
  </objectgroup>
 </map>
