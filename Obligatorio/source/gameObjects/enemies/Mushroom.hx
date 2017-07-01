@@ -20,6 +20,8 @@ class Mushroom extends FlxSprite implements Enemy implements InteractWithBlocks 
 	var facingDirection:Int;
 	var timeoutDeathAnimation:Float;
 	var brain:FSM;
+	
+	var dontfall : Bool;
 
 	var frameWithBlockImmunity:Int = 0;
 	var tileId:Int;	
@@ -49,7 +51,7 @@ class Mushroom extends FlxSprite implements Enemy implements InteractWithBlocks 
 		{
 			changeDirection();
 		} 
-		else if (isTouching(FlxObject.FLOOR))
+		else if (isTouching(FlxObject.FLOOR) && dontfall)
 		{
 			x_fix = (facingDirection == 1) ? 33 : -1;
 			tileId = Helper.getTileFromXY(x + x_fix, y + 33);
@@ -153,6 +155,7 @@ class Mushroom extends FlxSprite implements Enemy implements InteractWithBlocks 
 		acceleration.y = GRAVITY;
 		velocity.x = SPEED * facingDirection;
 		brain.activeState = walkState;
+		dontfall = true;
 	}
 
 	public function touchThePlayer(aPlayer:Player):Void
@@ -201,5 +204,10 @@ class Mushroom extends FlxSprite implements Enemy implements InteractWithBlocks 
 			animation.play("burn");
 			death();
 		}
+	}
+	
+	public function set_dontfall(value:Bool):Bool 
+	{
+		return dontfall = value;
 	}
 }

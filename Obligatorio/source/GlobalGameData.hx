@@ -1,6 +1,8 @@
 package;
 
 import flixel.FlxG;
+import flixel.addons.editors.tiled.TiledMap;
+import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
 import gameObjects.HUD;
 import gameObjects.Player;
@@ -27,6 +29,13 @@ class GlobalGameData
 
 	public static var totalGrass:Int;
 	public static var currentGrass:Int;
+	public static var currentBossLife:Int;
+	public static var totalBossLife:Int;
+	public static var bossState:Bool;
+	public static var miniGameState:Bool;
+	public static var miniGameTime:Float;
+	
+	public static var actualTileMap: Array<Int>;
 	
 	public function new() {	}
 	public static var miniGame:String;
@@ -60,7 +69,7 @@ class GlobalGameData
 	{
 		lifes = 3;
 		coins = 0;
-		currentLevel = 6;
+		currentLevel = 2;
 		FlxG.switchState(new InfoState());
 	}	
 

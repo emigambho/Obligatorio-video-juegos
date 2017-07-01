@@ -43,6 +43,7 @@ class LevelInitialization
 				loadFromTiled(AssetPaths.level_06__tmx);
 			case 7:	
 				loadFromTiled(AssetPaths.level_07__tmx);
+				 GGD.bossState = true;
 			default:
 				throw "Invalid level";
 		}
@@ -89,11 +90,17 @@ class LevelInitialization
 
 	function loadFromTiled(level:String)
 	{
+		
 		tiledMap = new TiledMap(level);
-
-		entities = cast (tiledMap.getLayer("Entities"), TiledObjectLayer).objects;
-
-		loadLayer(tileMap, "WallLayer");
+		
+		entities = cast (tiledMap.getLayer("Entities"), TiledObjectLayer).objects; 
+		
+		if (GGD.actualTileMap != null){
+			tileMap.loadMapFromArray(GGD.actualTileMap, tiledMap.width, tiledMap.height, AssetPaths.tilesheet2__png, tiledMap.tileWidth, tiledMap.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 21);
+			GGD.actualTileMap = null;
+		}else{
+			loadLayer(tileMap, "WallLayer");	
+		}
 
 		state.add(tileMap);
 	}

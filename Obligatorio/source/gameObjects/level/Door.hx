@@ -9,18 +9,13 @@ class Door extends FlxSprite
 {
 	public function new(aX:Float, aY:Float) 
 	{
+		aX += 16;
 		super(aX, aY);
 		
-		makeGraphic(16, 16);
-		alpha = 0;
+		makeGraphic(32, 32);
+		//alpha = 0;
 	}
 	
-	public function playerTouch(aPlayer:Player)
-	{
-		if (FlxG.keys.pressed.DOWN)
-		{
-			trace("ir a mini-juego ...");			
-		}
-	}
+
 	
 }

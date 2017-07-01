@@ -52,17 +52,17 @@ class PlayStateMiniGames extends FlxState
 		FlxNapeSpace.velocityIterations = 5;
 		FlxNapeSpace.positionIterations = 5;
 		
-		var bg1:FlxBackdrop = new FlxBackdrop(AssetPaths.Trees1__png, 0.1, 0, true, false);
+		var bg1:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_cave__jpg, 0, 0, true, true);
 		add(bg1);
 		
-		var bg2:FlxBackdrop = new FlxBackdrop(AssetPaths.Trees2__png, 0.2, 0, true, false);
-		add(bg2);
-		
-		var bg3:FlxBackdrop = new FlxBackdrop(AssetPaths.Trees3__png, 0.4, 0, true, false);
-		add(bg3);
-		
-		var bg4:FlxBackdrop = new FlxBackdrop(AssetPaths.Trees4__png, 0.8, 0, true, false);
-		add(bg4);		
+		//var bg2:FlxBackdrop = new FlxBackdrop(AssetPaths.Trees2__png, 0.2, 0, true, false);
+		//add(bg2);
+		//
+		//var bg3:FlxBackdrop = new FlxBackdrop(AssetPaths.Trees3__png, 0.4, 0, true, false);
+		//add(bg3);
+		//
+		//var bg4:FlxBackdrop = new FlxBackdrop(AssetPaths.Trees4__png, 0.8, 0, true, false);
+		//add(bg4);		
 		
 		// Walls border.
 
@@ -79,6 +79,10 @@ class PlayStateMiniGames extends FlxState
 		
 		grpMovingBars = new FlxTypedGroup<MovingBar>();
 		add(grpMovingBars);
+		
+		GGD.miniGameTime = FlxG.random.int(5, 5);
+		GGD.miniGameState = true;
+		GGD.hud.updateHUD();
 
 		var tmpMap:TiledObjectLayer = cast tiledMap.getLayer("GameObjects");
 		for (e in tmpMap.objects)
@@ -86,11 +90,9 @@ class PlayStateMiniGames extends FlxState
 			placeEntities(e.type, e.xmlData.x,e.properties);
 		}
 		
-		GGD.hud.changeColor(FlxColor.BLACK, FlxColor.BLACK, FlxColor.BLACK);
-
 		add(tileMap);
 		add(GGD.hud);
-		
+		FlxG.camera.fade(FlxColor.BLACK, .6, true);
 	}
 
 	function placeEntities(entityName:String, entityData:Xml,properties:TiledPropertySet):Void
@@ -118,8 +120,18 @@ class PlayStateMiniGames extends FlxState
 	{
 		super.update(elapsed);
 		//FlxG.overlap(ball, grpMovingBars, ballVsMovingBar);
-        FlxG.overlap(ball, coin,ballVsCoin);
-
+        FlxG.overlap(ball, coin, ballVsCoin);
+		
+		GGD.miniGameTime -= elapsed; 
+		if (GGD.miniGameTime <= 0){
+			FlxG.switchState(new PlayStateMario());
+			//FlxG.camera.fade(FlxColor.BLACK, .6, false, function()
+			//{
+				//FlxG.switchState(new PlayStateMario());
+			//});
+		}
+		GGD.hud.updateHUD();
+		
 		var speed = 20;
 		if (FlxG.keys.anyPressed([A, LEFT]))
 			ball.body.applyImpulse(new Vec2(-speed, 0));

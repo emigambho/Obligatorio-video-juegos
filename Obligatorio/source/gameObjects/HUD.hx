@@ -26,10 +26,11 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		txtMoney.color = FlxColor.WHITE;
 		add(txtMoney);
 		
-		txtGrass = new FlxText(300, 25, 0, "Grass: 0/0", 16);
+		txtGrass = new FlxText(300, 25, 0, "middletext", 16);
 		txtMoney.color = FlxColor.WHITE;
-		add(txtGrass);		
+		add(txtGrass);	
 		
+
 		txtLifes = new FlxText(600, 25, 0, "Lifes: *", 16);
 		txtLifes.color = FlxColor.WHITE;
 		add(txtLifes);
@@ -45,16 +46,20 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		updateHUD();
 	}
 	
-	public function changeColor(txtMoneyColor:FlxColor, txtLevelColor:FlxColor, txtScoreColor:FlxColor):Void
-	{
-		txtLifes.color = txtLevelColor;
-		txtMoney.color = txtMoneyColor;
-	}
-
 	public function updateHUD():Void
 	{
 		txtMoney.text = "X " + GGD.coins;
-		txtGrass.text = "Grass: "  + GGD.currentGrass + "/" + GGD.totalGrass;
+		
+		if (GGD.bossState){
+			txtGrass.text = "Boss: "  + GGD.currentBossLife + "/" + GGD.totalBossLife;
+		} else  if(GGD.miniGameState){
+			txtGrass.text = "Time left: "  +  Math.round(GGD.miniGameTime);
+		} else {
+			txtGrass.text = "Grass: "  + GGD.currentGrass + "/" + GGD.totalGrass;
+		}
+
+		
 		txtLifes.text = "Lifes: " + GGD.lifes;		
 	}
+	
 }

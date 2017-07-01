@@ -1,6 +1,7 @@
 package gameObjects.enemies;
 
 import flash.geom.Point;
+import flixel.system.FlxSound;
 import gameObjects.Player;
 import gameObjects.enemies.EnemyFactory.EnemyType;
 import helpers.FiniteStateMachine;
@@ -22,30 +23,33 @@ import states.WinSubState;
 
 class Boss extends FlxSprite implements Enemy implements InteractWithLava
 {
-	static inline var DETECTION_THRESHOLD:Int = 70; // Es el rango en el cual el Boss detecta al Player.
-	static inline var Y_OBJETIVE:Int = -40; // Es la altura a la que sube el Boss para perseguir al Player.
-	static inline var CHASE_ACCELERATION:Int = 80;
-	static inline var SMASH_VELOCITY = 300;
+	static inline var DETECTION_THRESHOLD:Int = 140; // Es el rango en el cual el Boss detecta al Player.
+	static inline var Y_OBJETIVE:Int = 280; // Es la altura a la que sube el Boss para perseguir al Player.
+	static inline var CHASE_ACCELERATION:Int = 160;
+	static inline var SMASH_VELOCITY = 600;
 	static inline var SLEEP_TIME = 1.2; // Tiempo que el jefe "duerme" después de atacar.
 
 	public var emitter(null, set):FlxEmitter;
 	public var enemyFactory(null, set): EnemyFactory;	
 	
-	var lifes:Int;
 	var brain:FSM;
 	var timer:Float;
 	var vulnerable:Bool;
+	var alreadyHitted:Bool;
 
 	var start:Point = new Point();
 	var end:Point = new Point();
 	var myPath:Linear;
 	var pathWalker:PathWalker;
+	
+	var hurtSound: FlxSound;
+	var killedSound: FlxSound;
 
 	public function new()
 	{
 		super();
 
-		loadGraphic(AssetPaths.boss__png, true, 50, 59);
+		loadGraphic(AssetPaths.boss__png, true, 100, 118);
 
 		animation.add("onHold", [0]);
 		animation.add("active", [1]);
@@ -55,14 +59,17 @@ class Boss extends FlxSprite implements Enemy implements InteractWithLava
 
 		brain = new FSM();
 
-		maxVelocity.x = 130;
-		maxVelocity.y = 300;
+		maxVelocity.x = 260;
+		maxVelocity.y = 600;
 
-		offset.set(9, 0);
-		setSize(32, 59);
+		offset.set(18, 0);
+		setSize(64, 118);
 
 		myPath = new Linear(start, end);
 		pathWalker = new PathWalker(myPath, 1.5, PlayMode.None);
+		
+		hurtSound = FlxG.sound.load(AssetPaths.snd_hurt_boss__wav);
+		killedSound = FlxG.sound.load(AssetPaths.snd_kill_boss__wav);
 	}
 
 	override public function update(elapsed:Float):Void
@@ -149,9 +156,9 @@ class Boss extends FlxSprite implements Enemy implements InteractWithLava
 		{
 			FlxG.camera.shake(0.01, 0.2);
 
-			emitter.x = x + width / 2;
-			emitter.y = y + height;
-			emitter.start(true, 0, 0);
+			//emitter.x = x + width / 2;
+			//emitter.y = y + height;
+			//emitter.start(true, 0, 0);
 
 			enemySpawn();
 
@@ -164,14 +171,17 @@ class Boss extends FlxSprite implements Enemy implements InteractWithLava
 	// Genero 3 enemigos, uno por cada plataforma.
 	function enemySpawn()
 	{
-		var enemy1 = enemyFactory.spawn(FlxG.random.int(0, 64), 0, EnemyType.MUSHROOM, SpawnMode.WALK_RIGHT);
+		var enemy1 = enemyFactory.spawn(FlxG.random.int(0, 185), 0, EnemyType.MUSHROOM, SpawnMode.WALK_RIGHT);
 		cast(enemy1, Mushroom).stop();
+		cast(enemy1, Mushroom).set_dontfall(false);
 
-		var enemy2 = enemyFactory.spawn(FlxG.random.int(208, 256), 0, EnemyType.MUSHROOM, SpawnMode.WALK_LEFT);
+		var enemy2 = enemyFactory.spawn(FlxG.random.int(385, 576), 0, EnemyType.MUSHROOM, SpawnMode.WALK_LEFT);
 		cast(enemy2, Mushroom).stop();
+		cast(enemy2, Mushroom).set_dontfall(false);
 
-		var enemy3 = enemyFactory.spawn(FlxG.random.int(400, 464), 0, EnemyType.MUSHROOM, SpawnMode.WALK_LEFT);
+		var enemy3 = enemyFactory.spawn(FlxG.random.int(768, 930), 0, EnemyType.MUSHROOM, SpawnMode.WALK_LEFT);
 		cast(enemy3, Mushroom).stop();
+		cast(enemy3, Mushroom).set_dontfall(false);
 	}
 	
 	public function set_emitter(value:FlxEmitter):FlxEmitter 
@@ -191,32 +201,41 @@ class Boss extends FlxSprite implements Enemy implements InteractWithLava
 		reset(aX, aY);
 
 		acceleration.y = 300;
-		lifes = 1;
+		GGD.currentBossLife = 1;
+		GGD.totalBossLife= 1;
 		
 		brain.activeState = onHoldState;
+		GGD.hud.updateHUD();
 	}	
 	
 	public function touchThePlayer(aPlayer:Player):Void 
 	{
 		if (vulnerable)
 		{
-			var posPlayer:Int = Helper.getRelativePosition(this, aPlayer);
-			
-			if (posPlayer == FlxObject.UP)
+			if (!alreadyHitted) 
 			{
-				aPlayer.bounce();
-				lifes--;
-				
-				if (lifes == 0)
+				var posPlayer:Int = Helper.getRelativePosition(this, aPlayer);
+				if (posPlayer == FlxObject.UP)
 				{
-					// openSubState(new WinSubState(0x99808080));
-				}
-			}			
+					aPlayer.bounce();
+					GGD.currentBossLife--;
+					alreadyHitted = true;
+					if (GGD.currentBossLife == 0)
+					{
+						killedSound.play();
+						brain.activeState = null;
+						// openSubState(new WinSubState(0x99808080));
+					} else {
+						hurtSound.play();
+					}
+				}	
+			}
 		}
 		else
 		{
 			aPlayer.death();	
 		}
+		GGD.hud.updateHUD();
 	}
 	
 	/* INTERFACE interfaces.InteractWithLava */
@@ -228,7 +247,7 @@ class Boss extends FlxSprite implements Enemy implements InteractWithLava
 			velocity.set(0, 0);
 			animation.play("damage");
 			vulnerable = true;
-			
+			alreadyHitted = false;
 			timer = SLEEP_TIME * 2.5;			
 			brain.activeState = sleepState;
 		}		

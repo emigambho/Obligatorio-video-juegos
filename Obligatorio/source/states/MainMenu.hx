@@ -59,7 +59,7 @@ class MainMenu extends FlxState
 
 	private function clickBoss():Void
 	{
-		GGD.currentLevel = 4;
+		GGD.currentLevel = 7;
 		FlxG.switchState(new PlayStateMario());
 	}
 

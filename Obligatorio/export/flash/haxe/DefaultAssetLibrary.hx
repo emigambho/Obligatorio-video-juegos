@@ -109,6 +109,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
+		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -154,6 +157,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/data/_borrar/level_3.tmx", AssetType.TEXT);
 		className.set ("assets/images/Ball.png", __ASSET__assets_images_ball_png);
 		type.set ("assets/images/Ball.png", AssetType.IMAGE);
+		className.set ("assets/images/bg_cave.jpg", __ASSET__assets_images_bg_cave_jpg);
+		type.set ("assets/images/bg_cave.jpg", AssetType.IMAGE);
 		className.set ("assets/images/bonus.png", __ASSET__assets_images_bonus_png);
 		type.set ("assets/images/bonus.png", AssetType.IMAGE);
 		className.set ("assets/images/boss.png", __ASSET__assets_images_boss_png);
@@ -212,10 +217,14 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/sounds/snd_coin.wav", AssetType.SOUND);
 		className.set ("assets/sounds/snd_game_over.wav", __ASSET__assets_sounds_snd_game_over_wav);
 		type.set ("assets/sounds/snd_game_over.wav", AssetType.SOUND);
+		className.set ("assets/sounds/snd_hurt_boss.wav", __ASSET__assets_sounds_snd_hurt_boss_wav);
+		type.set ("assets/sounds/snd_hurt_boss.wav", AssetType.SOUND);
 		className.set ("assets/sounds/snd_jump_small.wav", __ASSET__assets_sounds_snd_jump_small_wav);
 		type.set ("assets/sounds/snd_jump_small.wav", AssetType.SOUND);
 		className.set ("assets/sounds/snd_jump_super.wav", __ASSET__assets_sounds_snd_jump_super_wav);
 		type.set ("assets/sounds/snd_jump_super.wav", AssetType.SOUND);
+		className.set ("assets/sounds/snd_kill_boss.wav", __ASSET__assets_sounds_snd_kill_boss_wav);
+		type.set ("assets/sounds/snd_kill_boss.wav", AssetType.SOUND);
 		className.set ("assets/sounds/snd_level_complete.wav", __ASSET__assets_sounds_snd_level_complete_wav);
 		type.set ("assets/sounds/snd_level_complete.wav", AssetType.SOUND);
 		className.set ("assets/sounds/snd_life.wav", __ASSET__assets_sounds_snd_life_wav);
@@ -316,6 +325,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		type.set (id, AssetType.TEXT);
 		id = "assets/images/Ball.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/bg_cave.jpg";
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
@@ -435,11 +448,19 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		
 		type.set (id, AssetType.SOUND);
+		id = "assets/sounds/snd_hurt_boss.wav";
+		path.set (id, id);
+		
+		type.set (id, AssetType.SOUND);
 		id = "assets/sounds/snd_jump_small.wav";
 		path.set (id, id);
 		
 		type.set (id, AssetType.SOUND);
 		id = "assets/sounds/snd_jump_super.wav";
+		path.set (id, id);
+		
+		type.set (id, AssetType.SOUND);
+		id = "assets/sounds/snd_kill_boss.wav";
 		path.set (id, id);
 		
 		type.set (id, AssetType.SOUND);
@@ -567,6 +588,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("assets/images/Ball.png", __ASSET__assets_images_ball_png);
 		type.set ("assets/images/Ball.png", AssetType.IMAGE);
 		
+		className.set ("assets/images/bg_cave.jpg", __ASSET__assets_images_bg_cave_jpg);
+		type.set ("assets/images/bg_cave.jpg", AssetType.IMAGE);
+		
 		className.set ("assets/images/bonus.png", __ASSET__assets_images_bonus_png);
 		type.set ("assets/images/bonus.png", AssetType.IMAGE);
 		
@@ -654,11 +678,17 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("assets/sounds/snd_game_over.wav", __ASSET__assets_sounds_snd_game_over_wav);
 		type.set ("assets/sounds/snd_game_over.wav", AssetType.SOUND);
 		
+		className.set ("assets/sounds/snd_hurt_boss.wav", __ASSET__assets_sounds_snd_hurt_boss_wav);
+		type.set ("assets/sounds/snd_hurt_boss.wav", AssetType.SOUND);
+		
 		className.set ("assets/sounds/snd_jump_small.wav", __ASSET__assets_sounds_snd_jump_small_wav);
 		type.set ("assets/sounds/snd_jump_small.wav", AssetType.SOUND);
 		
 		className.set ("assets/sounds/snd_jump_super.wav", __ASSET__assets_sounds_snd_jump_super_wav);
 		type.set ("assets/sounds/snd_jump_super.wav", AssetType.SOUND);
+		
+		className.set ("assets/sounds/snd_kill_boss.wav", __ASSET__assets_sounds_snd_kill_boss_wav);
+		type.set ("assets/sounds/snd_kill_boss.wav", AssetType.SOUND);
 		
 		className.set ("assets/sounds/snd_level_complete.wav", __ASSET__assets_sounds_snd_level_complete_wav);
 		type.set ("assets/sounds/snd_level_complete.wav", AssetType.SOUND);
@@ -1361,6 +1391,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_data__borrar_level_2_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data__borrar_level_3_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_images_ball_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_images_bg_cave_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_bonus_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_boss_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_images_brick_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1390,8 +1421,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_sounds_snd_bump_wav extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__assets_sounds_snd_coin_wav extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__assets_sounds_snd_game_over_wav extends flash.media.Sound { }
+@:keep @:bind #if display private #end class __ASSET__assets_sounds_snd_hurt_boss_wav extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__assets_sounds_snd_jump_small_wav extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__assets_sounds_snd_jump_super_wav extends flash.media.Sound { }
+@:keep @:bind #if display private #end class __ASSET__assets_sounds_snd_kill_boss_wav extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__assets_sounds_snd_level_complete_wav extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__assets_sounds_snd_life_wav extends flash.media.Sound { }
 @:keep @:bind #if display private #end class __ASSET__assets_sounds_snd_life_appears_wav extends flash.media.Sound { }
@@ -1408,6 +1441,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 #elseif html5
+
+
+
 
 
 
@@ -1498,6 +1534,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:file("assets/data/_borrar/level_2.tmx") #if display private #end class __ASSET__assets_data__borrar_level_2_tmx extends lime.utils.Bytes {}
 @:file("assets/data/_borrar/level_3.tmx") #if display private #end class __ASSET__assets_data__borrar_level_3_tmx extends lime.utils.Bytes {}
 @:image("assets/images/Ball.png") #if display private #end class __ASSET__assets_images_ball_png extends lime.graphics.Image {}
+@:image("assets/images/bg_cave.jpg") #if display private #end class __ASSET__assets_images_bg_cave_jpg extends lime.graphics.Image {}
 @:image("assets/images/bonus.png") #if display private #end class __ASSET__assets_images_bonus_png extends lime.graphics.Image {}
 @:image("assets/images/boss.png") #if display private #end class __ASSET__assets_images_boss_png extends lime.graphics.Image {}
 @:image("assets/images/brick.png") #if display private #end class __ASSET__assets_images_brick_png extends lime.graphics.Image {}
@@ -1527,8 +1564,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:file("assets/sounds/snd_bump.wav") #if display private #end class __ASSET__assets_sounds_snd_bump_wav extends lime.utils.Bytes {}
 @:file("assets/sounds/snd_coin.wav") #if display private #end class __ASSET__assets_sounds_snd_coin_wav extends lime.utils.Bytes {}
 @:file("assets/sounds/snd_game_over.wav") #if display private #end class __ASSET__assets_sounds_snd_game_over_wav extends lime.utils.Bytes {}
+@:file("assets/sounds/snd_hurt_boss.wav") #if display private #end class __ASSET__assets_sounds_snd_hurt_boss_wav extends lime.utils.Bytes {}
 @:file("assets/sounds/snd_jump_small.wav") #if display private #end class __ASSET__assets_sounds_snd_jump_small_wav extends lime.utils.Bytes {}
 @:file("assets/sounds/snd_jump_super.wav") #if display private #end class __ASSET__assets_sounds_snd_jump_super_wav extends lime.utils.Bytes {}
+@:file("assets/sounds/snd_kill_boss.wav") #if display private #end class __ASSET__assets_sounds_snd_kill_boss_wav extends lime.utils.Bytes {}
 @:file("assets/sounds/snd_level_complete.wav") #if display private #end class __ASSET__assets_sounds_snd_level_complete_wav extends lime.utils.Bytes {}
 @:file("assets/sounds/snd_life.wav") #if display private #end class __ASSET__assets_sounds_snd_life_wav extends lime.utils.Bytes {}
 @:file("assets/sounds/snd_life_appears.wav") #if display private #end class __ASSET__assets_sounds_snd_life_appears_wav extends lime.utils.Bytes {}

@@ -8,9 +8,10 @@ class Lava extends FlxSprite
 
 	public function new(aX:Float, aY:Float) 
 	{
+		aY += 8;
 		super(aX, aY);
 		
-		loadGraphic(AssetPaths.lava__png, true, 16, 12);
+		loadGraphic(AssetPaths.lava__png, true, 32,24);
 		animation.add("lava", [0, 1], 2, true);
 		animation.play("lava");
 		

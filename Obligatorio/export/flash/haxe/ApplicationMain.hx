@@ -102,6 +102,10 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.IMAGE);
 		
 		
+		urls.push ("assets/images/bg_cave.jpg");
+		types.push (lime.Assets.AssetType.IMAGE);
+		
+		
 		urls.push ("assets/images/bonus.png");
 		types.push (lime.Assets.AssetType.IMAGE);
 		
@@ -218,11 +222,19 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.SOUND);
 		
 		
+		urls.push ("assets/sounds/snd_hurt_boss.wav");
+		types.push (lime.Assets.AssetType.SOUND);
+		
+		
 		urls.push ("assets/sounds/snd_jump_small.wav");
 		types.push (lime.Assets.AssetType.SOUND);
 		
 		
 		urls.push ("assets/sounds/snd_jump_super.wav");
+		types.push (lime.Assets.AssetType.SOUND);
+		
+		
+		urls.push ("assets/sounds/snd_kill_boss.wav");
 		types.push (lime.Assets.AssetType.SOUND);
 		
 		
@@ -339,7 +351,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "62",
+			build: "130",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,
@@ -363,7 +375,7 @@ class ApplicationMain {
 					stencilBuffer: true,
 					title: "pruebaMario",
 					vsync: true,
-					width: 720,
+					width: 736,
 					x: null,
 					y: null
 				},
@@ -381,7 +393,7 @@ class ApplicationMain {
 		
 		#if (js && html5)
 		#if (munit || utest)
-		openfl.Lib.embed (null, 720, 480, "000000");
+		openfl.Lib.embed (null, 736, 480, "000000");
 		#end
 		#else
 		create ();

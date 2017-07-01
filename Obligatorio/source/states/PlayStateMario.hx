@@ -48,6 +48,7 @@ class PlayStateMario extends FlxState
 	var level:LevelInitialization;
 	var tileId:Int;
 	
+	var isChangingLevels:Bool;
 	var isLevelComplete:Bool;
 	var levelCompleteEmitter:FlxEmitter;	
 	var sndLevelComplete:FlxSound;
@@ -71,7 +72,9 @@ class PlayStateMario extends FlxState
 		add(grpBlock);
 		enemyFactory = new EnemyFactory(this);
 		
-
+		isChangingLevels = false;
+		isLevelComplete = false;
+		
 		add(grpDoor);
 		add(grpLava);
 
@@ -165,7 +168,7 @@ class PlayStateMario extends FlxState
 				boss.enemyFactory = enemyFactory;
 
 			case "Lava":
-				grpLava.add(new Lava(x, y +4));
+				grpLava.add(new Lava(x, y));
 
 			case "Cannon":
 				add(new Cannon(x, y));
@@ -219,13 +222,22 @@ class PlayStateMario extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
-		if (isLevelComplete)
+		if (isLevelComplete && !isChangingLevels)
 		{
 			timer -= elapsed;
 			
 			if (timer <= 0){
-				isLevelComplete = false;
-				GGD.nextLevel();
+				if (GGD.bossState){
+					isChangingLevels = true;
+					FlxG.camera.fade(FlxColor.BLACK, .6, false, function()
+					{
+						FlxG.switchState(new MainMenu());
+					});
+				} else {
+					isChangingLevels = true;
+					GGD.nextLevel();
+				}
+				
 			}
 		}
 		
@@ -249,7 +261,14 @@ class PlayStateMario extends FlxState
 			FlxG.overlap(player, grpLava, playerVsLava);
 			FlxG.overlap(player, projectileFactory.grpProjectile, playerVsProjectile);
 
-			putGrass();
+			if (GGD.bossState){
+				if (GGD.currentBossLife == 0 && !isLevelComplete){
+					levelComplete();
+				}
+			} else {
+				putGrass();
+			}
+			
 		}
 
 		FlxG.collide(enemyFactory.grpEnemiesApplyPhysics, level.tileMap);
@@ -262,10 +281,11 @@ class PlayStateMario extends FlxState
 		super.update(elapsed);
 	}
 	
-	function levelComplete()
+	public function levelComplete()
 	{
+		
 		isLevelComplete = true;
-		timer = 2;
+		
 		
 		FlxG.sound.music.stop();
 		sndLevelComplete.play();
@@ -274,8 +294,14 @@ class PlayStateMario extends FlxState
 		
 		var fix_x = FlxG.camera.scroll.x + FlxG.camera.width / 2;
 		var fix_y = FlxG.camera.scroll.y + FlxG.camera.height / 2;
+		if (GGD.bossState){
+			txt = new FlxText(fix_x, fix_y, 0, "Congratulations\n YOU WIN!!!!", 32);
+			timer = 4;
+		} else {
+			txt = new FlxText(fix_x, fix_y, 0, "Level\nComplete", 32);
+			timer = 2;
+		}
 		
-		txt = new FlxText(fix_x, fix_y, 0, "Level\nComplete", 32);
 		txt.color = FlxColor.WHITE;
 		txt.x -= txt.width / 2;
 		txt.y -= txt.height / 2;
@@ -299,7 +325,6 @@ class PlayStateMario extends FlxState
 			GGD.hud.updateHUD();
 			Helper.setTileFromXY(player.x+16, player.y, tileId -7);
 			Helper.setTileFromXY(player.x + 16, player.y + 32, tileId +3);
-			
 			if (GGD.currentGrass == GGD.totalGrass)
 			{
 				levelComplete();			
@@ -341,7 +366,18 @@ class PlayStateMario extends FlxState
 
 	function playerVsDoor(aPlayer:Player, aDoor:Door)
 	{
-		aDoor.playerTouch(aPlayer);
+		if (FlxG.keys.pressed.DOWN)
+		{
+			GGD.actualTileMap = GGD.level.tileMap.getData();
+			
+			FlxG.switchState(new PlayStateMiniGames());
+			
+			//FlxG.camera.fade(FlxColor.BLACK, .6, false, function()
+			//{
+				//FlxG.switchState(new PlayStateMiniGames());
+			//});
+			trace("ir a mini-juego ...");			
+		}
 	}
 
 	function playerVsBlock(aPlayer:Player, aBrick:Block):Void
