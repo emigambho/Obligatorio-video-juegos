@@ -3,6 +3,7 @@ package states;
 import enums.BlockType;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.editors.tiled.TiledObject;
@@ -48,7 +49,7 @@ class PlayStateMario extends FlxState
 	var level:LevelInitialization;
 	var tileId:Int;
 	
-	var isChangingLevels:Bool;
+	var isChangingState:Bool;
 	var isLevelComplete:Bool;
 	var levelCompleteEmitter:FlxEmitter;	
 	var sndLevelComplete:FlxSound;
@@ -65,14 +66,14 @@ class PlayStateMario extends FlxState
 
 		player = new Player();
 		GGD.player = player;
-
+		GGD.miniGameLevel = false;
 		GGD.hud = new HUD();
 
 		itemFactory = new ItemFactory(this);
 		add(grpBlock);
 		enemyFactory = new EnemyFactory(this);
 		
-		isChangingLevels = false;
+		isChangingState = false;
 		isLevelComplete = false;
 		
 		add(grpDoor);
@@ -173,6 +174,13 @@ class PlayStateMario extends FlxState
 			case "Cannon":
 				add(new Cannon(x, y));
 		}
+		
+		if (GGD.marioPositionX > 0 && GGD.marioPositionY > 0)
+		{
+			player.x = GGD.marioPositionX;
+			player.y = GGD.marioPositionY;			
+			GGD.marioPositionX = GGD.marioPositionY = 0;			
+		}
 	}
 
 	inline function createTortoise(x:Int, y:Int, entity:TiledObject)
@@ -222,22 +230,21 @@ class PlayStateMario extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
-		if (isLevelComplete && !isChangingLevels)
+		if (isLevelComplete && !isChangingState)
 		{
 			timer -= elapsed;
 			
 			if (timer <= 0){
-				if (GGD.bossState){
-					isChangingLevels = true;
+				isChangingState = true;
+				
+				if (GGD.bossLevel){
 					FlxG.camera.fade(FlxColor.BLACK, .6, false, function()
 					{
 						FlxG.switchState(new MainMenu());
 					});
 				} else {
-					isChangingLevels = true;
 					GGD.nextLevel();
-				}
-				
+				}				
 			}
 		}
 		
@@ -247,8 +254,8 @@ class PlayStateMario extends FlxState
 		}
 		if (FlxG.keys.pressed.R)
 		{
-			//levelComplete();
-			FlxG.resetState();
+			levelComplete();
+			//FlxG.resetState();
 		}
 
 		if (player.alive)
@@ -261,7 +268,7 @@ class PlayStateMario extends FlxState
 			FlxG.overlap(player, grpLava, playerVsLava);
 			FlxG.overlap(player, projectileFactory.grpProjectile, playerVsProjectile);
 
-			if (GGD.bossState){
+			if (GGD.bossLevel){
 				if (GGD.currentBossLife == 0 && !isLevelComplete){
 					levelComplete();
 				}
@@ -284,8 +291,7 @@ class PlayStateMario extends FlxState
 	public function levelComplete()
 	{
 		
-		isLevelComplete = true;
-		
+		isLevelComplete = true;		
 		
 		FlxG.sound.music.stop();
 		sndLevelComplete.play();
@@ -294,9 +300,9 @@ class PlayStateMario extends FlxState
 		
 		var fix_x = FlxG.camera.scroll.x + FlxG.camera.width / 2;
 		var fix_y = FlxG.camera.scroll.y + FlxG.camera.height / 2;
-		if (GGD.bossState){
+		if (GGD.bossLevel){
 			txt = new FlxText(fix_x, fix_y, 0, "Congratulations\n YOU WIN!!!!", 32);
-			timer = 4;
+			timer = 3.5;
 		} else {
 			txt = new FlxText(fix_x, fix_y, 0, "Level\nComplete", 32);
 			timer = 2;
@@ -306,7 +312,6 @@ class PlayStateMario extends FlxState
 		txt.x -= txt.width / 2;
 		txt.y -= txt.height / 2;
 		txt.alignment = CENTER;
-		//txt.scrollFactor.set();
 		add(txt);
 		
 		levelCompleteEmitter.x = fix_x;
@@ -366,17 +371,22 @@ class PlayStateMario extends FlxState
 
 	function playerVsDoor(aPlayer:Player, aDoor:Door)
 	{
-		if (FlxG.keys.pressed.DOWN)
+		if (FlxG.keys.pressed.DOWN && aPlayer.isTouching(FlxObject.FLOOR) && !isChangingState)
 		{
+			trace('Se va al mini-juego.');
+			
+			isChangingState = true;
+			
+			aPlayer.stop();
+			
 			GGD.actualTileMap = GGD.level.tileMap.getData();
+			GGD.marioPositionX = aDoor.x;
+			GGD.marioPositionY = aDoor.y;
 			
-			FlxG.switchState(new PlayStateMiniGames());
-			
-			//FlxG.camera.fade(FlxColor.BLACK, .6, false, function()
-			//{
-				//FlxG.switchState(new PlayStateMiniGames());
-			//});
-			trace("ir a mini-juego ...");			
+			FlxG.camera.fade(FlxColor.BLACK, 1.6, false, function()
+			{
+				FlxG.switchState(new PlayStateMiniGames());
+			});			
 		}
 	}
 

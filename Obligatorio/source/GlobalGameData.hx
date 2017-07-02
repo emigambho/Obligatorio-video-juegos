@@ -31,13 +31,16 @@ class GlobalGameData
 	public static var currentGrass:Int;
 	public static var currentBossLife:Int;
 	public static var totalBossLife:Int;
-	public static var bossState:Bool;
-	public static var miniGameState:Bool;
+	public static var bossLevel:Bool;
+	public static var miniGameLevel:Bool;
 	public static var miniGameTime:Float;
 	
 	public static var actualTileMap: Array<Int>;
 	
-	public function new() {	}
+	public static var marioPositionX:Float;
+	public static var marioPositionY:Float;
+	
+	//public function new() {	}
 	public static var miniGame:String;
 
 	public static function addCoin():Void
@@ -70,6 +73,8 @@ class GlobalGameData
 		lifes = 3;
 		coins = 0;
 		currentLevel = 2;
+		bossLevel = false;
+		miniGameLevel = false;
 		FlxG.switchState(new InfoState());
 	}	
 

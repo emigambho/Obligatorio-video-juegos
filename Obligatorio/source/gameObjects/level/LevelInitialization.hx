@@ -43,7 +43,7 @@ class LevelInitialization
 				loadFromTiled(AssetPaths.level_06__tmx);
 			case 7:	
 				loadFromTiled(AssetPaths.level_07__tmx);
-				 GGD.bossState = true;
+				 GGD.bossLevel = true;
 			default:
 				throw "Invalid level";
 		}

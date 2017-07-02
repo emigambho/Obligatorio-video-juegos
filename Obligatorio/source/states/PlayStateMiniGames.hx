@@ -81,7 +81,7 @@ class PlayStateMiniGames extends FlxState
 		add(grpMovingBars);
 		
 		GGD.miniGameTime = FlxG.random.int(5, 5);
-		GGD.miniGameState = true;
+		GGD.miniGameLevel = true;
 		GGD.hud.updateHUD();
 
 		var tmpMap:TiledObjectLayer = cast tiledMap.getLayer("GameObjects");

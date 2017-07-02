@@ -111,6 +111,14 @@ class Player extends FlxSprite
 		}
 	}
 
+	public function stop()
+	{
+		animation.play("idle");
+		velocity.set();
+		acceleration.set();
+		brain.activeState = null;
+	}
+	
 	function waitState(elapsed:Float):Void
 	{
 		timer -= elapsed;

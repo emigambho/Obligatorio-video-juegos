@@ -50,9 +50,9 @@ class HUD extends FlxTypedGroup<FlxSprite>
 	{
 		txtMoney.text = "X " + GGD.coins;
 		
-		if (GGD.bossState){
+		if (GGD.bossLevel){
 			txtGrass.text = "Boss: "  + GGD.currentBossLife + "/" + GGD.totalBossLife;
-		} else  if(GGD.miniGameState){
+		} else  if(GGD.miniGameLevel){
 			txtGrass.text = "Time left: "  +  Math.round(GGD.miniGameTime);
 		} else {
 			txtGrass.text = "Grass: "  + GGD.currentGrass + "/" + GGD.totalGrass;
