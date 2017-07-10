@@ -74,6 +74,30 @@ class ApplicationMain {
 		types.push (lime.Assets.AssetType.TEXT);
 		
 		
+		urls.push ("assets/data/mini_game_4.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/mini_game_5.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/mini_game_6.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/mini_game_7.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/mini_game_8.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
+		urls.push ("assets/data/mini_game_9.tmx");
+		types.push (lime.Assets.AssetType.TEXT);
+		
+		
 		urls.push ("assets/data/tilesheet2.tsx");
 		types.push (lime.Assets.AssetType.TEXT);
 		
@@ -351,7 +375,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "152",
+			build: "181",
 			company: "HaxeFlixel",
 			file: "pruebaMario",
 			fps: 30,

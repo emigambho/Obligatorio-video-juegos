@@ -1,46 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="23" height="15" tilewidth="16" tileheight="16" nextobjectid="16">
- <tileset firstgid="1" name="Wall" tilewidth="16" tileheight="16" tilecount="40" columns="8">
-  <image source="../images/tilesheet.png" width="128" height="80"/>
- </tileset>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="23" height="15" tilewidth="32" tileheight="32" nextobjectid="16">
+ <tileset firstgid="1" source="tilesheet2.tsx"/>
  <layer name="Wall" width="23" height="15">
   <data encoding="csv">
-32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,0,0,0,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,0,0,0,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,0,0,0,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,0,0,0,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,0,0,0,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,0,0,0,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,0,0,0,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,0,0,0,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,0,0,0,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,0,0,0,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,0,0,0,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,0,0,0,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,0,0,0,
-32,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,32,0,0,0,
-32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,0,0,0
+36,20,29,30,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,37,
+34,0,721,722,723,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,
+34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,
+34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,
+34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,
+34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,
+34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,
+34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,
+34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,
+34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,
+34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,
+34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,
+34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,
+34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,
+31,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,33
 </data>
  </layer>
  <objectgroup name="GameObjects">
-  <object id="1" type="Ball" x="33.6667" y="34.3333" width="12.6667" height="11">
+  <object id="1" type="Ball" x="94.6667" y="40.8333" width="37.6667" height="32.7105">
    <ellipse/>
   </object>
-  <object id="6" name="bar1" type="linearMovingBar" x="16" y="80" width="111.515" height="31.6219">
+  <object id="4" name="bar1" type="SpinningBar" x="180" y="117" width="7.66663" height="211.666">
    <properties>
-    <property name="direction" value="horizontal"/>
-    <property name="velocity" type="int" value="30"/>
+    <property name="velocity" type="int" value="5"/>
    </properties>
   </object>
-  <object id="12" name="bar2" type="fixBar" x="291.009" y="19.7191" width="16.5521" height="110.684" rotation="53.6343">
+  <object id="6" name="bar4" type="LinearMovingBar" x="512.098" y="352.017" width="160.021" height="32">
    <properties>
-    <property name="velocity" type="int" value="50"/>
+    <property name="finalX" type="int" value="593"/>
+    <property name="finalY" type="int" value="367"/>
+    <property name="initialX" type="int" value="460"/>
+    <property name="initialY" type="int" value="367"/>
+    <property name="speed" type="int" value="162"/>
    </properties>
   </object>
-  <object id="15" name="bar3" type="linearMovingBar" x="159.909" y="159.522" width="16.1817" height="63.9552">
+  <object id="12" name="bar3" type="SpinningBar" x="543.833" y="96.5002" width="32" height="159">
    <properties>
-    <property name="direction" value="vertical"/>
-    <property name="velocity" type="int" value="30"/>
+    <property name="velocity" type="int" value="-4"/>
+   </properties>
+  </object>
+  <object id="15" name="bar4" type="LinearMovingBar" x="425.99" y="76" width="18.021" height="188">
+   <properties>
+    <property name="finalX" type="int" value="341"/>
+    <property name="finalY" type="int" value="292"/>
+    <property name="initialX" type="int" value="435"/>
+    <property name="initialY" type="int" value="170"/>
+    <property name="speed" type="int" value="162"/>
    </properties>
   </object>
  </objectgroup>

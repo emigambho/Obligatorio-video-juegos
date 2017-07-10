@@ -1,5 +1,6 @@
 package states;
 
+import flash.geom.Point;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.addons.display.FlxBackdrop;
@@ -17,7 +18,9 @@ import gameObjects.Ball;
 import GlobalGameData;
 import gameObjects.HUD;
 import gameObjects.items.Coin;
-import gameObjects.level.MovingBar;
+import gameObjects.level.Bar;
+import gameObjects.level.LinearMovingBar;
+import gameObjects.level.SpinningBar;
 import GlobalGameData.GGD;
 import nape.geom.Vec2;
 
@@ -32,20 +35,15 @@ class PlayStateMiniGames extends FlxState
 	private var ball:Ball;
 	private var tileMap:FlxTilemap;
 	private var tiledMap:TiledMap;
-	var grpMovingBars:FlxTypedGroup<MovingBar>;
+	var grpMovingBars:FlxTypedGroup<Bar>;
 	private var coin:Coin;
 
 	override public function create():Void
 	{
 		super.create();
 		FlxG.camera.bgColor = FlxColor.WHITE;
-		GGD.hud = new HUD();
-		FlxNapeSpace.init();
 		
-		LEVEL_MIN_X = -FlxG.stage.stageWidth / 2;
-		LEVEL_MAX_X = FlxG.stage.stageWidth * 1.5;
-		LEVEL_MIN_Y = -FlxG.stage.stageHeight / 2;
-		LEVEL_MAX_Y = FlxG.stage.stageHeight * 1.5;
+		FlxNapeSpace.init();
 		
 		FlxG.mouse.visible = false;
 		
@@ -55,32 +53,17 @@ class PlayStateMiniGames extends FlxState
 		var bg1:FlxBackdrop = new FlxBackdrop(AssetPaths.bg_cave__jpg, 0, 0, true, true);
 		add(bg1);
 		
-		//var bg2:FlxBackdrop = new FlxBackdrop(AssetPaths.Trees2__png, 0.2, 0, true, false);
-		//add(bg2);
-		//
-		//var bg3:FlxBackdrop = new FlxBackdrop(AssetPaths.Trees3__png, 0.4, 0, true, false);
-		//add(bg3);
-		//
-		//var bg4:FlxBackdrop = new FlxBackdrop(AssetPaths.Trees4__png, 0.8, 0, true, false);
-		//add(bg4);		
+		selectLevel();
+		initCoin();
 		
-		// Walls border.
-
-		tiledMap = new TiledMap(AssetPaths.mini_game_3__tmx);
-		tileMap = new FlxTilemap();
-		tileMap.loadMapFromArray(cast(tiledMap.getLayer("Wall"), TiledTileLayer).tileArray, tiledMap.width, tiledMap.height, AssetPaths.tilesheet2__png, tiledMap.tileWidth, tiledMap.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 1);
-		tileMap.follow();
-		
-		coin = new Coin();
-		coin.deploy(FlxG.random.int(1 + 32, tiledMap.width*32 - 32*2),FlxG.random.int(1 + 32, tiledMap.height*32 - 32 * 2));
-		add(coin);
-		
+		// Walls border
 		FlxNapeSpace.createWalls(0 + 28, 0 + 28, tiledMap.width*32 - 28, tiledMap.height*32 - 28);
 		
-		grpMovingBars = new FlxTypedGroup<MovingBar>();
+		grpMovingBars = new FlxTypedGroup<Bar>();
 		add(grpMovingBars);
 		
-		GGD.miniGameTime = FlxG.random.int(5, 5);
+		GGD.hud = new HUD();
+		GGD.miniGameTime = FlxG.random.int(15, 30);
 		GGD.miniGameLevel = true;
 		GGD.hud.updateHUD();
 
@@ -94,24 +77,82 @@ class PlayStateMiniGames extends FlxState
 		add(GGD.hud);
 		FlxG.camera.fade(FlxColor.BLACK, .6, true);
 	}
+	
+	inline function initCoin()
+	{
+		coin = new Coin();
+		coin.deploy(FlxG.random.int(1 + 32, tiledMap.width*32 - 32*2),FlxG.random.int(1 + 32, tiledMap.height*32 - 32 * 2));
+		add(coin);
+	}
 
+	inline function selectLevel()
+	{
+		var nroLevel = 2;
+		
+		switch nroLevel
+		{
+			case 1:
+				loadFromTiled(AssetPaths.mini_game_1__tmx);
+			case 2:
+				loadFromTiled(AssetPaths.mini_game_2__tmx);
+			case 3:
+				loadFromTiled(AssetPaths.mini_game_3__tmx);
+			case 4:
+				loadFromTiled(AssetPaths.mini_game_4__tmx);
+			case 5:	
+				loadFromTiled(AssetPaths.mini_game_5__tmx);
+			case 6:	
+				loadFromTiled(AssetPaths.mini_game_6__tmx);
+			case 7:	
+				loadFromTiled(AssetPaths.mini_game_7__tmx);
+			case 8:	
+				loadFromTiled(AssetPaths.mini_game_8__tmx);
+			case 9:	
+				loadFromTiled(AssetPaths.mini_game_9__tmx);
+			default:
+				throw "Invalid level";
+		}
+		
+	}
+	
+	function loadFromTiled(level:String)
+	{
+		tiledMap = new TiledMap(level);
+		tileMap = new FlxTilemap();
+		tileMap.loadMapFromArray(cast(tiledMap.getLayer("Wall"), TiledTileLayer).tileArray, tiledMap.width, tiledMap.height, AssetPaths.tilesheet2__png, tiledMap.tileWidth, tiledMap.tileHeight, FlxTilemapAutoTiling.OFF, 1, 1, 1);
+		tileMap.follow();
+	}
+	
 	function placeEntities(entityName:String, entityData:Xml,properties:TiledPropertySet):Void
 	{
 		var x:Int = Std.parseInt(entityData.get("x"));
 		var y:Int = Std.parseInt(entityData.get("y"));
 		var height:Int = Std.parseInt(entityData.get("height"));
 		var width:Int = Std.parseInt(entityData.get("width"));
-
-		var velocity:Int = Std.parseInt(properties.get("velocity"));
-
+		
 		switch (entityName)
 		{
 			case "Ball":
 				ball = new Ball(x, y);
 				add(ball);
 
-			case "spinningBar":
-				var m:MovingBar = new MovingBar(x,y,width,height,velocity);
+			case "SpinningBar":
+				var velocity:Int = Std.parseInt(properties.get("velocity"));
+				var m:SpinningBar = new SpinningBar(x,y,width,height,velocity);
+				grpMovingBars.add(m);
+			case "LinearMovingBar":
+				var speed:Int = Std.parseInt(properties.get("speed"));
+				var initialX:Int = Std.parseInt(properties.get("initialX"));
+				var finalX:Int = Std.parseInt(properties.get("finalX"));
+				var initialY:Int = Std.parseInt(properties.get("initialY"));
+				var finalY:Int = Std.parseInt(properties.get("finalY"));
+				
+				var start:Point = new Point();
+				var end:Point = new Point();
+				start.setTo(initialX, initialY);
+				end.setTo(finalX, finalY);
+				
+				var m:LinearMovingBar = new LinearMovingBar(x,y,width,height,speed,start,end);
 				grpMovingBars.add(m);
 		}
 	}
@@ -151,7 +192,7 @@ class PlayStateMiniGames extends FlxState
 		GGD.hud.updateHUD();
 	}
 	
-	function ballVsMovingBar(ball:Ball, mBar:MovingBar)
+	function ballVsMovingBar(ball:Ball, mBar:SpinningBar)
 	{
 		GGD.removeCoin();
 		GGD.hud.updateHUD();
