@@ -72,7 +72,7 @@ class GlobalGameData
 	{
 		lifes = 3;
 		coins = 0;
-		currentLevel = 2;
+		currentLevel = 1;
 		bossLevel = false;
 		miniGameLevel = false;
 		FlxG.switchState(new InfoState());

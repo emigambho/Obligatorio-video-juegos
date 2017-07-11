@@ -383,7 +383,7 @@ class PlayStateMario extends FlxState
 			GGD.marioPositionX = aDoor.x;
 			GGD.marioPositionY = aDoor.y;
 			
-			FlxG.camera.fade(FlxColor.BLACK, 1.6, false, function()
+			FlxG.camera.fade(FlxColor.BLACK, 0.6, false, function()
 			{
 				FlxG.switchState(new PlayStateMiniGames());
 			});			

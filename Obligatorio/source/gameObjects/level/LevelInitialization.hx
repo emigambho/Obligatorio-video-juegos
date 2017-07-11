@@ -53,7 +53,8 @@ class LevelInitialization
 	
 	private function calculateTotalGrass()
 	{
-		var totalGrass:Int = 0;
+		var currentGrass:Int = 0;
+		var totalGrass:Int = 0;		
 		var tileId:Int = 0;
 		
 		for (y in 0...tileMap.heightInTiles)
@@ -62,15 +63,18 @@ class LevelInitialization
 			{
 				tileId = tileMap.getTile(x, y);
 				
-				if (21 <= tileId && tileId <= 23)
-				{
+				if (24 <= tileId && tileId <= 26){
+					currentGrass++;
+				}
+				
+				if (21 <= tileId && tileId <= 23){
 					totalGrass++;
 				}
 			}
 		}
 		
-		GGD.currentGrass = 0;
-		GGD.totalGrass = totalGrass;
+		GGD.currentGrass = currentGrass;
+		GGD.totalGrass = totalGrass + currentGrass;
 	}
 
 	public function addFrontLayer()
