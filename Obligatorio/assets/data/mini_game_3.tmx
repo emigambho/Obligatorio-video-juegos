@@ -24,23 +24,23 @@
   <object id="1" type="Ball" x="94.6667" y="40.8333" width="37.6667" height="32.7105">
    <ellipse/>
   </object>
-  <object id="4" name="bar2" type="SpinningBar" x="488.667" y="108.667" width="16.3333" height="152.333">
+  <object id="4" name="bar2" type="SpinningBar" x="580.667" y="102.667" width="16.3333" height="179.333">
    <properties>
     <property name="velocity" type="int" value="-2"/>
    </properties>
   </object>
-  <object id="6" name="bar1" type="SpinningBar" x="168.891" y="237.252" width="63.3333" height="14.3333" rotation="0.448911">
+  <object id="6" name="bar1" type="SpinningBar" x="79.891" y="153.252" width="159.33" height="14.3333" rotation="0.448911">
    <properties>
     <property name="velocity" type="int" value="2"/>
    </properties>
   </object>
   <object id="12" name="bar4" type="LinearMovingBar" x="288.99" y="330" width="160.021" height="32">
    <properties>
-    <property name="finalX" type="int" value="593"/>
-    <property name="finalY" type="int" value="367"/>
-    <property name="initialX" type="int" value="460"/>
-    <property name="initialY" type="int" value="367"/>
-    <property name="speed" type="int" value="15"/>
+    <property name="finalX" type="int" value="369"/>
+    <property name="finalY" type="int" value="347"/>
+    <property name="initialX" type="int" value="369"/>
+    <property name="initialY" type="int" value="110"/>
+    <property name="speed" type="int" value="200"/>
    </properties>
   </object>
  </objectgroup>
