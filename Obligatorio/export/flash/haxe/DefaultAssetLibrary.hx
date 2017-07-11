@@ -112,6 +112,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
+		
+		
+		
+		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -143,6 +149,18 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/data/mini_game_2.tmx", AssetType.TEXT);
 		className.set ("assets/data/mini_game_3.tmx", __ASSET__assets_data_mini_game_3_tmx);
 		type.set ("assets/data/mini_game_3.tmx", AssetType.TEXT);
+		className.set ("assets/data/mini_game_4.tmx", __ASSET__assets_data_mini_game_4_tmx);
+		type.set ("assets/data/mini_game_4.tmx", AssetType.TEXT);
+		className.set ("assets/data/mini_game_5.tmx", __ASSET__assets_data_mini_game_5_tmx);
+		type.set ("assets/data/mini_game_5.tmx", AssetType.TEXT);
+		className.set ("assets/data/mini_game_6.tmx", __ASSET__assets_data_mini_game_6_tmx);
+		type.set ("assets/data/mini_game_6.tmx", AssetType.TEXT);
+		className.set ("assets/data/mini_game_7.tmx", __ASSET__assets_data_mini_game_7_tmx);
+		type.set ("assets/data/mini_game_7.tmx", AssetType.TEXT);
+		className.set ("assets/data/mini_game_8.tmx", __ASSET__assets_data_mini_game_8_tmx);
+		type.set ("assets/data/mini_game_8.tmx", AssetType.TEXT);
+		className.set ("assets/data/mini_game_9.tmx", __ASSET__assets_data_mini_game_9_tmx);
+		type.set ("assets/data/mini_game_9.tmx", AssetType.TEXT);
 		className.set ("assets/data/tilesheet2.tsx", __ASSET__assets_data_tilesheet2_tsx);
 		type.set ("assets/data/tilesheet2.tsx", AssetType.TEXT);
 		className.set ("assets/data/Tilesheet3.tsx", __ASSET__assets_data_tilesheet3_tsx);
@@ -297,6 +315,30 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		type.set (id, AssetType.TEXT);
 		id = "assets/data/mini_game_3.tmx";
+		path.set (id, id);
+		
+		type.set (id, AssetType.TEXT);
+		id = "assets/data/mini_game_4.tmx";
+		path.set (id, id);
+		
+		type.set (id, AssetType.TEXT);
+		id = "assets/data/mini_game_5.tmx";
+		path.set (id, id);
+		
+		type.set (id, AssetType.TEXT);
+		id = "assets/data/mini_game_6.tmx";
+		path.set (id, id);
+		
+		type.set (id, AssetType.TEXT);
+		id = "assets/data/mini_game_7.tmx";
+		path.set (id, id);
+		
+		type.set (id, AssetType.TEXT);
+		id = "assets/data/mini_game_8.tmx";
+		path.set (id, id);
+		
+		type.set (id, AssetType.TEXT);
+		id = "assets/data/mini_game_9.tmx";
 		path.set (id, id);
 		
 		type.set (id, AssetType.TEXT);
@@ -566,6 +608,24 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("assets/data/mini_game_3.tmx", __ASSET__assets_data_mini_game_3_tmx);
 		type.set ("assets/data/mini_game_3.tmx", AssetType.TEXT);
+		
+		className.set ("assets/data/mini_game_4.tmx", __ASSET__assets_data_mini_game_4_tmx);
+		type.set ("assets/data/mini_game_4.tmx", AssetType.TEXT);
+		
+		className.set ("assets/data/mini_game_5.tmx", __ASSET__assets_data_mini_game_5_tmx);
+		type.set ("assets/data/mini_game_5.tmx", AssetType.TEXT);
+		
+		className.set ("assets/data/mini_game_6.tmx", __ASSET__assets_data_mini_game_6_tmx);
+		type.set ("assets/data/mini_game_6.tmx", AssetType.TEXT);
+		
+		className.set ("assets/data/mini_game_7.tmx", __ASSET__assets_data_mini_game_7_tmx);
+		type.set ("assets/data/mini_game_7.tmx", AssetType.TEXT);
+		
+		className.set ("assets/data/mini_game_8.tmx", __ASSET__assets_data_mini_game_8_tmx);
+		type.set ("assets/data/mini_game_8.tmx", AssetType.TEXT);
+		
+		className.set ("assets/data/mini_game_9.tmx", __ASSET__assets_data_mini_game_9_tmx);
+		type.set ("assets/data/mini_game_9.tmx", AssetType.TEXT);
 		
 		className.set ("assets/data/tilesheet2.tsx", __ASSET__assets_data_tilesheet2_tsx);
 		type.set ("assets/data/tilesheet2.tsx", AssetType.TEXT);
@@ -1384,6 +1444,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep @:bind #if display private #end class __ASSET__assets_data_mini_game_1_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_mini_game_2_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_mini_game_3_tmx extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_mini_game_4_tmx extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_mini_game_5_tmx extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_mini_game_6_tmx extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_mini_game_7_tmx extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_mini_game_8_tmx extends flash.utils.ByteArray { }
+@:keep @:bind #if display private #end class __ASSET__assets_data_mini_game_9_tmx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_tilesheet2_tsx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data_tilesheet3_tsx extends flash.utils.ByteArray { }
 @:keep @:bind #if display private #end class __ASSET__assets_data__borrar_level_0xx_tmx extends flash.utils.ByteArray { }
@@ -1503,6 +1569,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
+
+
+
+
 @:keep #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends lime.text.Font { public function new () { super (); name = "Nokia Cellphone FC Small"; } } 
 @:keep #if display private #end class __ASSET__flixel_fonts_monsterrat_ttf extends lime.text.Font { public function new () { super (); name = "Monsterrat"; } } 
 
@@ -1527,6 +1599,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:file("assets/data/mini_game_1.tmx") #if display private #end class __ASSET__assets_data_mini_game_1_tmx extends lime.utils.Bytes {}
 @:file("assets/data/mini_game_2.tmx") #if display private #end class __ASSET__assets_data_mini_game_2_tmx extends lime.utils.Bytes {}
 @:file("assets/data/mini_game_3.tmx") #if display private #end class __ASSET__assets_data_mini_game_3_tmx extends lime.utils.Bytes {}
+@:file("assets/data/mini_game_4.tmx") #if display private #end class __ASSET__assets_data_mini_game_4_tmx extends lime.utils.Bytes {}
+@:file("assets/data/mini_game_5.tmx") #if display private #end class __ASSET__assets_data_mini_game_5_tmx extends lime.utils.Bytes {}
+@:file("assets/data/mini_game_6.tmx") #if display private #end class __ASSET__assets_data_mini_game_6_tmx extends lime.utils.Bytes {}
+@:file("assets/data/mini_game_7.tmx") #if display private #end class __ASSET__assets_data_mini_game_7_tmx extends lime.utils.Bytes {}
+@:file("assets/data/mini_game_8.tmx") #if display private #end class __ASSET__assets_data_mini_game_8_tmx extends lime.utils.Bytes {}
+@:file("assets/data/mini_game_9.tmx") #if display private #end class __ASSET__assets_data_mini_game_9_tmx extends lime.utils.Bytes {}
 @:file("assets/data/tilesheet2.tsx") #if display private #end class __ASSET__assets_data_tilesheet2_tsx extends lime.utils.Bytes {}
 @:file("assets/data/Tilesheet3.tsx") #if display private #end class __ASSET__assets_data_tilesheet3_tsx extends lime.utils.Bytes {}
 @:file("assets/data/_borrar/level_0xx.tmx") #if display private #end class __ASSET__assets_data__borrar_level_0xx_tmx extends lime.utils.Bytes {}
